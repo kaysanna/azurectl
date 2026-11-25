@@ -13,11 +13,16 @@ sealed class MainForm : Form
     readonly Input rootField=new("Choose your Azurepro folder"),search=new("Search characters");
     readonly Choice players=new();
     readonly Pill browse=new("Choose folder"),refresh=new("Refresh"),logs=new("Activity"),minimize=new("—"),maximize=new("□"),close=new("×");
+    readonly Pill checkUpdates=new("Check for updates");
+    readonly Label updateText=Ui.Label("",11),version=Ui.Label("v"+AppUpdate.Current.ToString(3),11);
+    readonly BackgroundUpdate updates;
+    bool updateChecking;
     readonly Library library=new();
-    readonly Card editor=new(){AutoScroll=true};
+    readonly Card editor=new();
+    readonly Panel editorBody=new(){BackColor=Ui.Surface},editorFooter=new(){BackColor=Ui.Surface};
     readonly Label selectedName=Ui.Label("Pick a character",24,true,Ui.Text),selectedDetail=Ui.Label("from the list, or enter an ID below",13);
     readonly Label operationLabel=Ui.Label("ACTION",11),manualLabel=Ui.Label("SELECTED ID",11),note=Ui.Label("",13),previewLabel=Ui.Label("COMMAND",11),result=Ui.Label("",13);
-    readonly Choice operation=new();
+    readonly ActionPicker operation=new();
     readonly Input manualId=new("Character or inventory ID"),preview=new();
     readonly Pill apply=new("Apply",true),inspect=new("Inspect"),catalog=new("Catalog");
     readonly List<Pill> navigation=[];
@@ -29,10 +34,9 @@ sealed class MainForm : Form
     List<LibraryItem> heroChoices=[];
     int page;
     bool busy,initializing=true;
-    string inspection="";
     string SettingsPath=>Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"AzureCTL","settings.json");
     Section Section=>Commands.Sections[page];
-    Operation? SelectedOperation=>operation.SelectedItem as Operation;
+    Operation? SelectedOperation=>operation.SelectedItem;
     uint Player=>players.SelectedItem is PlayerChoice selected?selected.Id:0;
     float S=>DeviceDpi/96f;
     int Px(float value)=>(int)Math.Round(value*S);
@@ -41,15 +45,18 @@ sealed class MainForm : Form
     {
         Text="AzureCTL";BackColor=Ui.Bg;ForeColor=Ui.Text;Font=Ui.Font(14);FormBorderStyle=FormBorderStyle.None;
         AutoScaleMode=AutoScaleMode.Dpi;ClientSize=new(1420,940);MinimumSize=new(1180,780);StartPosition=FormStartPosition.CenterScreen;
-        Controls.Add(sidebar);sidebar.Controls.AddRange([brand,tag,mode]);
+        Controls.Add(sidebar);sidebar.Controls.AddRange([brand,tag,mode,checkUpdates,updateText,version]);
         for(var i=0;i<Commands.Sections.Length;i++)
         {
             var index=i;var button=new Pill(Commands.Sections[i].Name);button.Click+=async(_,_)=>await ChangePage(index);navigation.Add(button);sidebar.Controls.Add(button);
         }
         Controls.AddRange([heading,subtitle,rootLabel,rootField,browse,players,refresh,search,libraryLabel,library,editor,status,logs,minimize,maximize,close]);
-        editor.Controls.AddRange([selectedName,selectedDetail,manualLabel,manualId,operationLabel,operation,note,previewLabel,preview,apply,inspect,catalog,result]);
+        editor.Controls.AddRange([editorBody,editorFooter]);
+        editorBody.Controls.AddRange([selectedName,selectedDetail,manualLabel,manualId,operationLabel,operation,note,previewLabel,preview,result]);
+        editorFooter.Controls.AddRange([apply,inspect,catalog]);
+        preview.Visible=previewLabel.Visible=false;result.TextChanged+=(_,_)=>LayoutEditor();
         preview.Box.ReadOnly=true;preview.Box.Font=new Font("Consolas",12,FontStyle.Regular,GraphicsUnit.Pixel);
-        selectedDetail.AutoEllipsis=true;note.AutoEllipsis=false;result.AutoEllipsis=true;status.AutoEllipsis=true;
+        selectedName.AutoEllipsis=true;selectedDetail.AutoEllipsis=true;note.AutoEllipsis=false;result.AutoEllipsis=true;status.AutoEllipsis=true;
         rootField.Box.AccessibleName="Azurepro folder";players.AccessibleName="Player account";search.Box.AccessibleName="Search library";
         manualId.Box.AccessibleName="Selected character or item ID";operation.AccessibleName="CTL action";preview.Box.AccessibleName="Command preview";
         apply.AccessibleName="Apply CTL command";inspect.AccessibleName="Inspect selected entry";catalog.AccessibleName="Show official catalog";
@@ -59,16 +66,29 @@ sealed class MainForm : Form
         rootField.Box.TextChanged+=(_,_)=>{if(initializing||busy)return;client=null;allItems=[];Filter();status.Text="Folder changed · press Refresh to connect";UpdateConnection();UpdatePreview();};
         search.Box.TextChanged+=(_,_)=>Filter();
         players.SelectedIndexChanged+=async(_,_)=>{if(!initializing&&!busy)await LoadLibrary();};
-        library.SelectionChanged+=async item=>{manualId.Box.Text=item.Id;UpdateSelected();await InspectSelected(false);};
+        library.SelectionChanged+=item=>{manualId.Box.Text=item.Id;UpdateSelected();};
         manualId.Box.TextChanged+=(_,_)=>{UpdateSelected();UpdatePreview();};
         operation.SelectedIndexChanged+=(_,_)=>BuildFields();
         apply.Click+=async(_,_)=>await Apply();
-        inspect.Click+=async(_,_)=>await InspectSelected(true);
+        inspect.Click+=async(_,_)=>await InspectSelected();
         catalog.Click+=async(_,_)=>await ShowCatalog();
         logs.Click+=(_,_)=>ShowText("Activity",activity.Count==0?"No commands have been run.":string.Join("\r\n\r\n",activity));
         minimize.Click+=(_,_)=>WindowState=FormWindowState.Minimized;
         maximize.Click+=(_,_)=>{MaximizedBounds=Screen.FromControl(this).WorkingArea;WindowState=WindowState==FormWindowState.Maximized?FormWindowState.Normal:FormWindowState.Maximized;};
         close.Click+=(_,_)=>Close();
+        updates=new BackgroundUpdate(this,autoCheck:!args.Contains("--skip-update")&&!args.Contains("--updated"));
+        updates.StatusChanged+=(text,checking)=>
+        {
+            if(IsDisposed||Disposing)return;
+            try{BeginInvoke((Action)(()=>
+            {
+                if(IsDisposed||Disposing)return;
+                updateChecking=checking;updateText.Text=text;
+                checkUpdates.Text=updates.IsReady?"Restart to update":"Check for updates";
+                checkUpdates.Enabled=!checking&&!busy;
+            }));}catch(InvalidOperationException){}
+        };
+        checkUpdates.Click+=async(_,_)=>{if(busy)return;if(updates.IsReady)updates.InstallAndRestart();else await updates.CheckNowAsync();};
         connectionTimer.Tick+=(_,_)=>UpdateConnection();connectionTimer.Start();
         Resize+=(_,_)=>LayoutControls();DpiChanged+=(_,_)=>LayoutControls();
         foreach(var control in new Control[]{this,brand,heading})control.MouseDown+=(_,e)=>{if(e.Button==MouseButtons.Left){ReleaseCapture();SendMessage(Handle,0xA1,2,0);}};
@@ -87,50 +107,57 @@ sealed class MainForm : Form
         var w=ClientSize.Width/S;var h=ClientSize.Height/S;var x=264f;var content=w-x-32;var left=(content-24)*.46f;var right=content-left-24;
         Place(sidebar,0,0,232,h);Place(brand,24,36,190,40);Place(tag,26,80,180,20);
         for(var i=0;i<navigation.Count;i++){Place(navigation[i],16,140+i*54,200,42);navigation[i].Selected=i==page;navigation[i].Invalidate();}
-        Place(mode,25,h-76,190,24);Place(heading,x,74,content-150,42);Place(subtitle,x,122,content,30);
+        Place(mode,25,h-76,190,24);Place(heading,x,66,content-150,38);Place(subtitle,x,108,content,26);
+        Place(updateText,25,h-208,190,42);Place(checkUpdates,16,h-156,200,36);Place(version,25,h-111,190,20);
         Place(minimize,w-132,8,36,28);Place(maximize,w-90,8,36,28);Place(close,w-48,8,36,28);
-        Place(rootLabel,x,169,Math.Max(100,content-550),20);
-        Place(rootField,x,194,Math.Max(180,content-552),42);Place(browse,x+content-540,194,130,42);
-        Place(players,x+content-396,196,256,40);Place(refresh,x+content-126,194,126,42);
-        Place(libraryLabel,x,264,left,20);Place(search,x,292,left,42);Place(library,x,350,left,Math.Max(240,h-416));
+        Place(rootLabel,x,144,Math.Max(100,content-550),20);
+        Place(rootField,x,166,Math.Max(180,content-552),42);Place(browse,x+content-540,166,130,42);
+        Place(players,x+content-396,168,256,40);Place(refresh,x+content-126,166,126,42);
+        Place(libraryLabel,x,220,left,20);Place(search,x,246,left,42);Place(library,x,304,left,Math.Max(240,h-370));
         // The right card aligns exactly with the top of the search field.
-        Place(editor,x+left+24,292,right,Math.Max(350,h-358));
+        Place(editor,x+left+24,246,right,Math.Max(350,h-312));
         Place(status,x,h-47,Math.Max(100,content-124),30);Place(logs,x+content-112,h-49,112,32);
         LayoutEditor();
     }
 
     void LayoutEditor()
     {
-        if(editor.Width==0)return;var w=editor.ClientSize.Width/S;var inner=w-48;var offset=editor.AutoScrollPosition.Y/S;
-        Place(selectedName,24,24+offset,inner,38);Place(selectedDetail,24,66+offset,inner,42);
-        Place(manualLabel,24,126+offset,inner,20);Place(manualId,24,152+offset,inner,42);
-        Place(operationLabel,24,214+offset,inner,20);Place(operation,24,241+offset,inner,38);
-        var fieldWidth=(inner-16)/2;
+        if(editor.Width==0)return;
+        editorBody.SetBounds(1,1,editor.Width-2,Math.Max(1,editor.Height-Px(76)));
+        editorFooter.SetBounds(1,editor.Height-Px(75),editor.Width-2,Px(74));
+        var w=editorBody.ClientSize.Width/S;var inner=w-40;
+        var titleWidth=inner-160;
+        Place(selectedName,20,14,titleWidth,32);Place(selectedDetail,20,48,titleWidth,32);
+        Place(manualLabel,20+inner-144,14,144,18);Place(manualId,20+inner-144,38,144,36);
+        var actionHeight=operation.HeightForWidth(inner);
+        Place(operationLabel,20,86,inner,18);Place(operation,20,108,inner,actionHeight);
+        var fieldsTop=108+actionHeight+14;
+        var fieldWidth=(inner-12)/2;
         for(var i=0;i<fields.Count;i++)
         {
-            var fx=24+i%2*(fieldWidth+16);var fy=302+i/2*84;
-            Place(fields[i].Label,fx,fy+offset,fieldWidth,23);Place(fields[i].Input,fx,fy+28+offset,fieldWidth,40);
+            var fx=20+i%2*(fieldWidth+12);var fy=fieldsTop+i/2*64;
+            Place(fields[i].Label,fx,fy,fieldWidth,18);Place(fields[i].Input,fx,fy+22,fieldWidth,36);
         }
-        var after=fields.Count==0?282:282+((fields.Count+1)/2)*84;
-        Place(note,24,after+offset,inner,58);Place(previewLabel,24,after+80+offset,inner,20);Place(preview,24,after+105+offset,inner,42);
-        Place(apply,24,after+165+offset,Math.Max(130,inner-182),40);Place(inspect,24+inner-168,after+165+offset,80,40);Place(catalog,24+inner-80,after+165+offset,80,40);
-        Place(result,24,after+221+offset,inner,58);
-        editor.AutoScrollMinSize=new(0,Px(after+298));
+        var after=fieldsTop+((fields.Count+1)/2)*64+2;
+        note.Visible=result.Text.Length==0;result.Visible=!note.Visible;
+        Place(note,20,after,inner,48);Place(result,20,after,inner,48);
+        var footerInner=editorFooter.ClientSize.Width/S-40;
+        Place(apply,20,18,Math.Max(130,footerInner-182),40);Place(inspect,20+footerInner-168,18,80,40);Place(catalog,20+footerInner-80,18,80,40);
     }
 
     async Task ChangePage(int index)
     {
-        if(busy)return;page=index;search.Box.Text="";manualId.Box.Text="";inspection="";result.Text="";SetOperations();LayoutControls();await LoadLibrary();
+        if(busy)return;page=index;search.Box.Text="";manualId.Box.Text="";result.Text="";SetOperations();LayoutControls();await LoadLibrary();
     }
     void SetOperations()
     {
         heading.Text=Section.Name;subtitle.Text=Section.Subtitle;libraryLabel.Text=Section.Category switch{"hero" or "heroes"=>"CHARACTER LIBRARY","pet"=>"KIBO LIBRARY",_=>Section.Name.ToUpperInvariant()+" LIBRARY"};
         search.Box.PlaceholderText="Search "+Section.Name.ToLowerInvariant()+" or an ID";
-        operation.SelectedIndex=-1;operation.Items.Clear();foreach(var op in Section.Operations)operation.Items.Add(op);if(operation.Items.Count>0)operation.SelectedIndex=0;UpdateSelected();
+        operation.SetItems(Section.Operations);UpdateSelected();
     }
     void BuildFields()
     {
-        foreach(var field in fields){editor.Controls.Remove(field.Input);editor.Controls.Remove(field.Label);field.Input.Dispose();field.Label.Dispose();}fields.Clear();
+        foreach(var field in fields){editorBody.Controls.Remove(field.Input);editorBody.Controls.Remove(field.Label);field.Input.Dispose();field.Label.Dispose();}fields.Clear();
         if(SelectedOperation is not{} op)return;
         foreach(var arg in op.Fields)
         {
@@ -138,7 +165,7 @@ sealed class MainForm : Form
             if(arg.Choices is{} choices){var choice=new Choice();choice.Items.AddRange(choices);choice.SelectedItem=arg.Default;choice.SelectedIndexChanged+=(_,_)=>UpdatePreview();input=choice;}
             else {var field=new Input();field.Box.Text=arg.Default;field.Box.TextChanged+=(_,_)=>UpdatePreview();input=field;}
             input.AccessibleName=arg.Label;if(input is Input edit)edit.Box.AccessibleName=arg.Label;
-            fields.Add((arg,input,label));editor.Controls.Add(label);editor.Controls.Add(input);
+            fields.Add((arg,input,label));editorBody.Controls.Add(label);editorBody.Controls.Add(input);
         }
         note.Text=op.Description;apply.Text=op.Name;LayoutEditor();UpdatePreview();
     }
@@ -214,12 +241,12 @@ sealed class MainForm : Form
         await LoadLibrary();
     }
 
-    async Task InspectSelected(bool show)
+    async Task InspectSelected()
     {
         if(client==null||busy||manualId.Box.Text.Length==0)return;
         string[] command=Section.Category switch{"hero"=>["hero","inspect",manualId.Box.Text],"gear"=>["gear","inspect",manualId.Box.Text],"pet"=>["pet","inspect",manualId.Box.Text],"heroes"=>["catalog","heroes",manualId.Box.Text],"gear-catalog"=>["catalog","gear",manualId.Box.Text],"soul" or "souls"=>["catalog","souls",manualId.Box.Text],_=>["world","difficulty","list"]};
         SetBusy(true,"Reading selected entry…");
-        try{var answer=await client.RunAsync(Player,command);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);inspection=answer.Output;if(show)ShowText(selectedName.Text,inspection);}
+        try{var answer=await client.RunAsync(Player,command);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);ShowText(selectedName.Text,answer.Output);}
         catch(Exception ex){Report(ex.Message,false);}
         finally{SetBusy(false);}
     }
@@ -235,6 +262,7 @@ sealed class MainForm : Form
         if(IsDisposed||Disposing)return;
         busy=value;browse.Enabled=refresh.Enabled=players.Enabled=operation.Enabled=manualId.Enabled=!value;library.Enabled=!value;
         rootField.Enabled=!value;
+        checkUpdates.Enabled=!value&&!updateChecking;
         foreach(var button in navigation)button.Enabled=!value;inspect.Enabled=catalog.Enabled=!value&&client!=null;
         foreach(var field in fields)field.Input.Enabled=!value;
         if(message!=null)status.Text=message;
@@ -250,5 +278,5 @@ sealed class MainForm : Form
         var output=new TextBox{Text=text.Replace("\n","\r\n").Replace("\r\r\n","\r\n"),ReadOnly=true,Multiline=true,ScrollBars=ScrollBars.Both,WordWrap=false,Dock=DockStyle.Fill,BorderStyle=BorderStyle.None,BackColor=Ui.Surface,ForeColor=Ui.Text,Font=new Font("Consolas",12),Margin=new Padding(20)};
         dialog.Padding=new Padding(24);dialog.Controls.Add(output);dialog.ShowDialog(this);
     }
-    protected override void Dispose(bool disposing){if(disposing)connectionTimer.Dispose();base.Dispose(disposing);}
+    protected override void Dispose(bool disposing){if(disposing){updates?.Dispose();connectionTimer.Dispose();}base.Dispose(disposing);}
 }

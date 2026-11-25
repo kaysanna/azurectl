@@ -32,6 +32,20 @@ Install the .NET 10 SDK for Windows, then run `build.cmd`. The self-contained
 executable is written to `publish\AzureCTL.exe`; users of this executable do
 not need the SDK or a separate .NET runtime. `run.cmd` launches it.
 
+## Updates
+
+Download and extract `AzureCTL-win-x64.zip` from this repository's latest GitHub
+release, then run `AzureCTL.exe`. It checks for updates in the background on
+launch. New versions download automatically and are verified against their
+release checksum. Click **Restart to update**, or close the app normally to
+install the downloaded update without reopening. **Check for updates** retries
+the check manually.
+
+Only `AzureCTL.exe` is replaced. Your Azurepro installation, active save and
+app settings are kept. Updates need a writable app folder; use a folder you
+own, rather than Program Files. Update errors are logged under
+`%LOCALAPPDATA%\AzureCTL\update-error.txt`.
+
 For development: `dotnet run -- --root "D:\Azurepro"`.
 
 ## Verification
@@ -46,6 +60,10 @@ Display names come from official JP revision 3075915, matched exactly against
 the existing English patch and term database. Untranslated names retain their Japanese text. Names never grant
 availability; the connected server's filtered owned list/catalog determines
 which entries appear.
+
+Actions are always-visible buttons. The compact editor fits their fields and
+Apply without scrolling. Selecting an entry uses the already-loaded list;
+only Inspect requests its detailed CTL output.
 
 Selectors include embedded character, equipment, Anima and Kibo thumbnails
 from the official JP client (resource revision 3075915). They work offline and

@@ -111,6 +111,43 @@ sealed class Choice : Control
     }
 }
 
+// Actions stay visible instead of requiring a dropdown to be reopened.
+sealed class ActionPicker : Panel
+{
+    readonly List<Pill> buttons=[];
+    Operation[] items=[];
+    int selected=-1;
+    float S=>DeviceDpi/96f;
+    public Operation? SelectedItem=>selected>=0&&selected<items.Length?items[selected]:null;
+    public event EventHandler? SelectedIndexChanged;
+    public ActionPicker(){DoubleBuffered=true;BackColor=Ui.Surface;AccessibleRole=AccessibleRole.Grouping;}
+    public void SetItems(IEnumerable<Operation> values)
+    {
+        foreach(var button in buttons){Controls.Remove(button);button.Dispose();}
+        buttons.Clear();items=values.ToArray();selected=-1;
+        for(var i=0;i<items.Length;i++)
+        {
+            var index=i;var button=new Pill(items[i].Name){AccessibleName=items[i].Name,AccessibleDescription=items[i].Description};
+            button.Click+=(_,_)=>SelectAction(index);buttons.Add(button);Controls.Add(button);
+        }
+        LayoutButtons();if(items.Length>0)SelectAction(0);
+    }
+    int Columns(float width)=>width>=360?3:2;
+    public float HeightForWidth(float width)=>items.Length==0?0:((items.Length+Columns(width)-1)/Columns(width))*38-6;
+    void SelectAction(int index)
+    {
+        if(selected==index)return;selected=index;
+        for(var i=0;i<buttons.Count;i++){buttons[i].Selected=i==selected;buttons[i].Invalidate();}
+        SelectedIndexChanged?.Invoke(this,EventArgs.Empty);
+    }
+    void LayoutButtons()
+    {
+        var width=ClientSize.Width/S;var columns=Columns(width);var cell=(width-(columns-1)*8)/columns;
+        for(var i=0;i<buttons.Count;i++)buttons[i].SetBounds((int)Math.Round(i%columns*(cell+8)*S),(int)Math.Round(i/columns*38*S),(int)Math.Round(cell*S),(int)Math.Round(32*S));
+    }
+    protected override void OnResize(EventArgs e){base.OnResize(e);LayoutButtons();}
+}
+
 sealed class Library : Control
 {
     public List<LibraryItem> Items { get; private set; } = [];
