@@ -74,6 +74,9 @@ only Inspect requests its detailed CTL output.
 Tab lists preload in the background and are reused per server folder and player.
 Refresh reloads them; edits invalidate the player's cached lists. Use Refresh
 to see changes made outside AzureCTL.
+Read-only lists use the compiled CTL reader or the running server's local
+control connection, avoiding PowerShell startup and repeated build checks.
+Tab changes keep navigation responsive while an uncached list finishes.
 
 Selectors include embedded character, equipment, Anima and Kibo thumbnails
 from the official JP client (resource revision 3075915). They work offline and

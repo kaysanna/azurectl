@@ -53,6 +53,11 @@ public sealed class CtlClient
     public async Task<CommandResult> RunAsync(uint player, IReadOnlyList<string> command, CancellationToken cancel = default)
     {
         if (command.Count == 0) throw new ArgumentException("Choose a command first.");
+        if(CtlReadTransport.IsReadOnly(command))
+        {
+            var read=await CtlReadTransport.TryRunAsync(this,player,command,cancel);
+            if(read!=null)return read;
+        }
         var info = new ProcessStartInfo("powershell.exe") { UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true, WorkingDirectory = Root };
         info.Environment["PSModulePath"] = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "WindowsPowerShell", "Modules") + ";" + Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "WindowsPowerShell", "v1.0", "Modules");
         foreach (var value in new[] { "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", Path.Combine(Root, "scripts", "ctl.ps1") }) info.ArgumentList.Add(value);

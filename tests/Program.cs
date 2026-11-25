@@ -8,6 +8,8 @@ using System.Text;
 
 if(args.Length!=1)throw new ArgumentException("Pass a built Azurepro checkout. Tests copy its curated fixture and never edit its active save.");
 var source=new CtlClient(args[0]).Root;
+Check(CtlReadTransport.IsReadOnly(["hero","list"])&&CtlReadTransport.IsReadOnly(["catalog","heroes"])&&CtlReadTransport.IsReadOnly(["world","difficulty","list"]),"direct reader accepts list queries");
+Check(!CtlReadTransport.IsReadOnly(["hero","set","107002","level","60"])&&!CtlReadTransport.IsReadOnly(["gear","remove","1"])&&!CtlReadTransport.IsReadOnly(["world","difficulty","set","100","7"]),"mutations cannot enter direct reader");
 var cache=new LibraryCache();var loads=0;
 Task<List<LibraryItem>> CachedLoad(){loads++;return Task.FromResult(new List<LibraryItem>{new("1","Fixture","cached")});}
 await cache.GetAsync(source,2,"hero",CachedLoad);await cache.GetAsync(source.ToUpperInvariant(),2,"hero",CachedLoad);
@@ -48,6 +50,15 @@ foreach(var section in Commands.Sections)foreach(var op in section.Operations)
 }
 var list=await ctl.RunAsync(2,["hero","list"]);
 Check(list.Success&&CtlClient.ParseList("hero",list.Output).Count>=23,"offline stderr output and owned library");
+var wrapper=Path.Combine(stage,"scripts/ctl.ps1");var originalWrapper=File.ReadAllText(wrapper);
+try
+{
+    File.WriteAllText(wrapper,"throw 'Read query unexpectedly started PowerShell'");
+    var timer=Stopwatch.StartNew();var fast=await ctl.RunAsync(2,["hero","list"]);timer.Stop();
+    Check(fast.Success&&CtlClient.ParseList("hero",fast.Output).Count>=23,"offline lists bypass PowerShell wrapper");
+    Console.WriteLine($"Direct offline character list: {timer.ElapsedMilliseconds} ms");
+}
+finally{File.WriteAllText(wrapper,originalWrapper);}
 Check(CtlClient.ParseList("pet","500057\tconfig 500057\tlevel 100\tgrade SSS\tbond 10")[0].Name=="Chonoko","official Kibo display names");
 Check(CtlClient.ParseList("pet","918273\tconfig 500057\tlevel 100")[0].ImageKey=="pet/500057","Kibo image uses species, not owned GUID");
 Check(CtlClient.ParseList("gear","918273\tconfig 1010211\tlevel 9")[0].ImageKey=="gear/1010211","equipment image uses config, not owned GUID");
@@ -79,7 +90,13 @@ try
     var before=SHA256.HashData(File.ReadAllBytes(ctl.SavePath));
     Check(!(await Run(["hero","set","107002","level","101"])).Result.Success,"official limit rejection");
     Check(before.SequenceEqual(SHA256.HashData(File.ReadAllBytes(ctl.SavePath))),"rejected edit leaves save unchanged");
-    var inspect=await Run(["hero","inspect","107002"]);Check(inspect.Result.Success&&inspect.Result.Output.Contains("level 60"),"live in-memory state");
+    File.WriteAllText(wrapper,"throw 'Live read unexpectedly started PowerShell'");
+    try
+    {
+        var inspect=await Run(["hero","inspect","107002"]);Check(inspect.Result.Success&&inspect.Result.Output.Contains("level 60"),"live read bypasses wrapper and sees in-memory state");
+        Check((await ctl.RunAsync(2,["catalog","heroes"])).Success,"live catalog uses compiled tables without opening locked save");
+    }
+    finally{File.WriteAllText(wrapper,originalWrapper);}
     Check(!Directory.Exists(Path.Combine(stage,"saves/backups")),"live commands do not create backups");
 }
 finally{if(!server.HasExited)server.Kill();await server.WaitForExitAsync();}

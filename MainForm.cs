@@ -29,7 +29,8 @@ sealed class MainForm : Form
     readonly List<(Arg Arg,Control Input,Label Label)> fields=[];
     readonly List<string> activity=[];
     readonly LibraryCache libraryCache=new();
-    int cacheEpoch;
+    int cacheEpoch,libraryRequest;
+    bool loadingLibrary;
     readonly System.Windows.Forms.Timer connectionTimer=new(){Interval=2000};
     CtlClient? client;
     List<LibraryItem> allItems=[];
@@ -65,7 +66,7 @@ sealed class MainForm : Form
         browse.Click+=async(_,_)=>{using var dialog=new FolderBrowserDialog{Description="Choose Azurepro (the folder containing build.cmd and server)",UseDescriptionForTitle=true};if(dialog.ShowDialog(this)==DialogResult.OK){rootField.Box.Text=dialog.SelectedPath;await Connect();}};
         refresh.Click+=async(_,_)=>await Connect();
         rootField.Box.KeyDown+=async(_,e)=>{if(e.KeyCode==Keys.Enter){e.SuppressKeyPress=true;await Connect();}};
-        rootField.Box.TextChanged+=(_,_)=>{if(initializing||busy)return;client=null;libraryCache.Clear();cacheEpoch++;allItems=[];Filter();status.Text="Folder changed · press Refresh to connect";UpdateConnection();UpdatePreview();};
+        rootField.Box.TextChanged+=(_,_)=>{if(initializing||busy)return;client=null;libraryCache.Clear();cacheEpoch++;libraryRequest++;loadingLibrary=false;allItems=[];Filter();status.Text="Folder changed · press Refresh to connect";UpdateConnection();UpdatePreview();};
         search.Box.TextChanged+=(_,_)=>Filter();
         players.SelectedIndexChanged+=async(_,_)=>{if(!initializing&&!busy){await LoadLibrary();if(client!=null)_ = WarmLibraries(client,Player,cacheEpoch);}};
         library.SelectionChanged+=item=>{manualId.Box.Text=item.Id;UpdateSelected();};
@@ -181,7 +182,7 @@ sealed class MainForm : Form
     }
     void UpdatePreview()
     {
-        try {preview.Box.Text=$"{Player} "+string.Join(' ',CurrentCommand());apply.Enabled=client!=null&&Player!=0&&!busy;}
+        try {preview.Box.Text=$"{Player} "+string.Join(' ',CurrentCommand());apply.Enabled=client!=null&&Player!=0&&!busy&&!loadingLibrary;}
         catch {preview.Box.Text="Select an entry and complete the fields";apply.Enabled=false;}
     }
     void UpdateSelected()
@@ -194,7 +195,7 @@ sealed class MainForm : Form
 
     async Task Connect()
     {
-        if(busy)return;SetBusy(true,"Connecting to Azurepro…");
+        if(busy)return;libraryRequest++;loadingLibrary=false;SetBusy(true,"Connecting to Azurepro…");
         libraryCache.Clear();cacheEpoch++;
         try
         {
@@ -227,25 +228,40 @@ sealed class MainForm : Form
 
     async Task LoadLibrary()
     {
-        if(IsDisposed||Disposing)return;
-        if(client==null||Player==0||busy){allItems=[];Filter();UpdatePreview();return;}
-        var old=manualId.Box.Text;SetBusy(true,"Loading "+Section.Name.ToLowerInvariant()+"…");
+        if(IsDisposed||Disposing||busy)return;
+        var request=++libraryRequest;
+        if(client==null||Player==0){loadingLibrary=false;allItems=[];Filter();UpdatePreview();return;}
+        var section=Section;var connection=client;var player=Player;var epoch=cacheEpoch;
+        var old=manualId.Box.Text;
         try
         {
-            var section=Section;var connection=client;var player=Player;
-            allItems=await libraryCache.GetAsync(connection.Root,player,section.Category,()=>ReadLibrary(connection,player,section));
-            if(IsDisposed||Disposing)return;
-            if(Section.Category=="hero")heroChoices=allItems.ToList();
-            Filter();manualId.Box.Text=allItems.Any(x=>x.Id==old)?old:"";UpdateSelected();
-            status.Text=$"{allItems.Count} entries · "+(client.IsLive?"Live changes enabled":"Server offline · edits persist to active save");status.ForeColor=Ui.Dim;
+            var task=libraryCache.GetAsync(connection.Root,player,section.Category,()=>ReadLibrary(connection,player,section));
+            if(!task.IsCompletedSuccessfully)
+            {
+                loadingLibrary=true;allItems=[];manualId.Box.Text="";Filter();UpdateSelected();
+                library.Enabled=manualId.Enabled=inspect.Enabled=false;UpdatePreview();
+                status.Text="Loading "+section.Name.ToLowerInvariant()+" list…";
+            }
+            var items=await task;
+            if(IsDisposed||Disposing||request!=libraryRequest||client!=connection||Player!=player||epoch!=cacheEpoch)return;
+            allItems=items;
+            if(section.Category=="hero")heroChoices=allItems.ToList();
+            manualId.Box.Text=allItems.Any(x=>x.Id==old)?old:"";Filter();UpdateSelected();
+            status.Text=$"{allItems.Count} entries · "+(connection.IsLive?"Live changes enabled":"Server offline · edits persist to active save");status.ForeColor=Ui.Dim;
         }
-        catch(Exception ex){Report(ex.Message,false);}
-        finally{SetBusy(false);}
+        catch(Exception ex){if(request==libraryRequest&&!IsDisposed&&!Disposing)Report(ex.Message,false);}
+        finally
+        {
+            if(request==libraryRequest&&!IsDisposed&&!Disposing)
+            {
+                loadingLibrary=false;library.Enabled=manualId.Enabled=!busy;inspect.Enabled=!busy&&client!=null;UpdatePreview();
+            }
+        }
     }
 
     async Task Apply()
     {
-        if(client==null||busy)return;
+        if(client==null||busy||loadingLibrary)return;
         string[] command;try{command=CurrentCommand();}catch(Exception ex){Report(ex.Message,false);return;}
         if(command.Length>1&&command[0]=="gear"&&command[1]=="remove"&&MessageBox.Show(this,"Remove equipment "+manualId.Box.Text+" from the current save?","Remove equipment",MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=DialogResult.Yes)return;
         SetBusy(true,"Applying "+SelectedOperation!.Name.ToLowerInvariant()+"…");
@@ -263,7 +279,7 @@ sealed class MainForm : Form
 
     async Task InspectSelected()
     {
-        if(client==null||busy||manualId.Box.Text.Length==0)return;
+        if(client==null||busy||loadingLibrary||manualId.Box.Text.Length==0)return;
         string[] command=Section.Category switch{"hero"=>["hero","inspect",manualId.Box.Text],"gear"=>["gear","inspect",manualId.Box.Text],"pet"=>["pet","inspect",manualId.Box.Text],"heroes"=>["catalog","heroes",manualId.Box.Text],"gear-catalog"=>["catalog","gear",manualId.Box.Text],"soul" or "souls"=>["catalog","souls",manualId.Box.Text],_=>["world","difficulty","list"]};
         SetBusy(true,"Reading selected entry…");
         try{var answer=await client.RunAsync(Player,command);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);ShowText(selectedName.Text,answer.Output);}
@@ -280,10 +296,10 @@ sealed class MainForm : Form
     void SetBusy(bool value,string? message=null)
     {
         if(IsDisposed||Disposing)return;
-        busy=value;browse.Enabled=refresh.Enabled=players.Enabled=operation.Enabled=manualId.Enabled=!value;library.Enabled=!value;
+        busy=value;browse.Enabled=refresh.Enabled=players.Enabled=operation.Enabled=!value;manualId.Enabled=library.Enabled=!value&&!loadingLibrary;
         rootField.Enabled=!value;
         checkUpdates.Enabled=!value&&!updateChecking;
-        foreach(var button in navigation)button.Enabled=!value;inspect.Enabled=catalog.Enabled=!value&&client!=null;
+        foreach(var button in navigation)button.Enabled=!value;inspect.Enabled=!value&&!loadingLibrary&&client!=null;catalog.Enabled=!value&&client!=null;
         foreach(var field in fields)field.Input.Enabled=!value;
         if(message!=null)status.Text=message;
         else if(!value&&status.Text.EndsWith('…'))status.Text="Ready · "+(client?.IsLive==true?"live changes enabled":"active save selected");
