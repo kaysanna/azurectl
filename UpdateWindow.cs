@@ -35,7 +35,7 @@ static class UpdateWindow
             AppUpdate.Install(stage,target,manifest);
             if(restart)Process.Start(new ProcessStartInfo(Path.Combine(target,"AzureCTL.exe")){UseShellExecute=true,WorkingDirectory=target,ArgumentList={"--updated"}});
             File.WriteAllText(Path.Combine(stage,"completed"),"");
-            foreach(var file in new[]{"update.zip","update.json"})try{File.Delete(Path.Combine(stage,file));}catch{}
+            foreach(var file in new[]{"update.exe","update.json"})try{File.Delete(Path.Combine(stage,file));}catch{}
             try{Directory.Delete(Path.Combine(stage,"payload"),true);}catch{}
             return 0;
             }

@@ -1,5 +1,4 @@
 #nullable disable
-using System.IO.Compression;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -64,26 +63,18 @@ static class AppUpdate
             throw new InvalidDataException("Invalid update size or checksum.");
         return m;
     }
-    internal static string[] ValidatePackage(string zipPath, Manifest manifest)
+    internal static string[] ValidatePackage(string payloadPath, Manifest manifest)
     {
-        var info=new FileInfo(zipPath);
+        var info=new FileInfo(payloadPath);
         if(info.Length != manifest.Size)throw new InvalidDataException("Update download is incomplete.");
-        using(var input=File.OpenRead(zipPath))
+        using(var input=File.OpenRead(payloadPath))
             if(!Convert.ToHexString(SHA256.HashData(input)).Equals(manifest.Sha256,StringComparison.OrdinalIgnoreCase))
                 throw new InvalidDataException("Update checksum does not match.");
-        using var zip=ZipFile.OpenRead(zipPath);
-        var names=new HashSet<string>(StringComparer.OrdinalIgnoreCase); long total=0;
-        foreach(var e in zip.Entries)
-        {
-            var name=e.FullName;
-            if(name!="AzureCTL.exe")
-                throw new InvalidDataException("Unexpected file in update: "+name);
-            if(!names.Add(name) || e.Length<1 || e.Length>MaxPackage || (total+=e.Length)>MaxPackage)
-                throw new InvalidDataException("Invalid update archive.");
-        }
-        if(names.Count!=1 || !names.Contains("AzureCTL.exe"))throw new InvalidDataException("Update must contain only AzureCTL.exe.");
-        return names.ToArray();
+        using(var input=File.OpenRead(payloadPath))
+            if(input.ReadByte()!=77 || input.ReadByte()!=90)throw new InvalidDataException("Invalid Windows executable.");
+        return ["AzureCTL.exe"];
     }
+
     internal static async Task Download(HttpClient http, Uri url, string path, long limit, CancellationToken token, Action<long> progress=null)
     {
         using var timeout=CancellationTokenSource.CreateLinkedTokenSource(token);
@@ -111,12 +102,12 @@ static class AppUpdate
         if(!File.Exists(executable))throw new IOException("Original AzureCTL executable was not found.");
         if((File.GetAttributes(executable)&FileAttributes.ReparsePoint)!=0)
             throw new IOException("Cannot replace a linked file.");
-        var zipPath=Path.Combine(stage,"update.zip");
-        ValidatePackage(zipPath,manifest);
+        var payloadPath=Path.Combine(stage,"update.exe");
+        ValidatePackage(payloadPath,manifest);
         var temp=executable+".update-"+Guid.NewGuid().ToString("N");
         try
         {
-            using(var zip=ZipFile.OpenRead(zipPath))zip.GetEntry("AzureCTL.exe").ExtractToFile(temp,false);
+            File.Copy(payloadPath,temp,false);
             var incoming=System.Diagnostics.FileVersionInfo.GetVersionInfo(temp).FileVersion;
             if(ParseVersion(incoming)!=ParseVersion(manifest.Version))
                 throw new InvalidDataException("Executable version does not match release.");

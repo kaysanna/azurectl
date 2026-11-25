@@ -104,26 +104,23 @@ sealed class BackgroundUpdate : IDisposable
             using var release=JsonDocument.Parse(Encoding.UTF8.GetString(memory.ToArray()));
             var root=release.RootElement;var tag=root.GetProperty("tag_name").GetString();
             if(AppUpdate.ParseVersion(tag)<=AppUpdate.Current){Status("AzureCTL is up to date");return;}
-            if(root.TryGetProperty("upcoming_release",out var upcoming)&&upcoming.GetBoolean()){Status("No updates available");return;}
             if(root.TryGetProperty("draft",out var draft)&&draft.GetBoolean() || root.TryGetProperty("prerelease",out var pre)&&pre.GetBoolean()){Status("No updates available");return;}
-            var link=root.GetProperty("assets").EnumerateArray()
-                .FirstOrDefault(x=>x.GetProperty("name").GetString()=="AzureCTL-update.json");
-            if(link.ValueKind==JsonValueKind.Undefined)throw new InvalidDataException("Release has no update manifest.");
+            var asset=root.GetProperty("assets").EnumerateArray().SingleOrDefault(x=>x.GetProperty("name").GetString()=="AzureCTL.exe");
+            if(asset.ValueKind==JsonValueKind.Undefined)throw new InvalidDataException("Release has no AzureCTL.exe.");
+            var digest=asset.GetProperty("digest").GetString();
+            if(digest==null || !digest.StartsWith("sha256:",StringComparison.Ordinal))throw new InvalidDataException("Release executable has no SHA-256 digest.");
+            var manifest=AppUpdate.ReadManifest(JsonSerializer.Serialize(new AppUpdate.Manifest(tag,asset.GetProperty("browser_download_url").GetString(),digest[7..],asset.GetProperty("size").GetInt64())));
             Status($"Downloading {tag}…",true);
-            var uri=AppUpdate.AssetUri(link.GetProperty("browser_download_url").GetString());
             stage=Path.Combine(AppUpdate.StageRoot,Guid.NewGuid().ToString("N"));Directory.CreateDirectory(stage);
             lease=UpdateWindow.OpenStageLease(stage);
-            var manifestPath=Path.Combine(stage,"update.json");
-            await AppUpdate.Download(http,uri,manifestPath,16384,check.Token);
-            var manifest=AppUpdate.ReadManifest(await File.ReadAllTextAsync(manifestPath,check.Token));
-            if(AppUpdate.ParseVersion(manifest.Version)!=AppUpdate.ParseVersion(tag))throw new InvalidDataException("Release version does not match manifest.");
+            await File.WriteAllTextAsync(Path.Combine(stage,"update.json"),JsonSerializer.Serialize(manifest),check.Token);
             int previousPercent=-1;
-            await AppUpdate.Download(http,AppUpdate.AssetUri(manifest.Url),Path.Combine(stage,"update.zip"),manifest.Size,cancel.Token,total=>{
+            await AppUpdate.Download(http,AppUpdate.AssetUri(manifest.Url),Path.Combine(stage,"update.exe"),manifest.Size,cancel.Token,total=>{
                 int percent=(int)Math.Clamp(total*100/Math.Max(1,manifest.Size),0,100);
                 if(percent!=previousPercent){previousPercent=percent;Status($"Downloading {tag} — {percent}%",true);}
             });
             Status($"Verifying {tag}…",true);
-            await Task.Run(()=>AppUpdate.ValidatePackage(Path.Combine(stage,"update.zip"),manifest),cancel.Token);
+            await Task.Run(()=>AppUpdate.ValidatePackage(Path.Combine(stage,"update.exe"),manifest),cancel.Token);
             cancel.Token.ThrowIfCancellationRequested();
             lock(gate)
             {

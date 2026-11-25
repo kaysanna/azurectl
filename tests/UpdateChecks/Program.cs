@@ -1,6 +1,5 @@
 using AzureCTL;
 using System.Collections.Concurrent;
-using System.IO.Compression;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -49,19 +48,16 @@ class Checks
   }
   using(var form=new Form())
   {
-   byte[] zip;using(var memory=new MemoryStream()){using(var archive=new ZipArchive(memory,ZipArchiveMode.Create,true)){using var entry=archive.CreateEntry("AzureCTL.exe").Open();entry.Write(new byte[]{1,2,3});}zip=memory.ToArray();}
-   string manifestUrl="https://github.com/kaysanna/azurectl/releases/download/v99.0.0/AzureCTL-update.json";
-   string zipUrl=manifestUrl.Replace("AzureCTL-update.json","AzureCTL-win-x64.zip");
-   var h=new Handler((request,_)=>Task.FromResult(request.RequestUri.AbsoluteUri==AppUpdate.Latest.ToString()
-    ?Json(new{tag_name="v99.0.0",assets=new[]{new{name="AzureCTL-update.json",browser_download_url=manifestUrl}}})
-    :request.RequestUri.AbsoluteUri==manifestUrl?Json(new{version="99.0.0",url=zipUrl,sha256=Convert.ToHexString(SHA256.HashData(zip)),size=zip.Length})
-    :new HttpResponseMessage(HttpStatusCode.OK){Content=new ByteArrayContent(zip)}));
+   byte[] payload=[77,90,1,2,3];
+   var h=new Handler((request,_)=>Task.FromResult(request.RequestUri.AbsoluteUri==AppUpdate.Latest
+    ?Json(new{tag_name="v99.0.0",assets=new[]{new{name="AzureCTL.exe",browser_download_url="https://github.com/kaysanna/azurectl/releases/download/v99.0.0/AzureCTL.exe",digest="sha256:"+Convert.ToHexString(SHA256.HashData(payload)),size=payload.Length}}})
+    :new HttpResponseMessage(HttpStatusCode.OK){Content=new ByteArrayContent(payload)}));
    using var update=new BackgroundUpdate(form,()=>new HttpClient(h,false),false);var states=new ConcurrentQueue<(string text,bool busy)>();update.StatusChanged+=(t,b)=>states.Enqueue((t,b));
    update.CheckNowAsync().GetAwaiter().GetResult();
    Check(states.Any(s=>s.text=="Downloading v99.0.0 — 100%"&&s.busy),"download percentage reported: "+string.Join("; ",states.Select(s=>s.text)));
    Check(states.Any(s=>s.text=="Verifying v99.0.0…"&&s.busy),"verification status reported");
    Check(states.Last()==(BackgroundUpdate.ReadyText,false),"ready update shown without mid-session install");
-   update.CheckNowAsync().GetAwaiter().GetResult();Check(h.Calls==3,"ready update is not downloaded again");
+   update.CheckNowAsync().GetAwaiter().GetResult();Check(h.Calls==2,"ready update uses only release API and EXE, with no manifest download");
   }
  }
 
@@ -74,13 +70,13 @@ class Checks
   var exe=Path.GetFullPath(args[0]);
   try
   {
-   var zipPath=Path.Combine(root,"update.zip");
-   void Zip(string extra=null){if(File.Exists(zipPath))File.Delete(zipPath);using var zip=ZipFile.Open(zipPath,ZipArchiveMode.Create);using(var output=zip.CreateEntry("AzureCTL.exe").Open()){using var input=File.OpenRead(exe);input.CopyTo(output);}if(extra!=null){using var output=zip.CreateEntry(extra).Open();output.WriteByte(1);}}
-   AppUpdate.Manifest Manifest()=>new(System.Diagnostics.FileVersionInfo.GetVersionInfo(exe).FileVersion,"https://github.com/kaysanna/azurectl/releases/download/v0.1.0/AzureCTL-win-x64.zip",Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(zipPath))),new FileInfo(zipPath).Length);
-   Zip();var m=Manifest();Check(AppUpdate.ValidatePackage(zipPath,m).Length==1,"valid real executable package");
-   Reject(()=>AppUpdate.ValidatePackage(zipPath,m with{Size=m.Size+1}),"reject truncated package");Reject(()=>AppUpdate.ValidatePackage(zipPath,m with{Sha256=new string('0',64)}),"reject checksum mismatch");
-   foreach(var extra in new[]{"../settings.json","saves/active.bin","AzureCTL.EXE"}){Zip(extra);Reject(()=>AppUpdate.ValidatePackage(zipPath,Manifest()),"reject unexpected or duplicate archive entry");}
-   Zip();m=Manifest();var target=Path.Combine(root,"app");Directory.CreateDirectory(target);File.WriteAllText(Path.Combine(target,"AzureCTL.exe"),"original");File.WriteAllText(Path.Combine(target,"settings.json"),"keep settings");Directory.CreateDirectory(Path.Combine(target,"saves"));File.WriteAllText(Path.Combine(target,"saves/active.bin"),"keep save");
+   var payloadPath=Path.Combine(root,"update.exe");
+   void ResetPayload(){File.Copy(exe,payloadPath,true);}
+   AppUpdate.Manifest Manifest()=>new(System.Diagnostics.FileVersionInfo.GetVersionInfo(exe).FileVersion,"https://github.com/kaysanna/azurectl/releases/download/v0.1.0/AzureCTL.exe",Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(payloadPath))),new FileInfo(payloadPath).Length);
+   ResetPayload();var m=Manifest();Check(AppUpdate.ValidatePackage(payloadPath,m).Length==1,"valid real executable package");
+   Reject(()=>AppUpdate.ValidatePackage(payloadPath,m with{Size=m.Size+1}),"reject truncated package");Reject(()=>AppUpdate.ValidatePackage(payloadPath,m with{Sha256=new string('0',64)}),"reject checksum mismatch");
+   File.WriteAllBytes(payloadPath,[1,2,3]);Reject(()=>AppUpdate.ValidatePackage(payloadPath,Manifest()),"reject invalid executable header");
+   ResetPayload();m=Manifest();var target=Path.Combine(root,"app");Directory.CreateDirectory(target);File.WriteAllText(Path.Combine(target,"AzureCTL.exe"),"original");File.WriteAllText(Path.Combine(target,"settings.json"),"keep settings");Directory.CreateDirectory(Path.Combine(target,"saves"));File.WriteAllText(Path.Combine(target,"saves/active.bin"),"keep save");
    AppUpdate.Install(root,target,m);Check(File.ReadAllBytes(Path.Combine(target,"AzureCTL.exe")).SequenceEqual(File.ReadAllBytes(exe)),"atomic executable install");Check(File.ReadAllText(Path.Combine(target,"settings.json"))=="keep settings"&&File.ReadAllText(Path.Combine(target,"saves/active.bin"))=="keep save","install preserves settings and save");
    Reject(()=>AppUpdate.Install(root,target,m with{Version="99.0.0"}),"reject executable version mismatch");
    using(var locked=new FileStream(Path.Combine(target,"AzureCTL.exe"),FileMode.Open,FileAccess.Read,FileShare.Read))Reject(()=>AppUpdate.Install(root,target,m),"locked executable preserves original");
@@ -88,8 +84,8 @@ class Checks
    if(args.Length>1)
    {
     var candidate=Path.GetFullPath(args[1]);var stage=Path.Combine(AppUpdate.StageRoot,Guid.NewGuid().ToString("N"));Directory.CreateDirectory(stage);File.Copy(exe,Path.Combine(stage,"AzureCTL.exe"));
-    var package=Path.Combine(stage,"update.zip");using(var zip=ZipFile.Open(package,ZipArchiveMode.Create))zip.CreateEntryFromFile(candidate,"AzureCTL.exe");
-    var future=new AppUpdate.Manifest(System.Diagnostics.FileVersionInfo.GetVersionInfo(candidate).FileVersion,"https://github.com/kaysanna/azurectl/releases/download/v0.1.1/AzureCTL-win-x64.zip",Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(package))),new FileInfo(package).Length);
+    var package=Path.Combine(stage,"update.exe");File.Copy(candidate,package);
+    var future=new AppUpdate.Manifest(System.Diagnostics.FileVersionInfo.GetVersionInfo(candidate).FileVersion,"https://github.com/kaysanna/azurectl/releases/download/v0.1.1/AzureCTL.exe",Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(package))),new FileInfo(package).Length);
     File.WriteAllText(Path.Combine(stage,"update.json"),JsonSerializer.Serialize(future));
     var start=new System.Diagnostics.ProcessStartInfo(Path.Combine(stage,"AzureCTL.exe")){UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=stage};foreach(var arg in new[]{"--apply-update",target,int.MaxValue.ToString(),"0","--no-restart"})start.ArgumentList.Add(arg);
     using var process=System.Diagnostics.Process.Start(start);Check(process.WaitForExit(30000)&&process.ExitCode==0,"real separate installer process succeeds");

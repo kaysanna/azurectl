@@ -34,10 +34,9 @@ not need the SDK or a separate .NET runtime. `run.cmd` launches it.
 
 ## Updates
 
-Download and extract `AzureCTL-win-x64.zip` from this repository's latest GitHub
-release, then run `AzureCTL.exe`. It checks for updates in the background on
+Download `AzureCTL.exe` from this repository's latest GitHub release and run it. It checks for updates in the background on
 launch. New versions download automatically and are verified against their
-release checksum. Click **Restart to update**, or close the app normally to
+GitHub asset SHA-256 digest. No ZIP or separate manifest is needed. Click **Restart to update**, or close the app normally to
 install the downloaded update without reopening. **Check for updates** retries
 the check manually.
 
@@ -45,6 +44,9 @@ Only `AzureCTL.exe` is replaced. Your Azurepro installation, active save and
 app settings are kept. Updates need a writable app folder; use a folder you
 own, rather than Program Files. Update errors are logged under
 `%LOCALAPPDATA%\AzureCTL\update-error.txt`.
+
+The initial 0.1.0 build used a ZIP update feed. Replace that version with the
+latest standalone EXE once to enable the EXE-only update feed.
 
 For development: `dotnet run -- --root "D:\Azurepro"`.
 
