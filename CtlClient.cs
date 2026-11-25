@@ -26,6 +26,10 @@ public sealed class CtlClient
         var root = Path.GetFullPath(selected);
         if (File.Exists(Path.Combine(root, "server", "scripts", "ctl.ps1"))) root = Path.Combine(root, "server");
         if (!File.Exists(Path.Combine(root, "scripts", "ctl.ps1"))) throw new IOException("Choose your Azurepro folder, containing server\\scripts\\ctl.ps1.");
+        if (Path.GetFileName(root.TrimEnd(Path.DirectorySeparatorChar)).Equals("server",StringComparison.OrdinalIgnoreCase)
+            && !File.Exists(Path.Combine(root,"saves","active.bin"))
+            && File.Exists(Path.Combine(Directory.GetParent(root)!.FullName,"saves","active.bin")))
+            throw new IOException("This Azurepro checkout needs its one-time folder migration. Close its game/server and run the top-level build.cmd, then Refresh. Your existing save is still in the old saves folder; AzureCTL has not moved or edited it.");
         Root = root;
     }
 

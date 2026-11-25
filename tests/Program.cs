@@ -8,6 +8,13 @@ using System.Text;
 
 if(args.Length!=1)throw new ArgumentException("Pass a built Azurepro checkout. Tests copy its curated fixture and never edit its active save.");
 var source=new CtlClient(args[0]).Root;
+var migrationCase=Path.Combine(Path.GetTempPath(),"azurectl-layout-"+Guid.NewGuid().ToString("N"));
+Directory.CreateDirectory(Path.Combine(migrationCase,"server/scripts"));Directory.CreateDirectory(Path.Combine(migrationCase,"saves"));
+File.WriteAllText(Path.Combine(migrationCase,"server/scripts/ctl.ps1"),"");
+File.WriteAllText(Path.Combine(migrationCase,"saves/active.bin"),"existing save sentinel");
+try{_ = new CtlClient(migrationCase);throw new Exception("Missing migration was accepted");}
+catch(IOException e){Check(e.Message.Contains("one-time folder migration"),"actionable mixed-layout error");}
+Check(File.ReadAllText(Path.Combine(migrationCase,"saves/active.bin"))=="existing save sentinel"&&!File.Exists(Path.Combine(migrationCase,"server/saves/active.bin")),"folder detection never moves or replaces saves");
 var stage=Path.Combine(Path.GetTempPath(),"azurectl-qa-"+Guid.NewGuid().ToString("N"),"server");
 Directory.CreateDirectory(Path.Combine(stage,"scripts"));Directory.CreateDirectory(Path.Combine(stage,"saves"));Directory.CreateDirectory(Path.Combine(stage,"zig-out/bin"));Directory.CreateDirectory(Path.Combine(stage,"assets/jp/maps"));
 foreach(var name in new[]{"ctl.ps1","layout.ps1","diagnostics.ps1","project-paths.ps1","save-bin.ps1"})File.Copy(Path.Combine(source,"scripts",name),Path.Combine(stage,"scripts",name));
