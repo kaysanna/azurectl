@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Remove="UpdateChecks/**" />
     <Compile Include="../CtlClient.cs" Link="CtlClient.cs" />
+    <Compile Include="../LibraryCache.cs" Link="LibraryCache.cs" />
     <Compile Include="../Commands.cs" Link="Commands.cs" />
     <Compile Include="../CatalogNames.cs" Link="CatalogNames.cs" />
     <EmbeddedResource Include="../names.json" LogicalName="AzureCTL.Names.json" />

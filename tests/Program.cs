@@ -8,6 +8,20 @@ using System.Text;
 
 if(args.Length!=1)throw new ArgumentException("Pass a built Azurepro checkout. Tests copy its curated fixture and never edit its active save.");
 var source=new CtlClient(args[0]).Root;
+var cache=new LibraryCache();var loads=0;
+Task<List<LibraryItem>> CachedLoad(){loads++;return Task.FromResult(new List<LibraryItem>{new("1","Fixture","cached")});}
+await cache.GetAsync(source,2,"hero",CachedLoad);await cache.GetAsync(source.ToUpperInvariant(),2,"hero",CachedLoad);
+Check(loads==1,"repeat tab reads reuse loaded data");
+await cache.GetAsync(source,3,"hero",CachedLoad);await cache.GetAsync(source,2,"gear",CachedLoad);await cache.GetAsync(source+"-other",2,"hero",CachedLoad);
+Check(loads==4,"tab caches isolate players, categories and checkout folders");
+cache.Invalidate(source,2);await cache.GetAsync(source,2,"hero",CachedLoad);await cache.GetAsync(source,3,"hero",CachedLoad);
+Check(loads==5,"mutation invalidates current player without crossing accounts");
+var pending=new TaskCompletionSource<List<LibraryItem>>();var first=cache.GetAsync(source,2,"pet",()=>pending.Task);
+Check(ReferenceEquals(first,cache.GetAsync(source,2,"pet",CachedLoad)),"preload and tab click share one request");
+cache.Clear();var fresh=cache.GetAsync(source,2,"pet",CachedLoad);pending.SetResult([]);await first;
+Check(ReferenceEquals(fresh,cache.GetAsync(source,2,"pet",CachedLoad)),"old in-flight result cannot replace refreshed data");
+try{await cache.GetAsync(source,2,"failure",()=>Task.FromException<List<LibraryItem>>(new IOException("fixture")));}catch(IOException){}
+Check((await cache.GetAsync(source,2,"failure",CachedLoad)).Count==1,"failed preload is retried");
 var migrationCase=Path.Combine(Path.GetTempPath(),"azurectl-layout-"+Guid.NewGuid().ToString("N"));
 Directory.CreateDirectory(Path.Combine(migrationCase,"server/scripts"));Directory.CreateDirectory(Path.Combine(migrationCase,"saves"));
 File.WriteAllText(Path.Combine(migrationCase,"server/scripts/ctl.ps1"),"");

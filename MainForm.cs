@@ -28,6 +28,8 @@ sealed class MainForm : Form
     readonly List<Pill> navigation=[];
     readonly List<(Arg Arg,Control Input,Label Label)> fields=[];
     readonly List<string> activity=[];
+    readonly LibraryCache libraryCache=new();
+    int cacheEpoch;
     readonly System.Windows.Forms.Timer connectionTimer=new(){Interval=2000};
     CtlClient? client;
     List<LibraryItem> allItems=[];
@@ -63,9 +65,9 @@ sealed class MainForm : Form
         browse.Click+=async(_,_)=>{using var dialog=new FolderBrowserDialog{Description="Choose Azurepro (the folder containing build.cmd and server)",UseDescriptionForTitle=true};if(dialog.ShowDialog(this)==DialogResult.OK){rootField.Box.Text=dialog.SelectedPath;await Connect();}};
         refresh.Click+=async(_,_)=>await Connect();
         rootField.Box.KeyDown+=async(_,e)=>{if(e.KeyCode==Keys.Enter){e.SuppressKeyPress=true;await Connect();}};
-        rootField.Box.TextChanged+=(_,_)=>{if(initializing||busy)return;client=null;allItems=[];Filter();status.Text="Folder changed · press Refresh to connect";UpdateConnection();UpdatePreview();};
+        rootField.Box.TextChanged+=(_,_)=>{if(initializing||busy)return;client=null;libraryCache.Clear();cacheEpoch++;allItems=[];Filter();status.Text="Folder changed · press Refresh to connect";UpdateConnection();UpdatePreview();};
         search.Box.TextChanged+=(_,_)=>Filter();
-        players.SelectedIndexChanged+=async(_,_)=>{if(!initializing&&!busy)await LoadLibrary();};
+        players.SelectedIndexChanged+=async(_,_)=>{if(!initializing&&!busy){await LoadLibrary();if(client!=null)_ = WarmLibraries(client,Player,cacheEpoch);}};
         library.SelectionChanged+=item=>{manualId.Box.Text=item.Id;UpdateSelected();};
         manualId.Box.TextChanged+=(_,_)=>{UpdateSelected();UpdatePreview();};
         operation.SelectedIndexChanged+=(_,_)=>BuildFields();
@@ -193,6 +195,7 @@ sealed class MainForm : Form
     async Task Connect()
     {
         if(busy)return;SetBusy(true,"Connecting to Azurepro…");
+        libraryCache.Clear();cacheEpoch++;
         try
         {
             var next=new CtlClient(rootField.Box.Text.Trim());
@@ -203,7 +206,23 @@ sealed class MainForm : Form
         }
         catch(Exception ex){client=null;Report(ex.Message,false);}
         finally{initializing=false;SetBusy(false);UpdateConnection();}
-        if(client!=null)await LoadLibrary();
+        if(client!=null){await LoadLibrary();_ = WarmLibraries(client,Player,cacheEpoch);}
+    }
+
+    static async Task<List<LibraryItem>> ReadLibrary(CtlClient connection,uint player,Section section)
+    {
+        string[] cmd=section.Category switch{"heroes"=>["catalog","heroes"],"gear-catalog"=>["catalog","gear"],"souls"=>["catalog","souls"],"world"=>["world","difficulty","list"],_=>[section.Category,"list"]};
+        var answer=await connection.RunAsync(player,cmd);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);
+        return section.Category=="world"?Regex.Matches(answer.Output,@"map (\d+): tier (\d+)").Select(m=>new LibraryItem(m.Groups[1].Value,"Map "+m.Groups[1].Value,"World level "+m.Groups[2].Value)).ToList():CtlClient.ParseList(section.Category=="gear-catalog"?"gear":section.Category,answer.Output);
+    }
+    async Task WarmLibraries(CtlClient connection,uint player,int epoch)
+    {
+        foreach(var section in Commands.Sections)
+        {
+            if(IsDisposed||Disposing||client!=connection||Player!=player||epoch!=cacheEpoch)return;
+            try{await libraryCache.GetAsync(connection.Root,player,section.Category,()=>ReadLibrary(connection,player,section));}
+            catch{/* A failed preload is retried and reported if its tab is opened. */}
+        }
     }
 
     async Task LoadLibrary()
@@ -213,9 +232,9 @@ sealed class MainForm : Form
         var old=manualId.Box.Text;SetBusy(true,"Loading "+Section.Name.ToLowerInvariant()+"…");
         try
         {
-            string[] cmd=Section.Category switch{"heroes"=>["catalog","heroes"],"gear-catalog"=>["catalog","gear"],"souls"=>["catalog","souls"],"world"=>["world","difficulty","list"],_=>[Section.Category,"list"]};
-            var answer=await client.RunAsync(Player,cmd);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);
-            allItems=Section.Category=="world"?Regex.Matches(answer.Output,@"map (\d+): tier (\d+)").Select(m=>new LibraryItem(m.Groups[1].Value,"Map "+m.Groups[1].Value,"World level "+m.Groups[2].Value)).ToList():CtlClient.ParseList(Section.Category=="gear-catalog"?"gear":Section.Category,answer.Output);
+            var section=Section;var connection=client;var player=Player;
+            allItems=await libraryCache.GetAsync(connection.Root,player,section.Category,()=>ReadLibrary(connection,player,section));
+            if(IsDisposed||Disposing)return;
             if(Section.Category=="hero")heroChoices=allItems.ToList();
             Filter();manualId.Box.Text=allItems.Any(x=>x.Id==old)?old:"";UpdateSelected();
             status.Text=$"{allItems.Count} entries · "+(client.IsLive?"Live changes enabled":"Server offline · edits persist to active save");status.ForeColor=Ui.Dim;
@@ -237,8 +256,9 @@ sealed class MainForm : Form
             Report(answer.Output.Length>0?answer.Output:"Updated the active save.",true);
         }
         catch(Exception ex){Report(ex.Message,false);}
-        finally{SetBusy(false);}
+        finally{libraryCache.Invalidate(client!.Root,Player);cacheEpoch++;SetBusy(false);}
         await LoadLibrary();
+        if(client!=null)_ = WarmLibraries(client,Player,cacheEpoch);
     }
 
     async Task InspectSelected()

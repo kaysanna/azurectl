@@ -71,6 +71,9 @@ which entries appear.
 Actions are always-visible buttons. The compact editor fits their fields and
 Apply without scrolling. Selecting an entry uses the already-loaded list;
 only Inspect requests its detailed CTL output.
+Tab lists preload in the background and are reused per server folder and player.
+Refresh reloads them; edits invalidate the player's cached lists. Use Refresh
+to see changes made outside AzureCTL.
 
 Selectors include embedded character, equipment, Anima and Kibo thumbnails
 from the official JP client (resource revision 3075915). They work offline and
