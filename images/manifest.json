@@ -1,0 +1,2462 @@
+{
+  "source": "Official Azur Promilia JP client",
+  "resource_revision": 3075915,
+  "size_limit": 96,
+  "images": [
+    {
+      "id": "hero/101003",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_101003.png",
+      "sha256": "8eb8d8738451a1ec0c0cd6f4bf3e9f203a36554c9e01926b2f35f0ad86c5ee24"
+    },
+    {
+      "id": "hero/101007",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_101007.png",
+      "sha256": "9641ce34fae987f3b7aae788d61822ba86c1115389573af5bc52c83bcfc87e98"
+    },
+    {
+      "id": "hero/101008",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_101008.png",
+      "sha256": "90ed49015229f030f6a42ff1f21aba96010e78da4cbbfb3e28b41b18b82e862b"
+    },
+    {
+      "id": "hero/101010",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_101010.png",
+      "sha256": "3fe93da9d4334d03321bab4e1701a0a8d482f952c93fd1d9eebf8eef40022bc2"
+    },
+    {
+      "id": "hero/101014",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_101014.png",
+      "sha256": "e05e8c7b1edea1c37476ceadfe7423415696a53d09a3b6b181190db76f8df715"
+    },
+    {
+      "id": "hero/102001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_102001.png",
+      "sha256": "021654f19eb3fbdeac2c0573a0131ff06599425d2ef1414af5a8ed640ad12283"
+    },
+    {
+      "id": "hero/103002",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_103002.png",
+      "sha256": "63692bbb4f34d5b860ed5b6b429da0dde979491d161cecdafcd57f2ec73bcb4b"
+    },
+    {
+      "id": "hero/107001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_107001.png",
+      "sha256": "68e9ea83eecc03b4e6853a3107de423a68607bb1d79e4d8f2d218bedb10b4247"
+    },
+    {
+      "id": "hero/107002",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_107002.png",
+      "sha256": "0f2e8557fc069d4d63d4de69f459a928359163fc767e64ffbdcf5ca6db3ead8b"
+    },
+    {
+      "id": "hero/107003",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_107003.png",
+      "sha256": "d03b4b5a6d4d3f4f4ee2626a9210f269935bb809bd1eb33d2c17b0913fd6596a"
+    },
+    {
+      "id": "hero/108001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_108001.png",
+      "sha256": "27b0d51478789d34325905b4368ca121cc22cf6d1bb47bd2a1ea3c12d2f18d9c"
+    },
+    {
+      "id": "hero/108002",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_108002.png",
+      "sha256": "6fe3d39421aec3b440f18a9ebab634ae6af428f8aa43e05ce3f344175e857555"
+    },
+    {
+      "id": "hero/108003",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_108003.png",
+      "sha256": "79e563a06a3d338488043733ef41f109fb8b9c3b92ffb5856ee90f48bcb97443"
+    },
+    {
+      "id": "hero/108005",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_108005.png",
+      "sha256": "99e236dc732c551ca18e9683f26370377802b19a03072156efbf475602dc7563"
+    },
+    {
+      "id": "hero/109001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_109001.png",
+      "sha256": "1be62aa9f7f95880ec511cb5634549b359bd33bac89bcfaf3cd45189b01553ff"
+    },
+    {
+      "id": "hero/109002",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_109002.png",
+      "sha256": "b33ed56b19af3258ef8f93159092f2f873dfb00aa358698aa1b55525e39c453c"
+    },
+    {
+      "id": "hero/111001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_111001.png",
+      "sha256": "f7f9ef0859ffd213ad44edd04ab282232502358d58dfac1b0fda30ff29110f1a"
+    },
+    {
+      "id": "hero/112001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_112001.png",
+      "sha256": "281029dd77ed9db807f4aaf87a51fe4a6d371243601aa75c778740ff53f3a5ba"
+    },
+    {
+      "id": "hero/112002",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_112002.png",
+      "sha256": "9bc828c41e96e7d1536309c760c1f0524385f5172bfd1fe0399467929e62e62f"
+    },
+    {
+      "id": "hero/199001",
+      "asset": "Assets/Arts/UI/Icon/HeroS/tex_icon_hero_s_199001_1.png",
+      "sha256": "73bf620efd64b9e49744897ae43cb6daa15a3b9628acf25e6503abadaaca2f76"
+    },
+    {
+      "id": "hero/199002",
+      "asset": "Assets/Arts/UI/Icon/HeroS/tex_icon_hero_s_199002_1.png",
+      "sha256": "0b0b8ccc2f4786218e44682f1ea0d4eaac6e6901af945ebc456227dc0026aff8"
+    },
+    {
+      "id": "hero/199003",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_199003.png",
+      "sha256": "02a7aaf98a87600d19624073a6e3f2d08b7d9db222f147a7babe6ec227fd5703"
+    },
+    {
+      "id": "hero/199008",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_199008.png",
+      "sha256": "d0bca422a262d32121a7c1eb7496188756ef1b4c2d9f45f5cd2a9b1def6f3c77"
+    },
+    {
+      "id": "hero/104001",
+      "asset": "Assets/Arts/UI/Icon/HeroM/tex_icon_hero_m_104001.png",
+      "sha256": "2fde2be69ad061fd3967c0c6c0f0ccdc565b0b14e00f8c2378ced58590770ea8"
+    },
+    {
+      "id": "pet/500001",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500001.png",
+      "sha256": "896cb450115aaeaa5b8a71bdfd36c19b5cbefa33725b3fbed32f6e01925db33b"
+    },
+    {
+      "id": "pet/500002",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500002.png",
+      "sha256": "dbb834080d1dd9725bbdc4a793d959fbdbca7195f8f6d09e472b086202913b66"
+    },
+    {
+      "id": "pet/500003",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500003.png",
+      "sha256": "725b08a0d54a17aca0871891f85ed1e9be3d483da844c465a9855783c0e0c7d7"
+    },
+    {
+      "id": "pet/500004",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500004.png",
+      "sha256": "e20fe5b905fa01d17589f835395a7dc0780c2d44f91aef1aa3e69e824e4785ab"
+    },
+    {
+      "id": "pet/500005",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500005.png",
+      "sha256": "95c7598e8683e9407b5eb7168f063a70edc14df59210ad4be98be74250f7aa27"
+    },
+    {
+      "id": "pet/500006",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500006.png",
+      "sha256": "9c4cd2878c940555d1741ec46d0f0c4593f4605075952387ae28ec733ef82a9f"
+    },
+    {
+      "id": "pet/500007",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500007.png",
+      "sha256": "957fa377d29d7333ff54d2f054ee6de1ebb575d324d497ca13c4ae03f516caec"
+    },
+    {
+      "id": "pet/500020",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500020.png",
+      "sha256": "ba41ad45c6a8c1deaf4564faac5ab4143d063d6403ed95c8c61ea7ce36da6345"
+    },
+    {
+      "id": "pet/500021",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500021.png",
+      "sha256": "c4d8332da55b5a08ea6fb424fe9f0607fbe67238d3be4113b03ea5a1f4bd5896"
+    },
+    {
+      "id": "pet/500022",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500022.png",
+      "sha256": "c379c7fd2b1f3faa3057e1561492782bbd1b5bc7cf39070bcb877006f52916f9"
+    },
+    {
+      "id": "pet/500023",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500023.png",
+      "sha256": "068f4d032c09a44f9fd436ce8ed3e4f821f0d345ddf50033000b93401c287de9"
+    },
+    {
+      "id": "pet/500024",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500024.png",
+      "sha256": "bc4e27073d1d223c55494b6b7935ca4e995d9bf2759c1932f59fc30a72fba609"
+    },
+    {
+      "id": "pet/500025",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500025.png",
+      "sha256": "45aaf2c9b8fa11826fb94d77c3b021c83b934f1598d929c629a38a7350641591"
+    },
+    {
+      "id": "pet/500026",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500026.png",
+      "sha256": "5e215e7c0a148f17b956f5c9f67db0dcc65e5d8e26d599479ed2791a6ec7f86f"
+    },
+    {
+      "id": "pet/500359",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500026.png",
+      "sha256": "5e215e7c0a148f17b956f5c9f67db0dcc65e5d8e26d599479ed2791a6ec7f86f"
+    },
+    {
+      "id": "pet/500035",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500035.png",
+      "sha256": "90187cbf8166b2ba1ec31b65f46aa1419b4f6f800fee4b5d78e200025adc55dd"
+    },
+    {
+      "id": "pet/500037",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500037.png",
+      "sha256": "3039a03222d30c8b0fb6e9048455497b1393456ac42e75c4071e103d761b2cf8"
+    },
+    {
+      "id": "pet/500038",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500038.png",
+      "sha256": "b3177ee4b2d9a798a510f6605767aa3edfd3db68a37d32871ec7b49a188451a2"
+    },
+    {
+      "id": "pet/500039",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500039.png",
+      "sha256": "2a011ad0144330183933c1a3660794bf5f8485e99eb3960f8677550f2f04b65f"
+    },
+    {
+      "id": "pet/500040",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500040.png",
+      "sha256": "d0adb664e1c66f4d806a0cc7f4fda9e626fca30d9c2df9afe1473e0b95d38f0f"
+    },
+    {
+      "id": "pet/500041",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500041.png",
+      "sha256": "661e6d54e1847337d1c194c84d799bba8c0b49843741b05b21888614dd5b074f"
+    },
+    {
+      "id": "pet/500042",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500042.png",
+      "sha256": "b7c306cd7d158df91b1c209eee643bf96909f0c31b659597b8e356a3e9d39633"
+    },
+    {
+      "id": "pet/500043",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500043.png",
+      "sha256": "ccc1f3bf9aaead4d4b450db77aae9719ddabd2dbaf1d591362411122c6878126"
+    },
+    {
+      "id": "pet/500044",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500044.png",
+      "sha256": "4ff3216e0429ac322bb6cea3451d22a5d9f70b7c7cf0ac1121e26a9cb12ea9b1"
+    },
+    {
+      "id": "pet/500045",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500045.png",
+      "sha256": "eea023b0b882424254549fc88c05c2e5f972f11860412e9d8d0c0081d4498d7f"
+    },
+    {
+      "id": "pet/500046",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500046.png",
+      "sha256": "f3d675484b033695cbefdd3d7a475d6cf688d0197de319ffa56f8d2e086bd8b2"
+    },
+    {
+      "id": "pet/500047",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500047.png",
+      "sha256": "cb08e13b6a0d3479c554a0eb0fab8f932c4febad2c833416238e5dcf1086529e"
+    },
+    {
+      "id": "pet/500048",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500048.png",
+      "sha256": "86d0d4b61795ba1323256d8462d7cd18687551310fe906e3081a8fd54e8c6976"
+    },
+    {
+      "id": "pet/500051",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500051.png",
+      "sha256": "8cbecf427a8a42014bc81a61f7adc818e13e57627a30add2e568d1b6714525bb"
+    },
+    {
+      "id": "pet/500052",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500052.png",
+      "sha256": "69ef83aec36250a63484729fdbede888cedb2483cd284c022c81968fc4994e2b"
+    },
+    {
+      "id": "pet/500053",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500053.png",
+      "sha256": "34cb690b1f6ab0e34c5ece67c3622b7b8b83ca813b492d72b9891a45497c8f75"
+    },
+    {
+      "id": "pet/500054",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500054.png",
+      "sha256": "b34b670307f856b934b515778b7c1ca8f7fc5169b37f955fafed0be724b178ac"
+    },
+    {
+      "id": "pet/500055",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500055.png",
+      "sha256": "ff45e12d29c4472a7bf78c733724c89c82e68f0ec1abb86fc226cf0266da3365"
+    },
+    {
+      "id": "pet/500056",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500056.png",
+      "sha256": "36219e2908d72fcecd1b16fcdae34a77a4532550affd5db4bd623df21c8f1da8"
+    },
+    {
+      "id": "pet/500057",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500057.png",
+      "sha256": "afa95ea67c4c96c09bc84ac721ffe37f34540da2c13c8dad6dacac8ec6775968"
+    },
+    {
+      "id": "pet/500058",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500058.png",
+      "sha256": "3e246c90f951ee0d02677bfaab3fdc3c9ef8774fbf6d2f459aeb68d5cffb1e8e"
+    },
+    {
+      "id": "pet/500061",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500061.png",
+      "sha256": "ef8de19e3887582d283d594c73248f931ae1ced607fcfd37a65339ad42b60e6c"
+    },
+    {
+      "id": "pet/500062",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500062.png",
+      "sha256": "916bfad656ecc0fdc90d08c69dc7b7166a708cedddc498b4717dec97c44ff793"
+    },
+    {
+      "id": "pet/500063",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500063.png",
+      "sha256": "31b987eebfc9818a0ca82be0d5f22e29da6c4949cca5e8bc997aa91dc4c5ce07"
+    },
+    {
+      "id": "pet/500064",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500064.png",
+      "sha256": "a46a5914a03bdfd02ccf12d04001d53b3f98cdfb23c7582ce838bab9749cbbe5"
+    },
+    {
+      "id": "pet/500065",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500065.png",
+      "sha256": "6825a1b59b416a7d658cc67dc593b18c33535b8fa67981145bb29fdd41f30404"
+    },
+    {
+      "id": "pet/500066",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500066.png",
+      "sha256": "a66a94c7e755005806e1fa7913dee69f4c6324b465285f4837ca9aee517e591d"
+    },
+    {
+      "id": "pet/500067",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500067.png",
+      "sha256": "80221a9d1ea951691bf6ffa4f6c4adaacddaeb190a6f646838d58815b23e27b5"
+    },
+    {
+      "id": "pet/500068",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500068.png",
+      "sha256": "b742f4d36b9f4a114c0d103392bb76d8086fd34c3fc61e64c592fe4148a387ff"
+    },
+    {
+      "id": "pet/500069",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500069.png",
+      "sha256": "d4756737194d86a36b3efeee50308e0609d01eff510be55ffd1d4a081c19b438"
+    },
+    {
+      "id": "pet/500070",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500070.png",
+      "sha256": "c6e325571bc5161cf5365756fd0b7a5c9ebccf9d3b4913ebcb719de0bac3a6af"
+    },
+    {
+      "id": "pet/500072",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500072.png",
+      "sha256": "dae4ef4897e8a31502324b22bf0e08ad932aecb028d61951ee45500032fb1ed7"
+    },
+    {
+      "id": "pet/501017",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500072.png",
+      "sha256": "dae4ef4897e8a31502324b22bf0e08ad932aecb028d61951ee45500032fb1ed7"
+    },
+    {
+      "id": "pet/500079",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500079.png",
+      "sha256": "388f9c31e0d043bc6e06b87993afcad97cd82c3a2d66df1553fe8149e8a97f89"
+    },
+    {
+      "id": "pet/500080",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500080.png",
+      "sha256": "98658cfbcbd001edec6afffc5ac27e1df10226f550bc059ea7e631d3846ad3b2"
+    },
+    {
+      "id": "pet/500081",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500081.png",
+      "sha256": "d79e432f62493d7ea022da79e01db734180397741765613c180a251f6f9dcaf3"
+    },
+    {
+      "id": "pet/500082",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500082.png",
+      "sha256": "5c1f18e7113e988993b6351fa841fb4796ec51257d6e86c7c5d7b4c808291f1e"
+    },
+    {
+      "id": "pet/500083",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500083.png",
+      "sha256": "05fb091c7b2aa109d13e16f6658bb165ce0b266afb0b9e9e6a2c7a51ea401aa0"
+    },
+    {
+      "id": "pet/500084",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500084.png",
+      "sha256": "8e36cbd2f32285743296b40a923aa6b8862dd298ef90a7af7737b78dcfc3cd8f"
+    },
+    {
+      "id": "pet/500085",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500085.png",
+      "sha256": "2f7ae0a78c9554af283b6cabc25eb14b89156280aaf474ff255559b6d615456d"
+    },
+    {
+      "id": "pet/500091",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500091.png",
+      "sha256": "92561e308650f9b74426786b2199f711e19de8e02a4558f8f88b09b695eb2e55"
+    },
+    {
+      "id": "pet/500092",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500092.png",
+      "sha256": "6adb430ae3f508540859ff775512d2a40d0d5a373a66c3af0e8d3c8b56df3045"
+    },
+    {
+      "id": "pet/500093",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500093.png",
+      "sha256": "a9ccf74b6432b333b9c1183b5097b869e8e32dd07120dee6d9fdbbcdbd73f511"
+    },
+    {
+      "id": "pet/500095",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500095.png",
+      "sha256": "fd81e9097416691fa42d7534703064439e47fae565df22be6a6a49aa12d00cd1"
+    },
+    {
+      "id": "pet/500096",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500096.png",
+      "sha256": "71644f989cef9db59918e43d44382a32e6e87ae579c3113d3358f3cc94996c46"
+    },
+    {
+      "id": "pet/500097",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500097.png",
+      "sha256": "018ead1e0735cb210485bac99c73b20ecbeba342fc10dbb56e362179a4e3ac16"
+    },
+    {
+      "id": "pet/500098",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500098.png",
+      "sha256": "905d2fc90a2ad656d82ab6d52db68881c4c60159a593bf1a834cb179292be8bc"
+    },
+    {
+      "id": "pet/500110",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500110.png",
+      "sha256": "835c1057ee69030ff1de7e5485dc07a74b8e9062c521963fa8f57b603ed5e014"
+    },
+    {
+      "id": "pet/500111",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500111.png",
+      "sha256": "501caa15691c7efe5f4e385a7cd7aa2b6a1b659583b2abef5db02ece2f5cca16"
+    },
+    {
+      "id": "pet/500114",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500114.png",
+      "sha256": "f3e969e4695f2f6419a775f33fb87a489672899fd48bea3b9aa6a338e945c1ae"
+    },
+    {
+      "id": "pet/500115",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500115.png",
+      "sha256": "b1cbc69985d336d4033c41698cf847a4a9cbfde867159a59ff8d95ded92dbd87"
+    },
+    {
+      "id": "pet/500116",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500116.png",
+      "sha256": "fad06307a470c2497816175caaa702360274638271315369d22c3354d9fcc72b"
+    },
+    {
+      "id": "pet/500117",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500117.png",
+      "sha256": "2a9d37657b5da02d3e681237de59b79700ae392d37ed75f8ba43937e84ba9fa4"
+    },
+    {
+      "id": "pet/500118",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500118.png",
+      "sha256": "947015d59a9dca792f5ecfae4d81cf33edd844e32f2f1887427ae1ef804b120e"
+    },
+    {
+      "id": "pet/500120",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500120.png",
+      "sha256": "f640593e4c876fa18f9864698c9d991da0eb16f8da816f921ca46183d59035be"
+    },
+    {
+      "id": "pet/500123",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500123.png",
+      "sha256": "a54d5f74d6da7f70951737f234733a2c59224e484cd6f93ce5b5b94d20b6a34c"
+    },
+    {
+      "id": "pet/500124",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500124.png",
+      "sha256": "c9024112e1bd68743963d90a66806ac1008228b43fdf527dc52ae597d9dccf40"
+    },
+    {
+      "id": "pet/500125",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500125.png",
+      "sha256": "5b9f71eb5db24b27c7f9985cacceea4eef5ff3aed66601ff04d4f0f8ade213a8"
+    },
+    {
+      "id": "pet/500126",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500126.png",
+      "sha256": "7c2d0939bd7713fbded40ddc7c66fd578027c59284fa39c77573049c2a3d17fa"
+    },
+    {
+      "id": "pet/500127",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500127.png",
+      "sha256": "2fd6875a3b8d6b18de777d592ad5cd1c6674eda6bf9463fa2f665a07a21f05fc"
+    },
+    {
+      "id": "pet/500128",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500128.png",
+      "sha256": "a8a9fbc66b9abcc05b48efa65d1cd8a4cd0e89a98785915f0d108ea79b21427b"
+    },
+    {
+      "id": "pet/500129",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500129.png",
+      "sha256": "7f92655221c5acf54eba9301ee148372c5b4701c7791a0d54e6f40d784457bb9"
+    },
+    {
+      "id": "pet/500130",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500130.png",
+      "sha256": "2d6f1480b8ac4288885532b13e5199cd3a797742e2777b69eb64c8d80bf2486b"
+    },
+    {
+      "id": "pet/500131",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500131.png",
+      "sha256": "374ab313a2e02cccd8191fa42da3ec8a5fb8fe8235b056826b43b11c763b5f24"
+    },
+    {
+      "id": "pet/500132",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500132.png",
+      "sha256": "b1c0fb1260dc81e444799f11d745732a1c98701eb897a715cccbf862720ba09a"
+    },
+    {
+      "id": "pet/500133",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500133.png",
+      "sha256": "c83c116036f0ad9afe9e93ae8fda25697bd2ab29b08045835d87e9436cbe6244"
+    },
+    {
+      "id": "pet/500754",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500133.png",
+      "sha256": "c83c116036f0ad9afe9e93ae8fda25697bd2ab29b08045835d87e9436cbe6244"
+    },
+    {
+      "id": "pet/500134",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500134.png",
+      "sha256": "6d1f50eef886848b53064a55142135b5eba37790e768b6e6f147ac4b08bcfd3b"
+    },
+    {
+      "id": "pet/500135",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500135.png",
+      "sha256": "34ad48ec38386e25a6f4f06f9b7512f8e197fa30d45c578ad9ddaaa96ec46020"
+    },
+    {
+      "id": "pet/500137",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500137.png",
+      "sha256": "d989696f391bedb2faa3564f92cacdf3a977577c44b8758c85fd967690efb03c"
+    },
+    {
+      "id": "pet/500138",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500138.png",
+      "sha256": "c20dfe1a86cd900c159ba0967b6589ba383955128ab078afa89ce235312f3985"
+    },
+    {
+      "id": "pet/500139",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500139.png",
+      "sha256": "b5a13ceb107b902676d8c617cee6ee0f680463fe4be566f2939ec279711495a8"
+    },
+    {
+      "id": "pet/500140",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500140.png",
+      "sha256": "0f52bb3465cf7b8c7fc12594b1c5347e0941c6de80ba3ca12a6cd7ada6b9915d"
+    },
+    {
+      "id": "pet/500147",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500147.png",
+      "sha256": "1f7f1f8a11aa7bab9ade45d3dfc3e9c45c353da827bf2d8c8ade789d260f484e"
+    },
+    {
+      "id": "pet/500148",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500148.png",
+      "sha256": "1649a8976015b10610a65f4af1e3ba7cd9ea6a8370c14947ce545e9e60e40cc1"
+    },
+    {
+      "id": "pet/500149",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500149.png",
+      "sha256": "e7f9cfa1a7185c33b0bbaa7358c871dc2d9814752f93f8b085eef4e231959c41"
+    },
+    {
+      "id": "pet/500156",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500156.png",
+      "sha256": "735bd96988883eaf99147f3148a59304619742f799bc8af049217522576e251a"
+    },
+    {
+      "id": "pet/500747",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500156.png",
+      "sha256": "735bd96988883eaf99147f3148a59304619742f799bc8af049217522576e251a"
+    },
+    {
+      "id": "pet/500157",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500157.png",
+      "sha256": "0eb40f7d0fcb32ad667a291fa90dd573cb00c5230a331d5a63fa5f33774d1159"
+    },
+    {
+      "id": "pet/500158",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500158.png",
+      "sha256": "b3df8d27f602cec577cbff7c95dc4d4547b24ef949fe148bd42586c634b7bc8e"
+    },
+    {
+      "id": "pet/500164",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500164.png",
+      "sha256": "82e7e71771c64d58eb8422ddd49351d40e88396777eb13933c40190a7cfdc0b9"
+    },
+    {
+      "id": "pet/500165",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500165.png",
+      "sha256": "42f46e4ed965fe4133a8813dbedcfce40c18f7e3a65c61c1f74e39d2dd5e2d60"
+    },
+    {
+      "id": "pet/500166",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500166.png",
+      "sha256": "85065d899a5193a075ad8b47cd6709e351f3918080f7fc9d879553c7337af6df"
+    },
+    {
+      "id": "pet/500167",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500167.png",
+      "sha256": "0d70ef48a76fff98c9eae6383857fe22a60ed41a08696899dd9d8e4098c33401"
+    },
+    {
+      "id": "pet/500168",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500168.png",
+      "sha256": "c23383d280a5288a8e6bc003731541fe667c8af6231a2b0c71e85f6ac16e1d38"
+    },
+    {
+      "id": "pet/500173",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500173.png",
+      "sha256": "1de1c268d6a2053310520d74271332af1769858f0b676c962972cfbbc8c060d4"
+    },
+    {
+      "id": "pet/500174",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500174.png",
+      "sha256": "9b2b1bbc8867b6879752854274be4d7675b5c0497b0056c3ee4bf4c796d86d3b"
+    },
+    {
+      "id": "pet/500175",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500175.png",
+      "sha256": "901d320de27e9c343f619d96041ce2302f61790e3484e4b6e280e91694fbea6f"
+    },
+    {
+      "id": "pet/500179",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500179.png",
+      "sha256": "02442fe38feef15d9fd0cc1d92a780cfd2a803614573cceeee3219ff25a7b21b"
+    },
+    {
+      "id": "pet/500180",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500180.png",
+      "sha256": "17557617058b46dca85d7e083b3f2237e993bd6b90064aee351592e512499623"
+    },
+    {
+      "id": "pet/500181",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500181.png",
+      "sha256": "040a9dc1d2b1cf1b770a42f86525e170240c18c7759788ff3dda997c11704115"
+    },
+    {
+      "id": "pet/500185",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500185.png",
+      "sha256": "026ed3fd0052a620a02d883c09d112bfb020940abab3d561cebb67891667762a"
+    },
+    {
+      "id": "pet/500186",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500186.png",
+      "sha256": "b21fdf67a06d41329324e64dee2cf52fb31e7ed42e26d4b8be292f7c11d7b49f"
+    },
+    {
+      "id": "pet/500187",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500187.png",
+      "sha256": "2b85279073c592e947e99cb855adaf996cfa1c5cb6d758853d67c6c6f39a6c57"
+    },
+    {
+      "id": "pet/500206",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500206.png",
+      "sha256": "7ba6f4b1c89188b7f841ed28ee74ce51a48d3412a042ba819a95d2e497a2404c"
+    },
+    {
+      "id": "pet/500207",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500207.png",
+      "sha256": "0ddb764ca176e62a7f2175e19642aec1c8ef786803b98b331ed05ffe403cc9fc"
+    },
+    {
+      "id": "pet/500208",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500208.png",
+      "sha256": "c2fce337556be4d9b4f5df54b8a2d32dc4f3787f977e4e78844ca5a5cfe92db6"
+    },
+    {
+      "id": "pet/500209",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500209.png",
+      "sha256": "7c7eb4463339be1c647bb7a462593ecd63254af040dbc3517f165e648223f35d"
+    },
+    {
+      "id": "pet/500211",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500211.png",
+      "sha256": "dac9702e8795950dba3345c6d1a195aec3dd24c6114fe47dc4611542f4d13845"
+    },
+    {
+      "id": "pet/500212",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500212.png",
+      "sha256": "3befb973fcac988213c5e3994b880121dc1a9814b20c3564df569044e57d61ed"
+    },
+    {
+      "id": "pet/500213",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500213.png",
+      "sha256": "a03a073d0e7c8b96cd703ada09ae4d8e03313ffe5d965b683305a1a1b069af5e"
+    },
+    {
+      "id": "pet/500214",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500214.png",
+      "sha256": "c1e901f94f22149360553ffd01509feebc7c9a3d4eda0c17ae4b89884b04407a"
+    },
+    {
+      "id": "pet/500215",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500215.png",
+      "sha256": "19f530eedc4a4ee224ad96b90d7cb2a4463c9cc920d7b4d547f8c438442680fc"
+    },
+    {
+      "id": "pet/500216",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500216.png",
+      "sha256": "96871ba3b7362e8bc80b3a8245708ed774470269f9231896b01d3eac28cb5d16"
+    },
+    {
+      "id": "pet/500220",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500220.png",
+      "sha256": "bfabd1ffd5ce982e8660951f88d483f274f7fbef2c43ea353298bde524dee17b"
+    },
+    {
+      "id": "pet/500231",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500231.png",
+      "sha256": "f5b74852e25902430fc2efb79528c2b7f8dd2542c5a8cdf71d35dda6b3e2fb22"
+    },
+    {
+      "id": "pet/500234",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500234.png",
+      "sha256": "e7b4a23b96fee9880db79e7d8ec69be32ca39150c93cf07875443c920eecef4b"
+    },
+    {
+      "id": "pet/500244",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500244.png",
+      "sha256": "53222c492da7cada32d25ad72766fb8481bcfb5be3ea9d9122ff539cd9741a30"
+    },
+    {
+      "id": "pet/500245",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500245.png",
+      "sha256": "52390986e8d24d190e30de7b57fce29172f6ce2ac6d2ac3840ab388a2d1ce8df"
+    },
+    {
+      "id": "pet/500246",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500246.png",
+      "sha256": "332267f4cd902d65ecc52ea1e703fcf07e4506ae66445e320104ff7930ee9a12"
+    },
+    {
+      "id": "pet/500247",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500247.png",
+      "sha256": "721fee79dc9cdce64581a7a5ec284985e3c077bb37ad8b3128645603afaaee45"
+    },
+    {
+      "id": "pet/500248",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500248.png",
+      "sha256": "0976fce2f194b1b4e19afea924c9134c9ea697164b20b819d6e69eda2dabd9a9"
+    },
+    {
+      "id": "pet/500249",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500249.png",
+      "sha256": "1271f4979e9c5a3e85dfb2abd4de6c93217f63a188e61bc494a2a1535709e395"
+    },
+    {
+      "id": "pet/500254",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500254.png",
+      "sha256": "23150b837808ec32d6542bbfa1ba2ba7a74a2fca8deeeb05691d984bbbbce701"
+    },
+    {
+      "id": "pet/500255",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500255.png",
+      "sha256": "c065fc9fb22d6245ccb199dbaa983f403eb1107cafe4ca020eca22428daab763"
+    },
+    {
+      "id": "pet/500256",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500256.png",
+      "sha256": "58616f80dff9ea01a1eb187c0f5ac99b2a6bc4d4df01ad7ad53abd5c79c82c51"
+    },
+    {
+      "id": "pet/500258",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500258.png",
+      "sha256": "533eb8529e498348993a2776f5ff5539e259a002a5f1d9000c4a845f8ee42a13"
+    },
+    {
+      "id": "pet/500259",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500259.png",
+      "sha256": "e9c8eee3e1b079444e8df66b66bb3625dba206faff63686a89fbdc3e50b02e40"
+    },
+    {
+      "id": "pet/500260",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500260.png",
+      "sha256": "2aca05b91c2c44baad739facba1c8305d0b1685e8807c29a7cc763b45f27bf99"
+    },
+    {
+      "id": "pet/500261",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500261.png",
+      "sha256": "2dcd228fc1b57ffb5a2582c103cf2ac9978496d28092b30ec1dce55a1933ecc6"
+    },
+    {
+      "id": "pet/500262",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500262.png",
+      "sha256": "8c47401c11bac10be1bb117eb164a37605bd749f093c4118211d3929fcf89703"
+    },
+    {
+      "id": "pet/500263",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500263.png",
+      "sha256": "057da588571efee68f2a1a9c8596f95a6ea37142e4c85adeffe27fb6b77db0c3"
+    },
+    {
+      "id": "pet/500264",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500264.png",
+      "sha256": "8842fc8ea1943d02850ec0a6fecdb660c3ca52e18f1aed9153dac0a8d7d34eff"
+    },
+    {
+      "id": "pet/500293",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500293.png",
+      "sha256": "bd4e6a6b50bdb5e4c1447c7e448924931234a568e0ed2e03921f40e38920ff96"
+    },
+    {
+      "id": "pet/500294",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500294.png",
+      "sha256": "ca452e0239bbef8c15e7f5d46bce489bb791244d77793d23eeb5968ec06c3997"
+    },
+    {
+      "id": "pet/500295",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500295.png",
+      "sha256": "c5ae7f53d36b100dc4613fa1a5ea4078bd8f75818ee6c0deff4a9cc1d152b4e7"
+    },
+    {
+      "id": "pet/500296",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500296.png",
+      "sha256": "40f839b53acc3dace34be6412123efcfdccc811a76cf4d057b594fe999c10582"
+    },
+    {
+      "id": "pet/500297",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500297.png",
+      "sha256": "b180b45b391c0c24c274675c6fb9eb7f80702f7a4c250e1de1db454cbbc7aea2"
+    },
+    {
+      "id": "pet/500298",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500298.png",
+      "sha256": "0ef7d375ef4197f308a7153ee08aa5f56c691acd43d313435e550291606b6a43"
+    },
+    {
+      "id": "pet/500304",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500304.png",
+      "sha256": "739068f43ff212cd5a2b048b72a54fdae25c51cb77dfe6865b2d62511ec9f523"
+    },
+    {
+      "id": "pet/500305",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500305.png",
+      "sha256": "75a8df5e763fd5c0e51ee1edc449701cb2870479dc9274840f86170d2544dc7b"
+    },
+    {
+      "id": "pet/500306",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500306.png",
+      "sha256": "9c1e086fa542735138cde4521eb2f2b1a7e0d88b10c043723f3d476af72845bc"
+    },
+    {
+      "id": "pet/500309",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500309.png",
+      "sha256": "2e223ac0572c1483505dadcee8bab238a3291922185bdb968158ff563e6ef10a"
+    },
+    {
+      "id": "pet/500313",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500313.png",
+      "sha256": "3aef5ac8ca5624d06ab660a29bf8142823442773c8bb062ef3905406a9b8225e"
+    },
+    {
+      "id": "pet/500319",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500319.png",
+      "sha256": "c2d4a4ac1a7339b181be28e8a1c41bd953cfa50eb2b1dabec41e5d48338454f4"
+    },
+    {
+      "id": "pet/500320",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500320.png",
+      "sha256": "498964654dde1c1e4b7d1a790d7b620284a7211c0555216ff384a4d9ad2087da"
+    },
+    {
+      "id": "pet/500321",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500321.png",
+      "sha256": "73792c6346b6cfc8fff52f0735bd510bc33531cc6f44d1e1702f89fa7f67b604"
+    },
+    {
+      "id": "pet/500353",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500353.png",
+      "sha256": "ac19d00b0ba3cb837cbe948d2a9e96156828dd7eadc16e2f0bbfb3ea02849597"
+    },
+    {
+      "id": "pet/500354",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500354.png",
+      "sha256": "f3852c273bdb7f6cb26e14428cb18bea0a84b3142a6fd7f17e31705c3be88e14"
+    },
+    {
+      "id": "pet/500355",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500355.png",
+      "sha256": "eaf73aeb91c490ec344e63b554b0f358b4311edd08d347228e93de7c94ac7dff"
+    },
+    {
+      "id": "pet/500356",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500356.png",
+      "sha256": "f38b73332bb817adf362bcdb605b7fa55b690dcf7fb0aa9bf30b43b8acc8eca0"
+    },
+    {
+      "id": "pet/501018",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500356.png",
+      "sha256": "f38b73332bb817adf362bcdb605b7fa55b690dcf7fb0aa9bf30b43b8acc8eca0"
+    },
+    {
+      "id": "pet/500357",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500357.png",
+      "sha256": "fdc54b7984057072c34dfd1440fc315cc0d912bac6434b4d510579fb43204f2b"
+    },
+    {
+      "id": "pet/500358",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500358.png",
+      "sha256": "76498dfed13e03888d6fafb8a4d489c5a15d1d36c820ecbc62cef40f1ddc4cd3"
+    },
+    {
+      "id": "pet/500360",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500360.png",
+      "sha256": "096a70d171f38ff7ff73132cf7dc5a9050caf34898d6ed05b9c22018da4ee415"
+    },
+    {
+      "id": "pet/500364",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500364.png",
+      "sha256": "2abeafeae51ff639d000aa1f4246191a691849090286daea3d24086040b8deef"
+    },
+    {
+      "id": "pet/500365",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500365.png",
+      "sha256": "82698c08ea3b7099d8d2d887e658a181b9d4a71b3bdf7450583a581425e08e45"
+    },
+    {
+      "id": "pet/500366",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500366.png",
+      "sha256": "0cc9f7cf5130f47b7b2affe05612f4ae3c606c7e0814de26d281b1d6e689cc48"
+    },
+    {
+      "id": "pet/500367",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500367.png",
+      "sha256": "5b1ad870f05ee724a9e8ff09989711abfa0067ad7e6fc9d76e630a0377916928"
+    },
+    {
+      "id": "pet/500368",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500368.png",
+      "sha256": "66ba8b32662b76cecbdd7fc50dd5cfe4d766979cb925e2fc3662e1db0c2c150d"
+    },
+    {
+      "id": "pet/500369",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500369.png",
+      "sha256": "521cb21703c1711dc62e4e7d805ace7c27c8f0537b318d1398dc92c27adcaa88"
+    },
+    {
+      "id": "pet/500370",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500370.png",
+      "sha256": "dbd39d4b906308ab4e20b41a2e7d1fc93841d6c0c6641feec5d0d3b1c11c22f6"
+    },
+    {
+      "id": "pet/500371",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500371.png",
+      "sha256": "4a090479c8f50148c14e15a44094c5041583274edd81865614ffdc2e2a9f0f33"
+    },
+    {
+      "id": "pet/500399",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500399.png",
+      "sha256": "2c4842892965a74a18ec8180b4c58039c65c6eea7786875516f25dde6677943c"
+    },
+    {
+      "id": "pet/500419",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500419.png",
+      "sha256": "6a6a95f741732734f34506d29229b7ae8035a11e9403a3d8be702a1c301d9b73"
+    },
+    {
+      "id": "pet/500420",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500420.png",
+      "sha256": "e141acc1e14454fbb4be37bc2d3d4f5dd163a0c8dc7c774283f55a45196ab1c3"
+    },
+    {
+      "id": "pet/500421",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500421.png",
+      "sha256": "501aab5caa3ddfc089697dad519a2f8709daf7ebed2f314fa32b6b7fe2ec322a"
+    },
+    {
+      "id": "pet/500426",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500426.png",
+      "sha256": "58d45749d9ef2e7c3b2de1893f7b43a8d2fee985cd0796e1e151e10703b13c02"
+    },
+    {
+      "id": "pet/500467",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500467.png",
+      "sha256": "fa5c91db362e6013d41f8dd53aba9e375286df72b13f1f7eaae54820bd359efb"
+    },
+    {
+      "id": "pet/500468",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500468.png",
+      "sha256": "13ecdb3d0bec8aafaef13a22cea49589314939a2529c7257854fb1b8de8cf597"
+    },
+    {
+      "id": "pet/500469",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500469.png",
+      "sha256": "5651409c8f5d9b249ed4c0e1df271b00343c12a419a2550b439574fb9ae2dd3b"
+    },
+    {
+      "id": "pet/500470",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500470.png",
+      "sha256": "15a92bae9cb6b419de1d4d7643e76ed282415d0b27cd6b254cd32b1ef757cf95"
+    },
+    {
+      "id": "pet/500486",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500486.png",
+      "sha256": "67f43a7df79a666e184a17901658cf7fe5dc1d9c72bbfc537665351a607927de"
+    },
+    {
+      "id": "pet/500487",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500487.png",
+      "sha256": "ddc6e63b85609b698c950ab2bb4e5a3f3c023b28ae92d9dd243d4e41bd4b69d5"
+    },
+    {
+      "id": "pet/500488",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500488.png",
+      "sha256": "52cb12ef7583f8edfc1f1d074d974403cc43c776995741c925fe0c0b6036e02b"
+    },
+    {
+      "id": "pet/500489",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500489.png",
+      "sha256": "4ee7856a2c9f9adf4f831532ff59ae2f76c051cc4c452e2c9a3d597a74d2899f"
+    },
+    {
+      "id": "pet/500490",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500490.png",
+      "sha256": "ed6106dd3db8279b8b682c5e1c4381a5ab3be49c4524a0ae9c457c56886a0d1b"
+    },
+    {
+      "id": "pet/500516",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500516.png",
+      "sha256": "ad50b521e667d85e2baa4e4cec567af92af975a0a9129b6f2ada1214b8ee6be2"
+    },
+    {
+      "id": "pet/500517",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500517.png",
+      "sha256": "fe9f84be0b3d6877e1a52395d59f457509780c132ef74edf13783c67586626f9"
+    },
+    {
+      "id": "pet/500518",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500518.png",
+      "sha256": "72f5d44763a58c759fa82463219717b86ade2e9a19b21c1a82f08278ca259237"
+    },
+    {
+      "id": "pet/500537",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500537.png",
+      "sha256": "b6deb77bc441815cd729f50855f36bb585cc2704710ae95e71c323ad8b92cc61"
+    },
+    {
+      "id": "pet/500538",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500024_y1.png",
+      "sha256": "2f798bf503661eb2a7c0efe0811b7574b59aab88f7ac778ca8ddb5e3e7db6b1a"
+    },
+    {
+      "id": "pet/500544",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500544.png",
+      "sha256": "930b2b417b3cf841b5fdc42041a1cfb07688351ab6c0ce25406752073c40cb6d"
+    },
+    {
+      "id": "pet/500550",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500550.png",
+      "sha256": "a3461fc2acaa4b6bed725f344fb37946a8b80820744d80cf07211ecef2dffde4"
+    },
+    {
+      "id": "pet/500551",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500551.png",
+      "sha256": "424aa7468ec672678646f72930ac4b45681e79923f19246d8072f66d3b7160af"
+    },
+    {
+      "id": "pet/500552",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500552.png",
+      "sha256": "7a9cd889e4bfb8a3c69b9d610ca7dc156aef06ae784d9a47b9e1255abc36778a"
+    },
+    {
+      "id": "pet/500553",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500553.png",
+      "sha256": "f15d45b0e9de207f77980819ddfdb0365ea835dbee7da2e10b2e2cb8be449b89"
+    },
+    {
+      "id": "pet/500554",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500554.png",
+      "sha256": "d61a6b172255ae6626d8fbbc3dd244cb5e8dd62016a4df461c667d29cb8b1965"
+    },
+    {
+      "id": "pet/500555",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500555.png",
+      "sha256": "bf373033358a43e8328b47dc883010202ed017d614e359d311e48f5c3167b171"
+    },
+    {
+      "id": "pet/500557",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500557.png",
+      "sha256": "9db18ebec340ff632e2c1aec20c6e4e3f3844fcbe3d6ed485ba55be9dec11e22"
+    },
+    {
+      "id": "pet/500558",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500558.png",
+      "sha256": "5195db786d952e1e448a9e17123c762946ccb6d343a575e97f9326d0cf50640f"
+    },
+    {
+      "id": "pet/500573",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500573.png",
+      "sha256": "6a40bd16ec39599faafb8ca71b5b535d4b010fd6c76ca8d4aaec3c2bf6f5f7a5"
+    },
+    {
+      "id": "pet/500574",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500574.png",
+      "sha256": "092c4260e0f1f004b82c7cfde97aef0d63a6f229c3fc7de738100d2d66c52f75"
+    },
+    {
+      "id": "pet/500575",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500575.png",
+      "sha256": "fe4dad995903530ab57e9c50e12b56dcbffaeab3a3dec231476428c0801c8f61"
+    },
+    {
+      "id": "pet/500576",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500576.png",
+      "sha256": "e36960489483e7311d2072cb7dfb30ca377ec5ddb7b5e5d6ead8dc98b267e4ea"
+    },
+    {
+      "id": "pet/500599",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500599.png",
+      "sha256": "4b32fa272af0fdf8bdabff82aa487d14ade41eb4b7dbf8373e6c2f6af84a5831"
+    },
+    {
+      "id": "pet/500600",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500600.png",
+      "sha256": "ca599fa81a9d2aeecaac1732717d37e236590f681062f4a523bf51589fb81d8f"
+    },
+    {
+      "id": "pet/500601",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500601.png",
+      "sha256": "9df2ff8cca764ffc2c1d05ca0d343882cc11b5c701acaacbd64b620a8e162f0a"
+    },
+    {
+      "id": "pet/500602",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500602.png",
+      "sha256": "2f7d358f52af7bd951b94dfb7a0556e85a71b6a83d12da52c19aa6add0082f16"
+    },
+    {
+      "id": "pet/500605",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500605.png",
+      "sha256": "7eaa4483acbb80e3eaf3d5e90419449a8c1185d8b1f2b087e5c087ae1cc1557c"
+    },
+    {
+      "id": "pet/500606",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500606.png",
+      "sha256": "9bc2500d5a3d05e67e7fc70c5e420e614a83bb2987b72e6ec1aa74e2913d9ae2"
+    },
+    {
+      "id": "pet/500609",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500609.png",
+      "sha256": "a2168e7913fd9fa1dc062d12fbf4c75ad9b4ccc9ebe6513d81dd04272dbef470"
+    },
+    {
+      "id": "pet/500610",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500610.png",
+      "sha256": "4244a3cc73f518e9c1f8789e7b155bacddad547a9c4c99c3cc4082b4cf122ebc"
+    },
+    {
+      "id": "pet/500640",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500610.png",
+      "sha256": "4244a3cc73f518e9c1f8789e7b155bacddad547a9c4c99c3cc4082b4cf122ebc"
+    },
+    {
+      "id": "pet/500611",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500611.png",
+      "sha256": "eb6dc71841eb5e0a5e27c337b7822c134305ba7d5284a4b712f7337cdf0441b4"
+    },
+    {
+      "id": "pet/500629",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500629.png",
+      "sha256": "b831177289390653bda0bf1f4ae3a2004d70bd83f41e2c2fd4f8dfbfe92fa059"
+    },
+    {
+      "id": "pet/500636",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500636.png",
+      "sha256": "2ecff8169bb00592b49790efedb7a96dbcd4e28d728ea9858c43f780617a9f4b"
+    },
+    {
+      "id": "pet/500637",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500637.png",
+      "sha256": "f2c1cdd75039e5fc7ec31036e5374c2a584ebae40542ff0bf3dae89859a1397c"
+    },
+    {
+      "id": "pet/500648",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500648.png",
+      "sha256": "54a0322c6294f894e92bd1ee4c909c683b8298af13a50b4228c88517ddea985f"
+    },
+    {
+      "id": "pet/500649",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500649.png",
+      "sha256": "34f06536848d9f6140bf59bb8207a549d610ec12f716714016be9ab7f05fb523"
+    },
+    {
+      "id": "pet/500713",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500713.png",
+      "sha256": "7bdad73085fec508b379598a99a7393c1d4e0276c9c4588e5e3e0cc760969a08"
+    },
+    {
+      "id": "pet/500714",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500714.png",
+      "sha256": "380735f827656bb384d1d99465e1532ae4dbac622856083f7c7b8ea1cda75577"
+    },
+    {
+      "id": "pet/500715",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500715.png",
+      "sha256": "cb19eda847d707da82540adbf7c3a370540ac5bb338e89ccd1f1031cc0a1ef2b"
+    },
+    {
+      "id": "pet/500748",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500748.png",
+      "sha256": "8098362d922c2d88aeae19ca94ace76a6d8b40b6f8daa4487b18f7972eef2b43"
+    },
+    {
+      "id": "pet/500750",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500750.png",
+      "sha256": "a25911703831ac28d2deb5c3846620644fec768c7bf2ffcd67b6f5ad2eae8e76"
+    },
+    {
+      "id": "pet/500751",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500751.png",
+      "sha256": "e2fd4343dfc3e9a02a441e3ceef6a5d9640495080174826018887e17766bbbfe"
+    },
+    {
+      "id": "pet/500752",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500752.png",
+      "sha256": "e3481a2cbd2bb54a0065ca7794097fd8413ec9924b255ae74c0acb46c0ac9a19"
+    },
+    {
+      "id": "pet/500753",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500753.png",
+      "sha256": "187c7aa393c36a09cff78e85d105a5b506345122f48e4a090c368af67f22d363"
+    },
+    {
+      "id": "pet/500755",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500755.png",
+      "sha256": "38397bea9e0319cae424bf6036dd29d6dc2af25a5f00d81ff292fa9606ecbcad"
+    },
+    {
+      "id": "pet/500764",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500764.png",
+      "sha256": "d2e37cb768d824110045d4fa395afae48309e795c17b61ad8bd187e5db4f34f8"
+    },
+    {
+      "id": "pet/500765",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500765.png",
+      "sha256": "dccc7325603715a84d7bb22e60c79591185ec0a6e9cdb38a934ca2a9a942c3b4"
+    },
+    {
+      "id": "pet/500766",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500766.png",
+      "sha256": "04d3dd71624350b3a6778b3eb6938ecde9f316ece99809c17d7bf0908c88fa33"
+    },
+    {
+      "id": "pet/500812",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500812.png",
+      "sha256": "6bdae6531b92f5666ad40710b010028b6f617abe9e06d05c421919b9d244160b"
+    },
+    {
+      "id": "pet/500813",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500813.png",
+      "sha256": "7a6f518b81de3a170254c903516007a8f85139788b63160213cfe2e870136724"
+    },
+    {
+      "id": "pet/500814",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500814.png",
+      "sha256": "ef67a4df394d351a7a2d063a38d09179214ddd00ccd060fb73cd06d6d56f2e5d"
+    },
+    {
+      "id": "pet/500815",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500815.png",
+      "sha256": "0a4693cc3a467e34febd8ce40965516741712bd339c5459d748448c3467dfec6"
+    },
+    {
+      "id": "pet/500816",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500816.png",
+      "sha256": "cbed4c56d462765bb8ec100d4950b40d990a45ee5edb1f13a2016dfbef61a952"
+    },
+    {
+      "id": "pet/500817",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500817.png",
+      "sha256": "63a04e01befeed8da22126bb9a922ce5b60bdee42babca3b20a1aeb5753e0cf4"
+    },
+    {
+      "id": "pet/500818",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500818.png",
+      "sha256": "b570875ee31f464104cde47d8e88fe7b3a09dbf49238b7183a150b4be83fe1e7"
+    },
+    {
+      "id": "pet/500819",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500819.png",
+      "sha256": "c1e8af7075499527f510e5a5ac3bcc2441f525d34c2f24899c548db9bd42690a"
+    },
+    {
+      "id": "pet/500820",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500820.png",
+      "sha256": "431b0efa8616670dfeb7da55b3d15444ac85bcd167c4cb5584e683cd484d5675"
+    },
+    {
+      "id": "pet/500858",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500858.png",
+      "sha256": "ba7eca919d2f19c806a13224ef00ab623613a4eb6c4edd566000c9e62a9b6f8e"
+    },
+    {
+      "id": "pet/500871",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500871.png",
+      "sha256": "8c2b68efc46826763ab492a088165ed0830887fa5836a7043f1766fdb9e539c6"
+    },
+    {
+      "id": "pet/500896",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500896.png",
+      "sha256": "4d76c0a5014f6bbb7228bf45371dfae326cefc6567a506de25436af21b83ccf7"
+    },
+    {
+      "id": "pet/500897",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500897.png",
+      "sha256": "6b90a91216becd7b8b80e998479e013897afc0c4ea0cbc9cdd71d4e59bc59bb5"
+    },
+    {
+      "id": "pet/500932",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500932.png",
+      "sha256": "eea37070225a45a9275272d8c026486d5d996f9ba4444c62a4a0d8b3447a3a13"
+    },
+    {
+      "id": "pet/500933",
+      "asset": "Assets/Arts/UI/Icon/Pet/tex_icon_pet_500933.png",
+      "sha256": "67039f53fd440839ebe6b99aa00d771ff21a2188646714f66c2d49a54406af25"
+    },
+    {
+      "id": "gear/1010211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit1_8.png",
+      "sha256": "27318b7b58c5f702f2be567e790b5b5e38a8eef5408aacc9343e7e77d33053a8"
+    },
+    {
+      "id": "gear/1020111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit1_4.png",
+      "sha256": "1773860901667d0d36f13023f66508fcacdf7b8ecb339bba27d9751dbc7b7143"
+    },
+    {
+      "id": "gear/1030111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit1_5.png",
+      "sha256": "303ea41238fc15ef6685bd05887ccd586ef671fd262a566e01453e2963d94bf4"
+    },
+    {
+      "id": "gear/1040111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit1_6.png",
+      "sha256": "2bdb8812d4151f7f359273a140e2479527f76a5be7898dcca5993b094ae09ab3"
+    },
+    {
+      "id": "gear/1050111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit1_7.png",
+      "sha256": "41b940c6aebc4a125750fea25c666d05cdca83f8e7988c4f35bf1ecb09f98bbc"
+    },
+    {
+      "id": "gear/1110111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_1.png",
+      "sha256": "3fc8b74f7f262602f5cc711c25f5dbc502fb18a2c20427ea9f895ca77e3f2946"
+    },
+    {
+      "id": "gear/1110211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_8.png",
+      "sha256": "b63b68c21d1b1ae3eba528839050a8102f83cb39ac9e5a5326c1619b2579a0bd"
+    },
+    {
+      "id": "gear/1120111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_4.png",
+      "sha256": "312302ec2955f22e67d145795f8fed8f8f8082eb67edf18078b68baf72600d4d"
+    },
+    {
+      "id": "gear/1120211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit4_4.png",
+      "sha256": "8fd4849a9b79d4f51839fb091888d28fc90777b9123ba57970fb603788086e79"
+    },
+    {
+      "id": "gear/1130111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_5.png",
+      "sha256": "42c1833858f58ee1865d6d0b39f5a407c512e0b2e2f7bad06822beb87446ee31"
+    },
+    {
+      "id": "gear/1130211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit4_5.png",
+      "sha256": "932a2781f5cc1ef6007dc9c20c2bb54f2bcb28557e71816353b92e181dbbb901"
+    },
+    {
+      "id": "gear/1140111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_6.png",
+      "sha256": "92e89956bca73ecff75cb8e1df49a95b28e6faa895587dec52aa5b3b50de4285"
+    },
+    {
+      "id": "gear/1140211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit4_6.png",
+      "sha256": "5a91ce443222f5bf62ec88c65b6079f62f514e883d0fb2c06290a73e963cd8e8"
+    },
+    {
+      "id": "gear/1150111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit3_7.png",
+      "sha256": "987fde8ba40f6522b2cf7070eebaedf773b6da6142de1ce06315a3c8f33ce830"
+    },
+    {
+      "id": "gear/1150211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit4_7.png",
+      "sha256": "e4133f5d3fe2c4b9ea91f1fde49d9003d69da0b577b8a77c53cd57f35e1bb4cc"
+    },
+    {
+      "id": "gear/1210111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_1.png",
+      "sha256": "151dbe899210e0930d1927864db418abf351c54a7c4255082c73829f074736d0"
+    },
+    {
+      "id": "gear/1210211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_8.png",
+      "sha256": "490d480df29435a0a46f3975b392d8ab1ea76fc674b1a69a3fc79b2e9f0dcb58"
+    },
+    {
+      "id": "gear/1220111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_4.png",
+      "sha256": "114a09b861b1e210f7124f21d8a4a33bc69e68d385d9d65d72cd1b39f02eb040"
+    },
+    {
+      "id": "gear/1220211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit6_4.png",
+      "sha256": "af263725b66cc4294b562cd85c3b5495cfeaeed65b4a1fca377c41c2d4a38934"
+    },
+    {
+      "id": "gear/1230111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_5.png",
+      "sha256": "51807cfe028b6784adfac3c5a9fae245c9a0c1bad0223ac5ba76810259913624"
+    },
+    {
+      "id": "gear/1230211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit6_5.png",
+      "sha256": "398a2d471111cc326adbeccd4463c31a51b58a822e0802dbcc9ea34aed5de911"
+    },
+    {
+      "id": "gear/1240111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_6.png",
+      "sha256": "af91b56433be2af98dd787405ebb928cd41ae259c949519ca6d6683ed862a9d6"
+    },
+    {
+      "id": "gear/1240211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit6_6.png",
+      "sha256": "95433b69e809a721c415d10725fc11e50be33ab00d3c57fdd249269ba8357446"
+    },
+    {
+      "id": "gear/1250111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit5_7.png",
+      "sha256": "039db581a00ef535bc2fff6a4445388ad4c3e2b34f95cf2170ce6ddbcf51493a"
+    },
+    {
+      "id": "gear/1250211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_suit6_7.png",
+      "sha256": "1664df4f94177bcd2c19b897d83d327d9e700b997d5e01126be928a79b771a06"
+    },
+    {
+      "id": "gear/1370111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_armor_3_1.png",
+      "sha256": "6ec3e7fe8662e7bb1f60bafdfe8443e1ce2e9e0d43a3d219c5f09bc33076b3a8"
+    },
+    {
+      "id": "gear/1370211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_bottoms_3_1.png",
+      "sha256": "bbae38065fd0a08bc547c8d9483468eca5f296b850083ccf249ef22fdd3e6c69"
+    },
+    {
+      "id": "gear/1370311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_earring_3_3.png",
+      "sha256": "f11dd8d2051267fba0cfbdb59a7f4a77a4649ffe1ab2d637b46c3fa976668366"
+    },
+    {
+      "id": "gear/1370411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_ring_3_3.png",
+      "sha256": "eeeb07bad04f55b276d539b22330c00b256271366f8d12e20e53db9406452312"
+    },
+    {
+      "id": "gear/1370511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_armor_3_1.png",
+      "sha256": "ed3eb825d5add4001fe4749bf2690874f518a364a4bd94e02ad25203336b190b"
+    },
+    {
+      "id": "gear/1370611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_bottoms_3_1.png",
+      "sha256": "da3b855de1b114885ab6b0e813f2cace8c45d8a930cb177c93c44977127dcba0"
+    },
+    {
+      "id": "gear/1370711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_earring_3_1.png",
+      "sha256": "1d7a04a3bad4a2ee5623ae5cfcdd09b33fc7a5c9b05328dd31da9a72d3e58864"
+    },
+    {
+      "id": "gear/1370811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_ring_3_1.png",
+      "sha256": "0db6bff269a534d05a2292ed78c61a702384db1b0fa90c7cb4fb03af6b622dde"
+    },
+    {
+      "id": "gear/1370911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_armor_3_1.png",
+      "sha256": "1d303af7b9a95f352ab56e49b5e163cef533e9cdbb5a938815372714785df400"
+    },
+    {
+      "id": "gear/1371011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_bottoms_3_1.png",
+      "sha256": "cadd944232272670cf14fa962aa6e657613a2ea45b7aa47c000bf21fa9a06726"
+    },
+    {
+      "id": "gear/1371111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_earring_3_1.png",
+      "sha256": "4ff1f1f04e1c3c64b5234562f709dc14f4c12c0e1ff918a07c2d6d1d5f7c40ff"
+    },
+    {
+      "id": "gear/1371211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_ring_3_1.png",
+      "sha256": "9d5953ca679ee817ed6537813017cb5eba5aed808b26a0c7b9ac69f2ef8f3d5d"
+    },
+    {
+      "id": "gear/1371311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_armor_3_1.png",
+      "sha256": "62f47894bebd05ab27f0f8c51432a05b059fc24b377d03e86744eb07c1994abd"
+    },
+    {
+      "id": "gear/1371411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_bottoms_3_1.png",
+      "sha256": "51dcbc754e190def7a8e6a493a48bff8889d02ec89361481f7fc944961c3833f"
+    },
+    {
+      "id": "gear/1371511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_3_2.png",
+      "sha256": "74696e1962fbfdbc026bceb52483d4966f7909679777d9b6f9ca8bb7a6b834df"
+    },
+    {
+      "id": "gear/1371611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_3_2.png",
+      "sha256": "481a7ea4077643bf93d75c872973c1fd95221f5a6ad1613b0b4bfc3e274a393d"
+    },
+    {
+      "id": "gear/1371711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_armor_3_1.png",
+      "sha256": "84083bda7b9f4d00b696a70d81488b1388351e4d339b27104f081e3c39ef2696"
+    },
+    {
+      "id": "gear/1371811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_bottoms_3_2.png",
+      "sha256": "682a20258890c1511b1af0a0f4af2eb941e9c331004a7434f82ee4f0b53cc159"
+    },
+    {
+      "id": "gear/1371911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_earring_3_1.png",
+      "sha256": "792a178f43b9a8cd947db2571ba81f36f12c40546f9b703151dcdee90dd0f49a"
+    },
+    {
+      "id": "gear/1372011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_ring_3_1.png",
+      "sha256": "d1bbb9c8248200506e41ecff30197560c00d8076fe60e34e4e2f8bec1e60e41c"
+    },
+    {
+      "id": "gear/1372111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_1.png",
+      "sha256": "23fe77e252c9f39a4ca6fff10ef7f984049b29d69cad3c5dda6274f8c4833ab4"
+    },
+    {
+      "id": "gear/1372211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_3.png",
+      "sha256": "93065771b2cc00334395ad2254f9d7c9abba005d2bd967a5c123233f1edfbc31"
+    },
+    {
+      "id": "gear/1372311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_7.png",
+      "sha256": "6618a005f507d8db32836fad5aaf17a8f5a3a39b95d909d8b3a23693b561940e"
+    },
+    {
+      "id": "gear/1372411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_8.png",
+      "sha256": "4412bdf58635e023e9f6e80a5ea5fd293637bbfa3ce02220c8d3550b264deefa"
+    },
+    {
+      "id": "gear/1372511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_12.png",
+      "sha256": "5a7d82df927fee246bd428a413761c123682601ccc59029131e9922682d02255"
+    },
+    {
+      "id": "gear/1372611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_3_14.png",
+      "sha256": "fab8ce55aa85597662193e0db3dcc3eb570f575d7011cc3340e88e625d9ffd4e"
+    },
+    {
+      "id": "gear/1460111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_armor_4_1.png",
+      "sha256": "4d381edb99084e3fc37b53363f1068e7b82807c95512911fa48d90f8ab23eda3"
+    },
+    {
+      "id": "gear/1460211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_bottoms_4_1.png",
+      "sha256": "5c2b4c248c6297a6d990d8b68e8a2d877d04c444b034af9dce9f83b068e53119"
+    },
+    {
+      "id": "gear/1460311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_earring_4_1.png",
+      "sha256": "a7a6711efbdaaecd021d07bf12a09bc9baac91b837c28d463eedba0a5d12e61d"
+    },
+    {
+      "id": "gear/1460411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_earring_4_2.png",
+      "sha256": "67b81d597066d5f2e1aad3e7b4e54fbee73793feb8d0b52a0d119f2d6adcf7a4"
+    },
+    {
+      "id": "gear/1460511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_earring_4_3.png",
+      "sha256": "8d1cbab89c8d16a072725970ccdc66f9743e7fc451eeab208505123bf9b9fefd"
+    },
+    {
+      "id": "gear/1460611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_ring_4_1.png",
+      "sha256": "b9c9ba156e726a622131a728421b812f152b3a3c6ef26c8afe37cc3ab6c395f5"
+    },
+    {
+      "id": "gear/1460711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_ring_4_2.png",
+      "sha256": "aaa2a0bb4707eea4776882b981309e39f3a2195810685bee0a778aa7e90ce552"
+    },
+    {
+      "id": "gear/1460811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_changkongxiezou_ring_4_3.png",
+      "sha256": "516944d6bf0742663f46d7a9de73e8938b9bd734c90bd62a4013b116e1c66ce4"
+    },
+    {
+      "id": "gear/1460911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_armor_4_1.png",
+      "sha256": "6f603dc7b4607e0147b5abee804b821f8cfbfde923e19c81ddd51f8e8c5cbf94"
+    },
+    {
+      "id": "gear/1461011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_bottoms_4_1.png",
+      "sha256": "62559f24ef4847635bea704e7fb80f56cd14d989ce24df29a2b04eb12602dc52"
+    },
+    {
+      "id": "gear/1461111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_earring_4_1.png",
+      "sha256": "6de594e901692be5a177788ca0d35c782f6355c9168a6bdac62f62f6c18bee48"
+    },
+    {
+      "id": "gear/1461211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_earring_4_2.png",
+      "sha256": "4001c5a95ad56183b7967da25d903726e87a79120f472c583d504a78be062a8e"
+    },
+    {
+      "id": "gear/1461311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_earring_4_3.png",
+      "sha256": "1f53be5dec4feb913fc5e046c3f9a33d2024b58855a377dfd080cb1f9d895a1e"
+    },
+    {
+      "id": "gear/1461411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_ring_4_1.png",
+      "sha256": "0b32d3a410dbd4f040ea5364c23ce06794b8ee8c317d5fd5af2def22c3d7693f"
+    },
+    {
+      "id": "gear/1461511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_ring_4_2.png",
+      "sha256": "1d32b9661e343ff41c7b0ad624a45de87ed80beb627b122f2063da54682f9543"
+    },
+    {
+      "id": "gear/1461611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xingyueqiyin_ring_4_3.png",
+      "sha256": "7b4bbf52d908990cc8e8ec75802c3c63a0cc4fb1224f757df1a4fb07a7c53e2b"
+    },
+    {
+      "id": "gear/1461711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_armor_4_1.png",
+      "sha256": "2206bb965f89fad0581989d3d332a52e55d0ed0a5c87b87a2dc2fb3da5f1f5bf"
+    },
+    {
+      "id": "gear/1461811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_bottoms_4_1.png",
+      "sha256": "97bd417a23ac46cbc83a4dc80bde42d248595af9d60b29d23d283d915a7cc026"
+    },
+    {
+      "id": "gear/1461911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_earring_4_1.png",
+      "sha256": "806a15f778ed0b7d896731fb12f2ac3aff8c76d2e342f5f52700d5bbb57750df"
+    },
+    {
+      "id": "gear/1462011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_earring_4_2.png",
+      "sha256": "d37403a2aa1c13d766da13b1b58a2e29486123c46f8e9dc4ae76c3befb42c45b"
+    },
+    {
+      "id": "gear/1462111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_earring_4_3.png",
+      "sha256": "97a8211be529fa3d557f313e0ef0cc187af95f27e0d5629274fb0cc5f558b58f"
+    },
+    {
+      "id": "gear/1462211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_ring_4_1.png",
+      "sha256": "03908bda48a26caae8d14f09f643a77ccbc380615cb64edae22e037429d1ea95"
+    },
+    {
+      "id": "gear/1462311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_ring_4_2.png",
+      "sha256": "8043a7218883c36b7ff5427f81ab059f4e903c08f04f0f24f2d1ea86504d906a"
+    },
+    {
+      "id": "gear/1462411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cangfengposhi_ring_4_3.png",
+      "sha256": "d38df1405cb3e5a08ab934cee8d47c46074c241120d17dc94778159dc50b1b55"
+    },
+    {
+      "id": "gear/1462511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_armor_4_1.png",
+      "sha256": "6a84cbe839d8f05b2d962a1f37d9ed379c373c175d240c62212ba3317042c8fd"
+    },
+    {
+      "id": "gear/1462611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_bottoms_4_1.png",
+      "sha256": "06361c10f7f2349899c7623a4151061b91430a2da8d2983660c133e20af63b65"
+    },
+    {
+      "id": "gear/1462711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_earring_4_1.png",
+      "sha256": "dc7f72aa054e9b8437945c38d16bad784ede0418edf2682619b90e1d885adc96"
+    },
+    {
+      "id": "gear/1462811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_earring_4_2.png",
+      "sha256": "31c316133f68d3ff548750c976d688e414d0901c3df4cbf23bfea1742b854a89"
+    },
+    {
+      "id": "gear/1462911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_earring_4_3.png",
+      "sha256": "e9acd94f8a576cfa5a27084dcd5c24ebd77285adb6758355c9f9ea09ea0c1446"
+    },
+    {
+      "id": "gear/1463011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_ring_4_1.png",
+      "sha256": "8035af22a35bc1e1825d29a67ac38f7d12562fd75200e3551c72c01a6b6f1d23"
+    },
+    {
+      "id": "gear/1463111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_ring_4_2.png",
+      "sha256": "06b0b8de3b0c5d2196c2c4d8c851ae68c476e30e385425e12ae74e4247fdf71b"
+    },
+    {
+      "id": "gear/1463211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_angyangxunli_ring_4_3.png",
+      "sha256": "7e312efe61087294b561ebaad13847eb270a5cc7361b7e4ca17ffdadaeeabb41"
+    },
+    {
+      "id": "gear/1463311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_armor_4_1.png",
+      "sha256": "aa09f5818fde7b2bd06e084a8181a584a518943df8ba9de7d52dddf974cd2667"
+    },
+    {
+      "id": "gear/1463411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_bottoms_4_1.png",
+      "sha256": "061ae345e1356192813b991a94b00f1e8c72f616a1be5569cf929843c140c020"
+    },
+    {
+      "id": "gear/1463511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_earring_4_1.png",
+      "sha256": "c910f004b0398c0907673ec97a9ff18ea16cf6da3f56a3aedb4ff8deb6f91e11"
+    },
+    {
+      "id": "gear/1463611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_earring_4_2.png",
+      "sha256": "49cfbf27e8af587361b542a8c92c7d96a5bbea4a570c8e2b2b9ff0dcc4963a44"
+    },
+    {
+      "id": "gear/1463711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_earring_4_3.png",
+      "sha256": "62e748dc78164836544365854c69663d73c5101f5da212f393e285462c037f6b"
+    },
+    {
+      "id": "gear/1463811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_ring_4_1.png",
+      "sha256": "81d1a5606a737d31af4fbe2bb953507015627a06d312e715d87a3837a4cca4aa"
+    },
+    {
+      "id": "gear/1463911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_ring_4_2.png",
+      "sha256": "01c67c62eec63043235dbcd499ee6173431de4487a5b81700b0f5cd6c0770cd5"
+    },
+    {
+      "id": "gear/1464011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_cuifeng_ring_4_3.png",
+      "sha256": "6d7a9fc69ae11f47e3e2bb0dd867ebe2fb04747f7ff91d5b469febea34f0883d"
+    },
+    {
+      "id": "gear/1464111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_armor_4_1.png",
+      "sha256": "db7a3b38829d7e0af65ceb019c3e81649a38072d28022c5b0b6ba1984f5e7d2b"
+    },
+    {
+      "id": "gear/1464211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_bottoms_4_1.png",
+      "sha256": "fe9f0f5c98c36e9978b9b724cd4d8bea374cbe8d1221b4dd1e41ff85420fd57b"
+    },
+    {
+      "id": "gear/1464311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_earring_4_1.png",
+      "sha256": "bd7965c7394f3ce51c31437ac0417c63bbb7f2b50e4cff9f4ec83f1d222d00c5"
+    },
+    {
+      "id": "gear/1464411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_earring_4_2.png",
+      "sha256": "c97a61221c6b6f3b7636616a2ef66f23408bb7981e96a66b71a0682b6ca7910d"
+    },
+    {
+      "id": "gear/1464511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_earring_4_3.png",
+      "sha256": "1fbf2d577f7c9bfc8975571129d3801b149590665d6010f69ccb7b44e8a18a3a"
+    },
+    {
+      "id": "gear/1464611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_ring_4_1.png",
+      "sha256": "d127c71b113b118954eae0a1ca6fdaec24f3a1e9faac1bda3bb8301432fea898"
+    },
+    {
+      "id": "gear/1464711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_ring_4_2.png",
+      "sha256": "f89fdae4240713f98d3001deba6f02bfe2e421da71695c9dc11e1b25ee9a78f5"
+    },
+    {
+      "id": "gear/1464811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xijianruiying_ring_4_3.png",
+      "sha256": "6cd4532280dbd36728302ad9dd7cd4569c53b81449a8df03ee4008862e7474ba"
+    },
+    {
+      "id": "gear/1464911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_armor_4_1.png",
+      "sha256": "662367df8c9d45a255f221e1a5c48b1a3e21fc68dc0b28255ff5bfb1bf416044"
+    },
+    {
+      "id": "gear/1465011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_bottoms_4_1.png",
+      "sha256": "ae051589a1c8e386dd82b8de563e1cfb43d3cd36bae9d60eebd66fa364fc3078"
+    },
+    {
+      "id": "gear/1465111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_4_1.png",
+      "sha256": "eb8b78a4d28b0dbaa45e5935f3f93e1deac366be4cd1f36fdcf178a781308e7a"
+    },
+    {
+      "id": "gear/1465211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_4_2.png",
+      "sha256": "af22b9ea5632b398d641d8125647703cd149f161263efa0b8257c37968fc2283"
+    },
+    {
+      "id": "gear/1465311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_4_3.png",
+      "sha256": "e5ac11408b1e7ddf0be95d71c1555e467df1555a16ba3d7cf0dfe3f7f56c62c5"
+    },
+    {
+      "id": "gear/1465411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_4_4.png",
+      "sha256": "6521b8cfd8c85dc6ff4392ec3e16920a42f728adab8ce81d0effeebe2cdd6dcd"
+    },
+    {
+      "id": "gear/1465511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_4_1.png",
+      "sha256": "57dfeb44e12fc094e721816d2474d9aa45a4e7411f088fc06bbd54eba9ae0350"
+    },
+    {
+      "id": "gear/1465611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_4_2.png",
+      "sha256": "18325175bf1bdba68ab62ecdf944fa4e30efe342498fce37b6ee3bf17e2926ff"
+    },
+    {
+      "id": "gear/1465711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_4_3.png",
+      "sha256": "970c1e7dfa76e61defef4ffbec60399dbeed159e01c13e48ddc4f0ddf47365a2"
+    },
+    {
+      "id": "gear/1465811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_4_4.png",
+      "sha256": "52367ea29d06f71a3fd4ffd7254035743441cc32811288bbb08245f8bfa300f2"
+    },
+    {
+      "id": "gear/1465911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_armor_4_1.png",
+      "sha256": "0204027eb6fce20145939bd354219d4ac0a488361929d555f16350469e9ee3b3"
+    },
+    {
+      "id": "gear/1466011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_bottoms_4_1.png",
+      "sha256": "6395e61ebfc1065051155cac8b3ffdc890b97f5e10deb8e8c04a4e7a2c261849"
+    },
+    {
+      "id": "gear/1466111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_earring_4_1.png",
+      "sha256": "776999edc5e97d908cf40dad8148957b85d5fae694d399cb13d990808ef048db"
+    },
+    {
+      "id": "gear/1466211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_earring_4_2.png",
+      "sha256": "0c419ea586702749c82dcae74f4f0aa739b2c3cb0f479e3da556e9d52f63c0c1"
+    },
+    {
+      "id": "gear/1466311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_earring_4_3.png",
+      "sha256": "1cd07c8cdc4bf06f2c499513afc639f36e8ed7b8437462da2fe1bf4f1856a322"
+    },
+    {
+      "id": "gear/1466411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_ring_4_1.png",
+      "sha256": "5a614c816f88004eccbf92fb1c55ec61454c5b360477e0044aa3c70661fd23f2"
+    },
+    {
+      "id": "gear/1466511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_ring_4_2.png",
+      "sha256": "16aeed6e3208ee8b7a1052749eb1c885111f45938fe8c43c99dc3ac417cb48be"
+    },
+    {
+      "id": "gear/1466611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_yushangdecibei_ring_4_3.png",
+      "sha256": "d0d131669667854f49a0eb89e6dd5043bb3ade925726764a074fc3b27ea13e1f"
+    },
+    {
+      "id": "gear/1466711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_armor_4_1.png",
+      "sha256": "0ee7d5615b8e7bca4b03e57037d5b5fa2c63619ec522b33a2f49685fc1f572ae"
+    },
+    {
+      "id": "gear/1466811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_bottoms_4_1.png",
+      "sha256": "5b1d7fa463bd7db0524e4735762ee766e2807538ce053d5426386931dfaf3274"
+    },
+    {
+      "id": "gear/1466911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_earring_4_1.png",
+      "sha256": "03f5ff69a93021f3d9bd7664632409cb4acd5f69daeb180b82801c5397ff6b39"
+    },
+    {
+      "id": "gear/1467011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_earring_4_2.png",
+      "sha256": "722d00e68ee6c25f6e3acf62edc686ac2d865e2b2f4d14da42128b31c979782d"
+    },
+    {
+      "id": "gear/1467111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_ring_4_1.png",
+      "sha256": "65f258b0da5bce5eada5aafa03e6d4fd914473d9722d4c4bc337751b5ca0e695"
+    },
+    {
+      "id": "gear/1467211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_fuzouzhizhang_ring_4_2.png",
+      "sha256": "f7ded5be96e17246f84b76a7416fba14cc9d52bd4680719811af961669e02e48"
+    },
+    {
+      "id": "gear/1467311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_armor_4_1.png",
+      "sha256": "482e4a886da6eb03ab361cae13dc46bf95285f5a9ef203a854fb3798c04a74ae"
+    },
+    {
+      "id": "gear/1467411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_bottoms_4_2.png",
+      "sha256": "8dc63f09ba59a03dc2918ff8cda4ed0691fad67047cbcc27937a8b036b909fd4"
+    },
+    {
+      "id": "gear/1467511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_earring_4_1.png",
+      "sha256": "8239f82387964bd9a87a850040104af439d454f90b835d6b94dfee4aae45e75d"
+    },
+    {
+      "id": "gear/1467611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_earring_4_2.png",
+      "sha256": "6fa2be864821c22a8007ae297cca995efa8926da50b7963ee9d23d059c09cce8"
+    },
+    {
+      "id": "gear/1467711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_ring_4_1.png",
+      "sha256": "ea526bb749dfd8f208a3b71eb6b4522ee85673e4926c31ad760df24868e8b4d0"
+    },
+    {
+      "id": "gear/1467811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xinglvmofeng_ring_4_2.png",
+      "sha256": "e5d1747fa217166dd9aad97449704cb056d12bcc124b4503f60375b4dd2e326f"
+    },
+    {
+      "id": "gear/1467911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_1.png",
+      "sha256": "a7bb26d2860662f25c6af0949c0f3c6dce5c0c442a7142a9a6b0aaa9158faff2"
+    },
+    {
+      "id": "gear/1468011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_2.png",
+      "sha256": "694d8d51c0beba7ef7a178c90940a656a91eec2770fc153c301b045123eaaf08"
+    },
+    {
+      "id": "gear/1468111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_3.png",
+      "sha256": "fcde9cc58293bd13ca791100c51679e4ad6c5856e571536bef93cb59fff7d309"
+    },
+    {
+      "id": "gear/1468211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_4.png",
+      "sha256": "816c75a5e176f08bf49fad4c4c77d3aed694bf2aea732df367966200dbafae14"
+    },
+    {
+      "id": "gear/1468311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_5.png",
+      "sha256": "68821fa856dd956343593f7715e68b5b932ee923cddf48acd442d45db9d4dd48"
+    },
+    {
+      "id": "gear/1468411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_6.png",
+      "sha256": "ad6693b3b66197e31628b803d8d630986b45e280c973b3dc33b5bdfd2b1e2908"
+    },
+    {
+      "id": "gear/1468511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_7.png",
+      "sha256": "6718ffcc2174e211c37a8931fc557f498063dfa9570552b174578a57f8d45117"
+    },
+    {
+      "id": "gear/1468611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_8.png",
+      "sha256": "5de9451d2530ce15a154fa7621c81fd04022bdbc03f98a5a986a06630d01482e"
+    },
+    {
+      "id": "gear/1468711",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_9.png",
+      "sha256": "22d2873182cb773b81b9a20e195c33dc2bab270c4a2cf6f1a6718564add5ebd8"
+    },
+    {
+      "id": "gear/1468811",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_10.png",
+      "sha256": "3a61e9f05db45839d40ed5b59a9a76d14bdd449377e9615c3553b958bf2e16d8"
+    },
+    {
+      "id": "gear/1468911",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_11.png",
+      "sha256": "c098b18596b5bf5ddb4fa42c78c1ab5a61ef96786ab28fe06b57f8db384c8daf"
+    },
+    {
+      "id": "gear/1469011",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_12.png",
+      "sha256": "b440791faa569d1cf5f905406e242bc8a0f332f2055dc7ea04881fb5734053a5"
+    },
+    {
+      "id": "gear/1469111",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_13.png",
+      "sha256": "1672f4563ee88d75b6ec6f3d23dfd2d4608694cbdffb8b2e53f8a7b84c843329"
+    },
+    {
+      "id": "gear/1469211",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_14.png",
+      "sha256": "17ae641dacb2dffee662441c4b7b3d3fca043ad7f5a2b8bf945c894267f56832"
+    },
+    {
+      "id": "gear/1469311",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_21.png",
+      "sha256": "d21b9ba26e1346ed62e91da3e6966e1efbb1d6340e922081cbc677e44100e427"
+    },
+    {
+      "id": "gear/1469411",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_earring_4_5.png",
+      "sha256": "e01b5b59987317a9952f53a8cb9aefbf33f9fe2e93195ec458267f11caf43681"
+    },
+    {
+      "id": "gear/1469511",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_xianzhenzhiyong_ring_4_5.png",
+      "sha256": "7c6f087cd18a7cd18ec7de78daa93ce6ea2fffbe34f007ec3300bb301585875c"
+    },
+    {
+      "id": "gear/1469611",
+      "asset": "Assets/Arts/UI/Icon/EquipmentItem/tex_icon_equipment_item_weapon_4_22.png",
+      "sha256": "2a9aca54f25b6df42f8a8d76f3d32d8ab2bdc0dc613db80a342394fb43fa7212"
+    },
+    {
+      "id": "soul/10001",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_199003_001.png",
+      "sha256": "61a24bca75a2ed7f04ddecc4b1c1dc67b0cea9500c583679d27a3d79563fa4c5"
+    },
+    {
+      "id": "soul/10008",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_107003_008.png",
+      "sha256": "399cb6e51c16c0eab225ffa3dd1a4b0419d65cd16301dc7cdc6dffdd74ffac6f"
+    },
+    {
+      "id": "soul/10011",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101007_011.png",
+      "sha256": "81f4d6a8ac14a496e59889fb0284d57c01950e92b8c770ab8b6e0002a8c20118"
+    },
+    {
+      "id": "soul/10014",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_014.png",
+      "sha256": "447f7305f64da50116335d1caa250643bee67d939e449782310d1f3d9e2f8379"
+    },
+    {
+      "id": "soul/10015",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_015.png",
+      "sha256": "be6aa7454910a819a11767675558801d87a95022b576e0b828b2eff4cd4a1e68"
+    },
+    {
+      "id": "soul/10018",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_108003_018.png",
+      "sha256": "22970fe19bdb2c95e24e21b17c9790219869f5c3a14c1397550d7385536baea5"
+    },
+    {
+      "id": "soul/10021",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101008_021.png",
+      "sha256": "f32f579d9e5f8b100f85e461732df3b7c277ead88dacd1e370df6457f7ba28cd"
+    },
+    {
+      "id": "soul/10032",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_108002_032.png",
+      "sha256": "c08f103e7ac910f2136d691c22d94bf911c3bef5e3dd3da6d29a5e24586148b1"
+    },
+    {
+      "id": "soul/10034",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_034.png",
+      "sha256": "50368e83962d6710f4907256e56e3b8bea1adbb5e1abc26100dc07b241324e7c"
+    },
+    {
+      "id": "soul/10037",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_109001_037.png",
+      "sha256": "4a4583627c833e67261544f6c19231b0b9ac2a40e48414c0421b5d7e5da508c7"
+    },
+    {
+      "id": "soul/10044",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_108001_044.png",
+      "sha256": "e3dc195d31c2722fe7ead821c361846e1318862ca7e484c144f6aa6874e8f482"
+    },
+    {
+      "id": "soul/10047",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_047.png",
+      "sha256": "97c8a47726b546738d5dcf4066359119b3e03adb5f61dffab2eec9eaa35494b5"
+    },
+    {
+      "id": "soul/10048",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_048.png",
+      "sha256": "00b8112b26bf4f11d85a9f7b1e6103c557f3520232b82294870bc7a4b71027e0"
+    },
+    {
+      "id": "soul/10050",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_050.png",
+      "sha256": "eb3417aae6cfc4d8b9c9c211224a04cc3d3cd2bbe765ac730f87be164803e3f6"
+    },
+    {
+      "id": "soul/10052",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_052.png",
+      "sha256": "0b034be0ac84e4d4241685f2a2e00a69d238e2bf133917c4cb108d0824867647"
+    },
+    {
+      "id": "soul/10055",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_055.png",
+      "sha256": "42dc7e26feccadb790fb284b4efaa20dc423d848a4abea41a82536774ff8c898"
+    },
+    {
+      "id": "soul/10056",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_056.png",
+      "sha256": "c0ec313de52c5c0aa909d37597f14141c696462e3cfc8b437dcca534ae9857d7"
+    },
+    {
+      "id": "soul/10057",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_057.png",
+      "sha256": "ba25d252f8a934ca24d267c99f9ff8dd6c1c57969f5676cb7ec6165ddc33e93e"
+    },
+    {
+      "id": "soul/10058",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_058.png",
+      "sha256": "9686d4bb5260a7c8c624463ecc83cd376f1619f9885538ed9ca9fc43bd77d1e6"
+    },
+    {
+      "id": "soul/10059",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_059.png",
+      "sha256": "c3f05c050717042fac33a96d0feacee1f24b00d3fad73d520d7cb850ea0b653b"
+    },
+    {
+      "id": "soul/10060",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_060.png",
+      "sha256": "e4f2a834d3526247234c14dd0755219eb83f33e089040ee132f018c21bf25e96"
+    },
+    {
+      "id": "soul/10061",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_061.png",
+      "sha256": "ec88fd2c90c12249ea3db784374c8bdd610f395a2a4aaced229cad60e75d1c5d"
+    },
+    {
+      "id": "soul/10062",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_062.png",
+      "sha256": "ed815adfc502c649f6c427a19ccafac7bb147d0e092769aab5dc696fc6bd7f89"
+    },
+    {
+      "id": "soul/10063",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_063.png",
+      "sha256": "322f21d82a97e60859fbb065f72a52d5c3560450d4f6ea685af015556138ce40"
+    },
+    {
+      "id": "soul/10066",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_066.png",
+      "sha256": "773165201c30e49ac517d9444511c1e74fca632ca1be1366fdd5db71de086f85"
+    },
+    {
+      "id": "soul/10067",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_067.png",
+      "sha256": "033d48707f62e8b9a508d9cd12314a5f95ce511e669301b5269e2d2059c219ad"
+    },
+    {
+      "id": "soul/10068",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_068.png",
+      "sha256": "fa4d6876640025a3aa9bb51a67ccd3e3f0cae73626c20e1d2858494cc954730e"
+    },
+    {
+      "id": "soul/10069",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_069.png",
+      "sha256": "2538a1a721c082c32526ecb51a65ecd17b7b03f3c5c6e12b9fa8ed274bf37b84"
+    },
+    {
+      "id": "soul/10070",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_070.png",
+      "sha256": "af4e8cb9af9d55583ce870a9a854dcd5805b1ab079dc4ae96e078cfe2415e789"
+    },
+    {
+      "id": "soul/10071",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_109002_071.png",
+      "sha256": "ecd043d99124e5086157571329f49eca1b20ed9fae057d73b59473997d4b5cfc"
+    },
+    {
+      "id": "soul/10073",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_073.png",
+      "sha256": "1b69d39f8b0167dfcf2bd1cef7bff0245d971877ca3dec852e8b8c08e7cb31a9"
+    },
+    {
+      "id": "soul/10074",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_074.png",
+      "sha256": "17a7fe575c2b969f2d6157021aa1e13bbf4ca82cde0a14c26a7aaa3d1a583dab"
+    },
+    {
+      "id": "soul/10076",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_111001_076.png",
+      "sha256": "5e3c7588f65993d32894c06cbf95dfcb010c7bf141b90ba0ba788e14b1c52e1f"
+    },
+    {
+      "id": "soul/10078",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_109001_078.png",
+      "sha256": "657e53be6cbfabf24feee3252f174cb4ef0274ad360477e8ea9dbba1a2e654fc"
+    },
+    {
+      "id": "soul/10083",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101014_083.png",
+      "sha256": "9167ea1c3fcdc07044c4457de1a2b1faced1db08dfab11ad15c06fca6f554567"
+    },
+    {
+      "id": "soul/10084",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_107001_084.png",
+      "sha256": "0e81ee00f43fd8baa761de52ab6ef6f83c2f7127f58b665b884a7935002f6884"
+    },
+    {
+      "id": "soul/10094",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_109002_094.png",
+      "sha256": "4399c7d5d6727c7a0c0a0d00d98f7d5986743212e8f4bfe887dd1ccafd37df89"
+    },
+    {
+      "id": "soul/10095",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_102001_095.png",
+      "sha256": "ac0158daa345a56aff0f0aba6f705125bd9ac1fadcbf8bb37e82ac442914fd5c"
+    },
+    {
+      "id": "soul/10098",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_109002_098.png",
+      "sha256": "4a5d993566359de1d8bad6c39c317f7cf0e7533040ec188e705524ca22465eda"
+    },
+    {
+      "id": "soul/10101",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_111001_101.png",
+      "sha256": "2b25b1de806d00fb5048766d8a4e25a386702a43c44225e5dd762e45300cb35d"
+    },
+    {
+      "id": "soul/10107",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_108002_107.png",
+      "sha256": "983a28ab393d1eaff265a3e33ac0c60b02f36bb01915e0f92da10d821a86b402"
+    },
+    {
+      "id": "soul/10120",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101014_120.png",
+      "sha256": "c0145b478831d9d5891c0adac27c24b81777df3acdca815b4518f32367bfd6a0"
+    },
+    {
+      "id": "soul/10121",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101010_121.png",
+      "sha256": "45e8f60a2d97ad82cf8d3de21fb4707d80ab2e3a151491888981ccd9e4cbb12d"
+    },
+    {
+      "id": "soul/10122",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101010_122.png",
+      "sha256": "ded154a254ccb7e1909995906a7c359e49e9621e2ebadac8299f4ca84792f322"
+    },
+    {
+      "id": "soul/10123",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101010_123.png",
+      "sha256": "3d35633953c7b58e64f604b856085a1242b034f25335d93a2b18ebe29edd90c5"
+    },
+    {
+      "id": "soul/10130",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_112001_130.png",
+      "sha256": "f2d40cb76a5aecb728440509fb2fa4fb3aee15d9d85929dfaed8d255574c8a28"
+    },
+    {
+      "id": "soul/10132",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_107002_132.png",
+      "sha256": "2ce39d17c4606733737a3cb15c71759eb9a72a1a8116bbcecca2f1084a804fda"
+    },
+    {
+      "id": "soul/10146",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_107002_146.png",
+      "sha256": "2a506bcf13cb8dc1d8f4f085dd2e8613b3f5286b1442e0314cef18ffe588775f"
+    },
+    {
+      "id": "soul/10147",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_107003_147.png",
+      "sha256": "55c5bad5e6b827ccc50ab6540b7b7befdbaf4edc5b4694c14e7ea2df62bb7650"
+    },
+    {
+      "id": "soul/10149",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101003_149.png",
+      "sha256": "d58ca65459decd90595cff238355345236eb7c15335f43f7e857c5db72f11c87"
+    },
+    {
+      "id": "soul/10154",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_103002_154.png",
+      "sha256": "91ba842300e88625a2a6675039a8a7977dcc5b14f3cd2b8639c52f25f1e0696c"
+    },
+    {
+      "id": "soul/10155",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_103002_155.png",
+      "sha256": "5f9d56bf13952b54bea95e220b938e0d929e6eea5d59980f6aaf4b43acd10d1c"
+    },
+    {
+      "id": "soul/10170",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_108005_170.png",
+      "sha256": "8950f356a753a0911bcea3039f56e19bca7ca9a241bbb67cffd7a476306f0556"
+    },
+    {
+      "id": "soul/10175",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_112002_175.png",
+      "sha256": "196b398c451d06a8c15478b05aac8471eabb8b11b3d6988a6c850a7ab1f6a529"
+    },
+    {
+      "id": "soul/10196",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_196.png",
+      "sha256": "5b47efad200f3b757f24a549c216c6c0747100e0bf0ec78b556b5531b3e32ead"
+    },
+    {
+      "id": "soul/10197",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_197.png",
+      "sha256": "f33205a67e028e4f08c38c98463a0a84276677133383a4f617407fe92629c9ce"
+    },
+    {
+      "id": "soul/10198",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_0_198.png",
+      "sha256": "a30e87979f7c5ebf32163308b532d3c6d3ca7a80e6c17026556ab3456b40b25a"
+    },
+    {
+      "id": "soul/10200",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_199008_200.png",
+      "sha256": "8c9d75511f22b333997a5ed282196e96abb07f033f1af529eed079c8f3b1a90d"
+    },
+    {
+      "id": "soul/10216",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_216.png",
+      "sha256": "6aedf695cfe140b4980b00497d40f57eced00dcc2924d89c8857eec5b605913d"
+    },
+    {
+      "id": "soul/10217",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_217.png",
+      "sha256": "b17be8653a137f06f9ab6ca33dc6f09a60bc87630c013f8da9a985c9cf65f20b"
+    },
+    {
+      "id": "soul/10218",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_218.png",
+      "sha256": "52a2c6b9e2967acc7f75dc6999dd51ddb15c377d513a16f129c949b4ccd916f1"
+    },
+    {
+      "id": "soul/10219",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_219.png",
+      "sha256": "d969adc32d0b610e7ed3e9ed87227c0f29013e4c9b1aaf31e8fc6d4e8deff93e"
+    },
+    {
+      "id": "soul/10220",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_220.png",
+      "sha256": "1cc92f3fb0461801e5823a6d3d2dc644da1fbe05d0b4a9eea210d3697693a438"
+    },
+    {
+      "id": "soul/10221",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_221.png",
+      "sha256": "064fad8c05ff0fc0940e0eedb8dfc502e7c03d0117ffe18db5336ca897f1c350"
+    },
+    {
+      "id": "soul/10222",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_222.png",
+      "sha256": "f1fa0564184bd99dc1df614bb8240299d44d456fda28bc95ed3a5a459c5a019c"
+    },
+    {
+      "id": "soul/10223",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_223.png",
+      "sha256": "2be3dfef7d91faaf3e82d9028919c8bc345fd2f159b2bf8b8b5fc099c234ed4b"
+    },
+    {
+      "id": "soul/10224",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_224.png",
+      "sha256": "fa17322644b8e3b1a5805b55b6fc689f01975042989d7bfa8f429774299bb634"
+    },
+    {
+      "id": "soul/10225",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_225.png",
+      "sha256": "876db50bb7bba0dd3d925f226520f0d290ba11de89b1cf43ee61667bde3c790c"
+    },
+    {
+      "id": "soul/10237",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_237.png",
+      "sha256": "0fa6cf4d07b6bd0fad6dbe9147d1b3794bfe9510ce9124d3e8085d94de2069bd"
+    },
+    {
+      "id": "soul/10238",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_238.png",
+      "sha256": "fad4a7947f32a23a96976fb42ce1fd3bc33af10682462f46b946174c34de519c"
+    },
+    {
+      "id": "soul/10239",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_239.png",
+      "sha256": "598b74d55d589df5dc40bd6ccf23906a1325c756c9cfbf0e891961028b44e51f"
+    },
+    {
+      "id": "soul/10240",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_240.png",
+      "sha256": "37506b47ae39614452d7aa95049b4976984a3e073674aec6a73bae5cdec54325"
+    },
+    {
+      "id": "soul/10241",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_241.png",
+      "sha256": "0e961cbeb5c7222858c7fd7a9184a1a5d6eacff38f74608b3fbeb60dec3940ee"
+    },
+    {
+      "id": "soul/10248",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_101008_248.png",
+      "sha256": "bc1352e1caa1d3a5246b18fba5790befcc7ac729cfb6effe9b783607709d9f97"
+    },
+    {
+      "id": "soul/10252",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_1_252.png",
+      "sha256": "d9ebc930a361b92ef76415d381f6f488f1bc7289a178351c80c291ac616e3968"
+    },
+    {
+      "id": "soul/10253",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_199001_253.png",
+      "sha256": "c7e13e0eb30ad3dbce3e257079f210a098e5d64fdb97dde7857871654085fd3e"
+    },
+    {
+      "id": "soul/10255",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_112001_255.png",
+      "sha256": "2a7a6f974646a8b2addd6e76b9eb68933c8d3060622134db58921b96a8c56b04"
+    },
+    {
+      "id": "soul/10164",
+      "asset": "Assets/Arts/UI/Icon/SoulEssenceS/tex_icon_soulessences_104001_164.png",
+      "sha256": "7d1333d3d133ac662e938a2d71e6d6e33a753d90dccbbea7da4739d60f5f3706"
+    }
+  ]
+}

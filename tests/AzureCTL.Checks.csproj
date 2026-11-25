@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../CtlClient.cs" Link="CtlClient.cs" />
+    <Compile Include="../Commands.cs" Link="Commands.cs" />
+    <Compile Include="../CatalogNames.cs" Link="CatalogNames.cs" />
+    <EmbeddedResource Include="../names.json" LogicalName="AzureCTL.Names.json" />
+  </ItemGroup>
+</Project>
