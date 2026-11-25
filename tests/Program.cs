@@ -8,6 +8,12 @@ using System.Text;
 
 if(args.Length!=1)throw new ArgumentException("Pass a built Azurepro checkout. Tests copy its curated fixture and never edit its active save.");
 var source=new CtlClient(args[0]).Root;
+foreach(var category in new[]{"hero","soul"})
+{
+    var preset=Commands.Sections.Single(s=>s.Category==category).Operations.Single(o=>o.Template.SequenceEqual(new[]{category,"rarity-preset"}));
+    Check(!preset.NeedsSelection&&preset.Fields.Length==0,"batch preset requires no individual selection");
+    Check(!CtlReadTransport.IsReadOnly(preset.Expand("",new Dictionary<string,string>())),"batch preset uses mutation transport");
+}
 Check(CtlReadTransport.IsReadOnly(["hero","list"])&&CtlReadTransport.IsReadOnly(["catalog","heroes"])&&CtlReadTransport.IsReadOnly(["world","difficulty","list"]),"direct reader accepts list queries");
 Check(!CtlReadTransport.IsReadOnly(["hero","set","107002","level","60"])&&!CtlReadTransport.IsReadOnly(["gear","remove","1"])&&!CtlReadTransport.IsReadOnly(["world","difficulty","set","100","7"]),"mutations cannot enter direct reader");
 var cache=new LibraryCache();var loads=0;

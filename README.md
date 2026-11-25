@@ -71,6 +71,14 @@ which entries appear.
 Actions are always-visible buttons. The compact editor fits their fields and
 Apply without scrolling. Selecting an entry uses the already-loaded list;
 only Inspect requests its detailed CTL output.
+
+Characters includes **4★ C6 · 5★ C0**: set all owned four-star characters to
+Star Blessing 6 and five-star characters to Star Blessing 0. Anima includes
+**4★ R5 · 5★ R1**: set all owned four-star Anima to refinement 5 and five-star
+Anima to refinement 1. Select the preset, then Apply; no individual selection
+is needed. These change duplicate progression only, leave other rarities
+unchanged and require the matching Azurepro `rarity-preset` CTL commands.
+
 Tab lists preload in the background and are reused per server folder and player.
 Refresh reloads them; edits invalidate the player's cached lists. Use Refresh
 to see changes made outside AzureCTL.
