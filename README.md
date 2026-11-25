@@ -48,6 +48,11 @@ own, rather than Program Files. Update errors are logged under
 The initial 0.1.0 build used a ZIP update feed. Replace that version with the
 latest standalone EXE once to enable the EXE-only update feed.
 
+New releases contain only `AzureCTL.exe`. After verifying a new release, the
+publisher removes older published releases and downloads while retaining Git
+tags and commit history. Maintainers can run `scripts/publish-release.ps1`
+after building and pushing the matching version tag.
+
 For development: `dotnet run -- --root "D:\Azurepro"`.
 
 ## Verification
