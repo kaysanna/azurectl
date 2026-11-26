@@ -65,6 +65,9 @@ sealed class Pill : Button
     protected override void OnPaintBackground(PaintEventArgs e) => Ui.PaintParentColor(this,e);
     protected override void OnPaint(PaintEventArgs e)
     {
+        // ButtonBase may skip OnPaintBackground when painting as opaque.
+        // Always initialize the pixels outside our rounded path.
+        Ui.PaintParentColor(this,e);
         e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
         var fill=Primary?Ui.Accent:Selected?Ui.Selected:hover?Ui.Hover:Color.FromArgb(35,37,48);
         Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),fill,8*Ui.Scale(this),false);

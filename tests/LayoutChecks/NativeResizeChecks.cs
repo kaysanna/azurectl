@@ -61,6 +61,20 @@ static class NativeResizeChecks
             throw new InvalidOperationException("Input did not recenter its text box when the font changed without a resize.");
         box.Font = originalFont;
 
+        var button = form.Controls.Cast<Control>().Single(c => c.GetType().Name == "Pill");
+        using var bitmap = new Bitmap(button.Width, button.Height);
+        using (var graphics = Graphics.FromImage(bitmap))
+        {
+            graphics.Clear(Color.Black);
+            // ButtonBase can paint as opaque, skipping OnPaintBackground.
+            var paint = button.GetType().GetMethod("OnPaint", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            paint.Invoke(button, [new PaintEventArgs(graphics, button.ClientRectangle)]);
+        }
+        foreach(var point in new[]{Point.Empty,new Point(button.Width-1,0),new Point(0,button.Height-1),new Point(button.Width-1,button.Height-1)})
+            if(bitmap.GetPixel(point.X,point.Y).ToArgb()!=form.BackColor.ToArgb())
+                throw new InvalidOperationException("Rounded button corners must paint the parent background, including opaque paint paths.");
+
         Console.WriteLine($"PASS native resize invalidation for {names.Length} controls and input font recentering");
+        Console.WriteLine("PASS rounded button corner pixels match the parent background");
     }
 }
