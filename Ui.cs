@@ -10,6 +10,7 @@ static class Ui
         Dim = Color.FromArgb(148,151,172), Accent = Color.FromArgb(193,162,255), Selected = Color.FromArgb(48,40,63),
         Hover = Color.FromArgb(37,39,50), Good = Color.FromArgb(120,223,186), Bad = Color.FromArgb(255,151,161);
     public static Font Font(float size, bool bold = false) => new(bold ? "Segoe UI Semibold" : "Segoe UI", size, FontStyle.Regular, GraphicsUnit.Pixel);
+    public static float Scale(Control control) => control.FindForm() is MainForm main ? main.LayoutScale : control.DeviceDpi / 96f;
     public static GraphicsPath Round(RectangleF r, float radius)
     {
         var p = new GraphicsPath(); var d = Math.Max(1, Math.Min(radius * 2, Math.Min(r.Width, r.Height)));
@@ -22,17 +23,28 @@ static class Ui
         if (border) { using var pen = new Pen(Border); g.DrawPath(pen,path); }
     }
     public static void TextIn(Graphics g, string text, Font font, Color color, Rectangle box, bool center = false)
-        => TextRenderer.DrawText(g,text,font,box,color,TextFormatFlags.VerticalCenter|TextFormatFlags.EndEllipsis|TextFormatFlags.NoPadding|(center?TextFormatFlags.HorizontalCenter:TextFormatFlags.Left));
+        => TextRenderer.DrawText(g,text,font,box,color,TextFormatFlags.VerticalCenter|TextFormatFlags.EndEllipsis|TextFormatFlags.NoPadding|TextFormatFlags.PreserveGraphicsClipping|(center?TextFormatFlags.HorizontalCenter:TextFormatFlags.Left));
+    public static void PaintParentColor(Control control, PaintEventArgs e)
+    {
+        using var brush = new SolidBrush(control.Parent?.BackColor ?? Bg);
+        e.Graphics.FillRectangle(brush, e.ClipRectangle);
+    }
     public static Label Label(string text, float size=14, bool bold=false, Color? color=null) => new() { Text=text, Font=Font(size,bold), ForeColor=color??Dim, BackColor=Color.Transparent, AutoSize=false };
 }
 
-sealed class Card : Panel
+class BufferedPanel : Panel
 {
-    public Card() { DoubleBuffered=true; BackColor=Ui.Surface; }
+    // WinForms otherwise repaints only the newly exposed strip on growth.
+    public BufferedPanel() { DoubleBuffered=true; SetStyle(ControlStyles.ResizeRedraw,true); }
+}
+
+sealed class Card : BufferedPanel
+{
+    public Card() { BackColor=Ui.Surface; }
     protected override void OnPaint(PaintEventArgs e)
     {
         e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
-        Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),BackColor,12*DeviceDpi/96f);
+        Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),BackColor,12*Ui.Scale(this));
         base.OnPaint(e);
     }
 }
@@ -46,30 +58,45 @@ sealed class Pill : Button
     {
         Text=text;Primary=primary;Font=Ui.Font(14,true);ForeColor=Ui.Text;BackColor=Ui.Bg;
         FlatStyle=FlatStyle.Flat;FlatAppearance.BorderSize=0;Cursor=Cursors.Hand;TabStop=true;Height=40;
-        SetStyle(ControlStyles.UserPaint|ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer,true);
+        SetStyle(ControlStyles.UserPaint|ControlStyles.AllPaintingInWmPaint|ControlStyles.OptimizedDoubleBuffer|ControlStyles.ResizeRedraw,true);
     }
     protected override void OnMouseEnter(EventArgs e) {hover=true;Invalidate();base.OnMouseEnter(e);}
     protected override void OnMouseLeave(EventArgs e) {hover=false;Invalidate();base.OnMouseLeave(e);}
+    protected override void OnPaintBackground(PaintEventArgs e) => Ui.PaintParentColor(this,e);
     protected override void OnPaint(PaintEventArgs e)
     {
-        e.Graphics.Clear(Parent?.BackColor??Ui.Bg);e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
+        e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
         var fill=Primary?Ui.Accent:Selected?Ui.Selected:hover?Ui.Hover:Color.FromArgb(35,37,48);
-        Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),fill,8*DeviceDpi/96f,false);
+        Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),fill,8*Ui.Scale(this),false);
         Ui.TextIn(e.Graphics,Text,Font,!Enabled?Ui.Dim:Primary?Ui.Bg:Selected?Ui.Accent:Ui.Text,ClientRectangle,true);
         if(Focused)ControlPaint.DrawFocusRectangle(e.Graphics,Rectangle.Inflate(ClientRectangle,-5,-5),Ui.Accent,fill);
     }
 }
 
-sealed class Input : Panel
+sealed class Input : BufferedPanel
 {
     public TextBox Box { get; } = new() { BorderStyle=BorderStyle.None, BackColor=Ui.Field, ForeColor=Ui.Text, Font=Ui.Font(14) };
     public Input(string placeholder="")
     {
-        BackColor=Ui.Field;DoubleBuffered=true;Height=42;Box.PlaceholderText=placeholder;Controls.Add(Box);
+        BackColor=Ui.Field;Height=42;Box.PlaceholderText=placeholder;Controls.Add(Box);
         Box.GotFocus+=(_,_)=>Invalidate();Box.LostFocus+=(_,_)=>Invalidate();
+        Box.FontChanged+=(_,_)=>LayoutBox();
     }
-    protected override void OnResize(EventArgs e) {base.OnResize(e);var s=DeviceDpi/96f;Box.SetBounds((int)(12*s),(Height-Box.PreferredHeight)/2,Math.Max(10,Width-(int)(24*s)),Box.PreferredHeight);}
-    protected override void OnPaint(PaintEventArgs e) {e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),Ui.Field,8*DeviceDpi/96f);if(Box.Focused){using var pen=new Pen(Ui.Accent);using var p=Ui.Round(new(0,0,Width-1,Height-1),8*DeviceDpi/96f);e.Graphics.DrawPath(pen,p);}base.OnPaint(e);}
+    void LayoutBox()
+    {
+        var s=Ui.Scale(this);var inset=(int)(12*s);var height=Box.PreferredHeight;
+        Box.SetBounds(inset,(Height-height)/2,Math.Max(1,Width-2*inset),height);
+    }
+    protected override void OnResize(EventArgs e) {base.OnResize(e);LayoutBox();}
+    protected override void OnPaintBackground(PaintEventArgs e) => Ui.PaintParentColor(this,e);
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
+        var bounds=new RectangleF(0,0,Width-1,Height-1);var radius=8*Ui.Scale(this);
+        Ui.Card(e.Graphics,bounds,Ui.Field,radius);
+        if(Box.Focused){using var pen=new Pen(Ui.Accent);using var p=Ui.Round(bounds,radius);e.Graphics.DrawPath(pen,p);}
+        base.OnPaint(e);
+    }
 }
 
 sealed class Choice : Control
@@ -81,11 +108,12 @@ sealed class Choice : Control
     public object? SelectedItem { get=>selected>=0&&selected<Items.Count?Items[selected]:null;set=>SelectedIndex=Items.IndexOf(value!); }
     public Choice()
     {
-        DoubleBuffered=true;BackColor=Ui.Field;ForeColor=Ui.Text;Font=Ui.Font(14);Cursor=Cursors.Hand;TabStop=true;AccessibleRole=AccessibleRole.ComboBox;
+        DoubleBuffered=true;SetStyle(ControlStyles.ResizeRedraw,true);BackColor=Ui.Field;ForeColor=Ui.Text;Font=Ui.Font(14);Cursor=Cursors.Hand;TabStop=true;AccessibleRole=AccessibleRole.ComboBox;
     }
+    protected override void OnPaintBackground(PaintEventArgs e) => Ui.PaintParentColor(this,e);
     protected override void OnPaint(PaintEventArgs e)
     {
-        var s=DeviceDpi/96f;e.Graphics.Clear(Parent?.BackColor??Ui.Bg);e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
+        var s=Ui.Scale(this);e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
         Ui.Card(e.Graphics,new(0,0,Width-1,Height-1),Ui.Field,8*s);Ui.TextIn(e.Graphics,SelectedItem?.ToString()??"Choose an option",Font,Enabled?Ui.Text:Ui.Dim,new((int)(12*s),0,Math.Max(1,Width-(int)(46*s)),Height));
         using var pen=new Pen(Ui.Dim,1.5f*s);var x=Width-19*s;var y=Height/2f;e.Graphics.DrawLines(pen,new PointF[]{new(x-4*s,y-2*s),new(x,y+2*s),new(x+4*s,y-2*s)});
         if(Focused)ControlPaint.DrawFocusRectangle(e.Graphics,Rectangle.Inflate(ClientRectangle,-4,-4),Ui.Accent,Ui.Field);
@@ -96,31 +124,33 @@ sealed class Choice : Control
     void ShowOptions()
     {
         if(Items.Count==0||!Enabled)return;Focus();
-        var list=new ListBox{BorderStyle=BorderStyle.None,BackColor=Ui.Field,ForeColor=Ui.Text,Font=Font,DrawMode=DrawMode.OwnerDrawFixed,ItemHeight=(int)(36*DeviceDpi/96f),IntegralHeight=false};
+        var s=Ui.Scale(this);var popupFont=(Font)Font.Clone();
+        var list=new ListBox{BorderStyle=BorderStyle.None,BackColor=Ui.Field,ForeColor=Ui.Text,Font=popupFont,DrawMode=DrawMode.OwnerDrawFixed,ItemHeight=(int)(36*s),IntegralHeight=false};
         list.Items.AddRange(Items.ToArray());list.SelectedIndex=selected;
-        var height=Math.Min(list.ItemHeight*Items.Count+4,(int)(300*DeviceDpi/96f));
+        var height=Math.Min(list.ItemHeight*Items.Count+4,(int)(300*s));
         list.Size=new(Math.Max(100,Width-2),height);
         var host=new ToolStripControlHost(list){AutoSize=false,Size=list.Size,Margin=Padding.Empty,Padding=Padding.Empty};
         var popup=new ToolStripDropDown{Padding=new Padding(1),BackColor=Ui.Border,AutoSize=true,DropShadowEnabled=false};popup.Items.Add(host);
-        list.DrawItem+=(_,a)=>{if(a.Index<0)return;var active=(a.State&DrawItemState.Selected)!=0;using var b=new SolidBrush(active?Ui.Selected:Ui.Field);a.Graphics.FillRectangle(b,a.Bounds);Ui.TextIn(a.Graphics,Items[a.Index].ToString()??"",Font,active?Ui.Accent:Ui.Text,Rectangle.Inflate(a.Bounds,-10,0));};
+        list.DrawItem+=(_,a)=>{if(a.Index<0)return;var active=(a.State&DrawItemState.Selected)!=0;using var b=new SolidBrush(active?Ui.Selected:Ui.Field);a.Graphics.FillRectangle(b,a.Bounds);Ui.TextIn(a.Graphics,Items[a.Index].ToString()??"",popupFont,active?Ui.Accent:Ui.Text,Rectangle.Inflate(a.Bounds,-(int)(10*s),0));};
         void Pick(){if(list.SelectedIndex>=0)SelectedIndex=list.SelectedIndex;popup.Close();}
         list.MouseClick+=(_,_)=>Pick();list.KeyDown+=(_,a)=>{if(a.KeyCode==Keys.Enter){Pick();a.Handled=true;}};
         // ToolStrip is still unwinding its mouse dispatch during Closed.
         // Dispose on the next UI turn, after that dispatch has returned.
+        popup.Disposed+=(_,_)=>popupFont.Dispose();
         popup.Closed+=(_,_)=>BeginInvoke((Action)(()=>popup.Dispose()));popup.Show(this,new Point(0,Height+4));list.Focus();
     }
 }
 
 // Actions stay visible instead of requiring a dropdown to be reopened.
-sealed class ActionPicker : Panel
+sealed class ActionPicker : BufferedPanel
 {
     readonly List<Pill> buttons=[];
     Operation[] items=[];
     int selected=-1;
-    float S=>DeviceDpi/96f;
+    float S=>Ui.Scale(this);
     public Operation? SelectedItem=>selected>=0&&selected<items.Length?items[selected]:null;
     public event EventHandler? SelectedIndexChanged;
-    public ActionPicker(){DoubleBuffered=true;BackColor=Ui.Surface;AccessibleRole=AccessibleRole.Grouping;}
+    public ActionPicker(){BackColor=Ui.Surface;AccessibleRole=AccessibleRole.Grouping;}
     public void SetItems(IEnumerable<Operation> values)
     {
         foreach(var button in buttons){Controls.Remove(button);button.Dispose();}
@@ -140,10 +170,10 @@ sealed class ActionPicker : Panel
         for(var i=0;i<buttons.Count;i++){buttons[i].Selected=i==selected;buttons[i].Invalidate();}
         SelectedIndexChanged?.Invoke(this,EventArgs.Empty);
     }
-    void LayoutButtons()
+    public void LayoutButtons()
     {
-        var width=ClientSize.Width/S;var columns=Columns(width);var cell=(width-(columns-1)*8)/columns;
-        for(var i=0;i<buttons.Count;i++)buttons[i].SetBounds((int)Math.Round(i%columns*(cell+8)*S),(int)Math.Round(i/columns*38*S),(int)Math.Round(cell*S),(int)Math.Round(32*S));
+        var s=S;var width=ClientSize.Width/s;var columns=Columns(width);var cell=(width-(columns-1)*8)/columns;
+        for(var i=0;i<buttons.Count;i++)buttons[i].SetBounds((int)Math.Round(i%columns*(cell+8)*s),(int)Math.Round(i/columns*38*s),(int)Math.Round(cell*s),(int)Math.Round(32*s));
     }
     protected override void OnResize(EventArgs e){base.OnResize(e);LayoutButtons();}
 }
@@ -154,14 +184,17 @@ sealed class Library : Control
     public LibraryItem? Selected { get; private set; }
     public event Action<LibraryItem>? SelectionChanged;
     int scroll,hover=-1;
-    float S=>DeviceDpi/96f;
-    int RowHeight=>(int)(66*S);
-    public Library(){DoubleBuffered=true;BackColor=Ui.Surface;TabStop=true;Cursor=Cursors.Hand;Font=Ui.Font(14);}
+    float S=>Ui.Scale(this);
+    int RowHeight=>Math.Max(1,(int)(66*S));
+    int VisibleRowsHeight=>Math.Max(0,Height-(int)(44*S));
+    int MaxScroll=>Math.Max(0,Items.Count*RowHeight-VisibleRowsHeight);
+    public Library(){DoubleBuffered=true;SetStyle(ControlStyles.ResizeRedraw,true);BackColor=Ui.Surface;TabStop=true;Cursor=Cursors.Hand;}
     public void SetItems(IEnumerable<LibraryItem> items, string? selected=null)
     {
         Items=items.ToList();Selected=Items.FirstOrDefault(x=>x.Id==selected);scroll=0;Invalidate();
     }
-    protected override void OnMouseWheel(MouseEventArgs e){base.OnMouseWheel(e);scroll=Math.Clamp(scroll-e.Delta/120*RowHeight,0,Math.Max(0,Items.Count*RowHeight-(Height-(int)(44*S))));Invalidate();}
+    protected override void OnResize(EventArgs e){base.OnResize(e);scroll=Math.Min(scroll,MaxScroll);}
+    protected override void OnMouseWheel(MouseEventArgs e){base.OnMouseWheel(e);scroll=Math.Clamp(scroll-e.Delta/120*RowHeight,0,MaxScroll);Invalidate();}
     protected override void OnMouseMove(MouseEventArgs e){base.OnMouseMove(e);hover=(e.Y-(int)(44*S)+scroll)/RowHeight;Invalidate();}
     protected override void OnMouseLeave(EventArgs e){base.OnMouseLeave(e);hover=-1;Invalidate();}
     protected override void OnMouseDown(MouseEventArgs e)
@@ -174,7 +207,7 @@ sealed class Library : Control
     {
         base.OnKeyDown(e);if(e.KeyCode is not(Keys.Up or Keys.Down)||Items.Count==0)return;
         var index=Math.Clamp(Selected==null?0:Items.IndexOf(Selected)+(e.KeyCode==Keys.Down?1:-1),0,Items.Count-1);
-        Selected=Items[index];scroll=Math.Clamp(index*RowHeight-(Height-(int)(44*S)-RowHeight),0,Math.Max(0,Items.Count*RowHeight-(Height-(int)(44*S))));Invalidate();SelectionChanged?.Invoke(Selected);e.Handled=true;
+        Selected=Items[index];scroll=Math.Clamp((index+1)*RowHeight-VisibleRowsHeight,0,MaxScroll);Invalidate();SelectionChanged?.Invoke(Selected);e.Handled=true;
     }
     protected override void OnPaint(PaintEventArgs e)
     {
@@ -182,7 +215,7 @@ sealed class Library : Control
         using var small=Ui.Font(11*S);using var name=Ui.Font(15*S,true);using var detail=Ui.Font(11*S);
         Ui.TextIn(g,"NAME",small,Ui.Dim,new((int)(18*S),0,Width/2,(int)(44*S)));
         Ui.TextIn(g,"ID",small,Ui.Dim,new(Width-(int)(122*S),0,(int)(100*S),(int)(44*S)));
-        var clip=g.Save();g.SetClip(new Rectangle(1,(int)(44*S),Math.Max(1,Width-2),Math.Max(1,Height-(int)(44*S)-1)));
+        var clip=g.Save();g.SetClip(new Rectangle(1,(int)(44*S),Math.Max(1,Width-2),Math.Max(1,Height-(int)(44*S)-1)),CombineMode.Intersect);
         for(var i=0;i<Items.Count;i++)
         {
             var y=(int)(44*S)+i*RowHeight-scroll;if(y+RowHeight<44*S||y>Height)continue;var row=Items[i];
@@ -197,8 +230,12 @@ sealed class Library : Control
             Ui.TextIn(g,row.Id,small,Ui.Dim,new(Width-(int)(122*S),y+(int)(8*S),(int)(105*S),(int)(26*S)));
         }
         g.Restore(clip);
-        if(Items.Count==0)Ui.TextIn(g,"No matching entries",Font,Ui.Dim,new(15,(int)(60*S),Width-30,80),true);
-        var full=Items.Count*RowHeight;var available=Height-(int)(44*S);
-        if(full>available){var thumb=Math.Max(28*S,available*(float)available/full);var top=44*S+scroll/(float)(full-available)*(available-thumb);Ui.Card(g,new(Width-7*S,top,3*S,thumb),Ui.Dim,2*S,false);}
+        if(Items.Count==0)
+        {
+            using var empty=Ui.Font(14*S);
+            Ui.TextIn(g,"No matching entries",empty,Ui.Dim,new((int)(15*S),(int)(60*S),Math.Max(1,Width-(int)(30*S)),(int)(80*S)),true);
+        }
+        var full=Items.Count*RowHeight;var available=VisibleRowsHeight;
+        if(available>0&&full>available){var thumb=Math.Min(available,Math.Max(28*S,available*(float)available/full));var top=44*S+scroll/(float)(full-available)*(available-thumb);Ui.Card(g,new(Width-7*S,top,3*S,thumb),Ui.Dim,2*S,false);}
     }
 }

@@ -31,26 +31,40 @@ sealed class GenePicker : Panel
     public event EventHandler? SelectedIndexChanged;
     public GenePicker()
     {
+        DoubleBuffered=true;SetStyle(ControlStyles.ResizeRedraw,true);
         BackColor=Ui.Surface;Controls.Add(button);button.Dock=DockStyle.Fill;
         button.Click+=(_,_)=>Choose();UpdateText();
     }
     void UpdateText(){button.Text=selected.ToString();button.AccessibleName="Gene: "+selected.Name;button.AccessibleDescription=selected.Effect;}
     void Choose()
     {
-        var scale=DeviceDpi/96f;int Px(float x)=>(int)Math.Round(x*scale);
-        using var dialog=new Form{Text="Choose a Kibo gene",BackColor=Ui.Bg,ForeColor=Ui.Text,Font=Ui.Font(14),StartPosition=FormStartPosition.CenterParent,ClientSize=new(Px(820),Px(600)),MinimumSize=new(Px(620),Px(440)),AutoScaleMode=AutoScaleMode.None};
+        var scale=Ui.Scale(this);int Px(float x)=>(int)Math.Round(x*scale);
+        using var dialog=new Form{Text="Select Gene",BackColor=Ui.Bg,ForeColor=Ui.Text,StartPosition=FormStartPosition.CenterParent,ClientSize=new(Px(820),Px(600)),MinimumSize=new(Px(620),Px(440)),AutoScaleMode=AutoScaleMode.None};
         var search=new Input("Search genes by name, ID or effect");
-        var list=new ListBox{BackColor=Ui.Surface,ForeColor=Ui.Text,BorderStyle=BorderStyle.None,DrawMode=DrawMode.OwnerDrawFixed,ItemHeight=Px(62),IntegralHeight=false,Font=Ui.Font(16)};
-        var detail=new TextBox{Multiline=true,ReadOnly=true,BorderStyle=BorderStyle.None,BackColor=Ui.Field,ForeColor=Ui.Text,Font=Ui.Font(14),ScrollBars=ScrollBars.Vertical};
+        var list=new ListBox{BackColor=Ui.Surface,ForeColor=Ui.Text,BorderStyle=BorderStyle.None,DrawMode=DrawMode.OwnerDrawFixed,ItemHeight=Px(62),IntegralHeight=false};
+        var detail=new TextBox{Multiline=true,ReadOnly=true,BorderStyle=BorderStyle.None,BackColor=Ui.Field,ForeColor=Ui.Text,ScrollBars=ScrollBars.Vertical};
         var choose=new Pill("Select gene",true);var count=Ui.Label("",12);var cancel=new Pill("Cancel");
         dialog.Controls.AddRange([search,list,detail,count,choose,cancel]);
+        var fonts=new Dictionary<(int Size,bool Bold),Font>();
+        Font ScaledFont(float size,bool bold=false)
+        {
+            var key=((int)Math.Round(size*scale*64),bold);
+            if(!fonts.TryGetValue(key,out var font))fonts[key]=font=Ui.Font(key.Item1/64f,bold);
+            return font;
+        }
         void Layout()
         {
             var w=dialog.ClientSize.Width;var h=dialog.ClientSize.Height;var pad=Px(20);
+            scale=Math.Max(.5f,MathF.Round(Math.Min(w/820f,h/600f)*64)/64);
+            pad=Px(20);
+            dialog.SuspendLayout();
+            dialog.Font=search.Box.Font=detail.Font=ScaledFont(14);list.Font=ScaledFont(16);
+            count.Font=ScaledFont(12);choose.Font=cancel.Font=ScaledFont(14,true);list.ItemHeight=Px(62);
             search.SetBounds(pad,pad,w-2*pad,Px(42));count.SetBounds(pad,Px(70),w-2*pad,Px(22));
             list.SetBounds(pad,Px(100),w-2*pad,Math.Max(Px(100),h-Px(264)));
             detail.SetBounds(pad,h-Px(150),w-2*pad,Px(78));
             choose.SetBounds(w-Px(300),h-Px(56),Px(170),Px(36));cancel.SetBounds(w-Px(118),h-Px(56),Px(98),Px(36));
+            dialog.ResumeLayout(false);dialog.Invalidate(true);
         }
         void Filter()
         {
@@ -71,6 +85,7 @@ sealed class GenePicker : Panel
         choose.Click+=(_,_)=>Pick();list.DoubleClick+=(_,_)=>Pick();cancel.Click+=(_,_)=>dialog.Close();
         list.KeyDown+=(_,e)=>{if(e.KeyCode==Keys.Enter){e.SuppressKeyPress=true;Pick();}};
         search.Box.TextChanged+=(_,_)=>Filter();dialog.Resize+=(_,_)=>Layout();
-        Layout();Filter();dialog.Shown+=(_,_)=>search.Box.Focus();dialog.ShowDialog(FindForm());
+        Layout();Filter();dialog.Shown+=(_,_)=>search.Box.Focus();
+        try{dialog.ShowDialog(FindForm());}finally{dialog.Dispose();foreach(var font in fonts.Values)font.Dispose();}
     }
 }

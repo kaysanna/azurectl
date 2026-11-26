@@ -11,7 +11,8 @@ two-column editor layout. It contains only administration controls.
 3. Select the player account, an entry and an action, then Apply.
 
 Drag the window's edges or corners to resize it. Its minimum size keeps the
-navigation, action fields and buttons visible at your display scaling.
+navigation, action fields and buttons visible at your display scaling. Text,
+images and controls scale together as the window grows or shrinks.
 
 Keep the game and server open for live updates. AzureCTL invokes Azurepro's
 existing CTL wrapper; the running server validates and applies edits to

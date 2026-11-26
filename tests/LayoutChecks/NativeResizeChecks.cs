@@ -1,0 +1,66 @@
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+static class NativeResizeChecks
+{
+    [StructLayout(LayoutKind.Sequential)]
+    struct NativeRect { public int Left, Top, Right, Bottom; }
+
+    [DllImport("user32.dll")]
+    static extern bool ValidateRect(nint window, nint rect);
+
+    [DllImport("user32.dll")]
+    static extern bool GetUpdateRect(nint window, out NativeRect rect, bool erase);
+
+    sealed class TestWindow : Form
+    {
+        protected override bool ShowWithoutActivation => true;
+    }
+
+    public static void Run(Assembly assembly)
+    {
+        using var form = new TestWindow { ShowInTaskbar = false, ClientSize = new Size(500, 500), Opacity = 0 };
+        var names = new[] { "Card", "Pill", "Input", "Choice", "Library", "ActionPicker" };
+        for (var i = 0; i < names.Length; i++)
+        {
+            var name = names[i];
+            var type = assembly.GetType("AzureCTL." + name, throwOnError: true)!;
+            object[] parameters = name switch
+            {
+                "Input" => ["Search"],
+                "Pill" => ["Apply", false],
+                _ => []
+            };
+            var control = (Control)Activator.CreateInstance(type, parameters)!;
+            control.SetBounds(12, 12 + i * 62, 220, 42);
+            form.Controls.Add(control);
+        }
+
+        form.Show();
+        Application.DoEvents();
+        foreach (Control control in form.Controls)
+        {
+            foreach (var size in new[] { new Size(280, 52), new Size(220, 42) })
+            {
+                // Discard previous paint requests so only this size change contributes to the update region.
+                if (!ValidateRect(control.Handle, 0))
+                    throw new InvalidOperationException("Could not validate initial control pixels.");
+                control.Size = size;
+                if (!GetUpdateRect(control.Handle, out var rect, false) ||
+                    rect.Left != 0 || rect.Top != 0 || rect.Right != control.Width || rect.Bottom != control.Height)
+                    throw new InvalidOperationException($"{control.GetType().Name} did not invalidate its previous edges after sizing to {size}.");
+            }
+        }
+
+        var input = form.Controls.Cast<Control>().Single(c => c.GetType().Name == "Input");
+        var box = (TextBox)input.Controls[0];
+        using var font = new Font("Segoe UI", 24, FontStyle.Regular, GraphicsUnit.Pixel);
+        var originalFont = box.Font;
+        box.Font = font;
+        if (box.Top != (input.Height - box.PreferredHeight) / 2)
+            throw new InvalidOperationException("Input did not recenter its text box when the font changed without a resize.");
+        box.Font = originalFont;
+
+        Console.WriteLine($"PASS native resize invalidation for {names.Length} controls and input font recentering");
+    }
+}

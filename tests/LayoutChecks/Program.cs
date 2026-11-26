@@ -19,7 +19,7 @@ static class Checks
         form.Size=new Size(400,300);
         Check(form.Width>=minimum.Width&&form.Height>=minimum.Height,"Minimum window dimensions must be enforced");
         var cases=0;
-        foreach(var size in new[]{minimum,new Size(Math.Max(minimum.Width,1420),Math.Max(minimum.Height,940)),new Size(Math.Max(minimum.Width,1920),Math.Max(minimum.Height,1080))})
+        foreach(var size in new[]{minimum,new Size(Math.Max(minimum.Width,1420),Math.Max(minimum.Height,940)),new Size(Math.Max(minimum.Width,1920),Math.Max(minimum.Height,1080)),new Size(Math.Max(minimum.Width,1920),minimum.Height),new Size(minimum.Width,Math.Max(minimum.Height,1080)),minimum})
         {
             form.ClientSize=size;
             for(var page=0;page<8;page++)
@@ -46,6 +46,20 @@ static class Checks
             }
         }
         form.ClientSize=minimum;
+        Invoke("LayoutControls");
+        var baselineFont=Control("heading").Font.Size;
+        var baselineButtonFont=Control("apply").Font.Size;
+        var baselineInputFont=((TextBox)Control("rootField").GetType().GetProperty("Box")!.GetValue(Control("rootField"))!).Font.Size;
+        for(var cycle=0;cycle<8;cycle++)
+        {
+            form.ClientSize=new Size(minimum.Width*2,minimum.Height*2);Invoke("LayoutControls");
+            Check(Control("heading").Font.Size>baselineFont,"Heading text must grow with the window");
+            Check(Control("apply").Font.Size>baselineButtonFont,"Button text must grow with the window");
+            var box=(TextBox)Control("rootField").GetType().GetProperty("Box")!.GetValue(Control("rootField"))!;
+            Check(box.Font.Size>baselineInputFont,"Input text must grow with the window");
+            form.ClientSize=minimum;Invoke("LayoutControls");
+            Check(Math.Abs(Control("heading").Font.Size-baselineFont)<.01f,"Resizing must not compound font sizes");
+        }
         foreach(var (point,expected) in new[]{(new Point(1,1),13),(new Point(form.ClientSize.Width-1,1),14),(new Point(1,form.ClientSize.Height-1),16),(new Point(form.ClientSize.Width-1,form.ClientSize.Height-1),17)})
         {
             var p=form.PointToScreen(point);var msg=Message.Create(form.Handle,0x84,0,(nint)((p.Y<<16)|(p.X&0xffff)));
@@ -61,5 +75,6 @@ static class Checks
         Check(((IEnumerable)geneCatalog.GetMethod("Search")!.Invoke(null,new object[]{effectQuery})!).Cast<object>().Any(),"Gene search must include effect descriptions");
         Console.WriteLine($"PASS {cases} page/action/size layouts, minimum size and all resize corners; DPI {form.DeviceDpi}");
         Console.WriteLine("PASS complete named gene catalog and ID/effect search");
+        NativeResizeChecks.Run(type.Assembly);
     }
 }

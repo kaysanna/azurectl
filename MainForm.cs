@@ -2,12 +2,14 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
+using System.Runtime.CompilerServices;
 
 namespace AzureCTL;
 
 sealed class MainForm : Form
 {
-    readonly Panel sidebar=new(){BackColor=Ui.Sidebar};
+    const int MinimumWidth=1040, MinimumHeight=740, InitialWidth=1420, InitialHeight=940;
+    readonly BufferedPanel sidebar=new(){BackColor=Ui.Sidebar};
     readonly Label brand=Ui.Label("AzureCTL",25,true,Ui.Text),tag=Ui.Label("AZUR PROMILIA",11),heading=Ui.Label("Characters",29,true,Ui.Text),subtitle=Ui.Label("Manage your selected player from one workspace.",14);
     readonly Label rootLabel=Ui.Label("AZUREPRO FOLDER",11),libraryLabel=Ui.Label("CHARACTER LIBRARY",11),status=Ui.Label("Choose an Azurepro folder to connect.",12),mode=Ui.Label("NOT CONNECTED",11,true);
     readonly Input rootField=new("Choose your Azurepro folder"),search=new("Search characters");
@@ -19,7 +21,7 @@ sealed class MainForm : Form
     bool updateChecking;
     readonly Library library=new();
     readonly Card editor=new();
-    readonly Panel editorBody=new(){BackColor=Ui.Surface},editorFooter=new(){BackColor=Ui.Surface};
+    readonly BufferedPanel editorBody=new(){BackColor=Ui.Surface},editorFooter=new(){BackColor=Ui.Surface};
     readonly Label selectedName=Ui.Label("Pick a character",24,true,Ui.Text),selectedDetail=Ui.Label("from the list, or enter an ID below",13);
     readonly Label operationLabel=Ui.Label("ACTION",11),manualLabel=Ui.Label("SELECTED ID",11),note=Ui.Label("",13),previewLabel=Ui.Label("COMMAND",11),result=Ui.Label("",13);
     readonly ActionPicker operation=new();
@@ -27,6 +29,9 @@ sealed class MainForm : Form
     readonly Pill apply=new("Apply",true),inspect=new("Inspect"),catalog=new("Catalog");
     readonly List<Pill> navigation=[];
     readonly List<(Arg Arg,Control Input,Label Label)> fields=[];
+    sealed record FontSpec(string Family,float Size,FontStyle Style);
+    readonly ConditionalWeakTable<Control,FontSpec> fontSpecs=new();
+    Dictionary<FontSpec,Font> scaledFonts=new();
     readonly List<string> activity=[];
     readonly LibraryCache libraryCache=new();
     int cacheEpoch,libraryRequest;
@@ -42,13 +47,16 @@ sealed class MainForm : Form
     Operation? SelectedOperation=>operation.SelectedItem;
     bool AddingMissingKibos=>SelectedOperation is{} op&&Commands.IsAddMissingKibos(op.Template);
     uint Player=>players.SelectedItem is PlayerChoice selected?selected.Id:0;
-    float S=>DeviceDpi/96f;
+    float DpiScale=>DeviceDpi/96f;
+    public float LayoutScale { get; private set; }=1f;
+    float S=>LayoutScale;
     int Px(float value)=>(int)Math.Round(value*S);
 
     public MainForm(string[] args)
     {
-        Text="AzureCTL";BackColor=Ui.Bg;ForeColor=Ui.Text;Font=Ui.Font(14);FormBorderStyle=FormBorderStyle.None;
-        AutoScaleMode=AutoScaleMode.Dpi;ClientSize=new(1420,940);MinimumSize=new(1180,780);StartPosition=FormStartPosition.CenterScreen;
+        Text="AzureCTL";BackColor=Ui.Bg;ForeColor=Ui.Text;FormBorderStyle=FormBorderStyle.None;
+        DoubleBuffered=true;SetStyle(ControlStyles.ResizeRedraw,true);
+        AutoScaleMode=AutoScaleMode.None;ClientSize=new(InitialWidth,InitialHeight);StartPosition=FormStartPosition.CenterScreen;
         Controls.Add(sidebar);sidebar.Controls.AddRange([brand,tag,mode,checkUpdates,updateText,version]);
         for(var i=0;i<Commands.Sections.Length;i++)
         {
@@ -59,7 +67,8 @@ sealed class MainForm : Form
         editorBody.Controls.AddRange([selectedName,selectedDetail,manualLabel,manualId,operationLabel,operation,note,previewLabel,preview,result]);
         editorFooter.Controls.AddRange([apply,inspect,catalog]);
         preview.Visible=previewLabel.Visible=false;result.TextChanged+=(_,_)=>LayoutEditor();
-        preview.Box.ReadOnly=true;preview.Box.Font=new Font("Consolas",12,FontStyle.Regular,GraphicsUnit.Pixel);
+        preview.Box.ReadOnly=true;
+        using(var previous=preview.Box.Font)preview.Box.Font=new Font("Consolas",12,FontStyle.Regular,GraphicsUnit.Pixel);
         selectedName.AutoEllipsis=true;selectedDetail.AutoEllipsis=true;note.AutoEllipsis=false;result.AutoEllipsis=true;status.AutoEllipsis=true;
         rootField.Box.AccessibleName="Azurepro folder";players.AccessibleName="Player account";search.Box.AccessibleName="Search library";
         manualId.Box.AccessibleName="Selected character or item ID";operation.AccessibleName="CTL action";preview.Box.AccessibleName="Command preview";
@@ -78,7 +87,7 @@ sealed class MainForm : Form
         catalog.Click+=async(_,_)=>await ShowCatalog();
         logs.Click+=(_,_)=>ShowText("Activity",activity.Count==0?"No commands have been run.":string.Join("\r\n\r\n",activity));
         minimize.Click+=(_,_)=>WindowState=FormWindowState.Minimized;
-        maximize.Click+=(_,_)=>{MaximizedBounds=Screen.FromControl(this).WorkingArea;WindowState=WindowState==FormWindowState.Maximized?FormWindowState.Normal:FormWindowState.Maximized;};
+        maximize.Click+=(_,_)=>{UpdateMinimumSize();WindowState=WindowState==FormWindowState.Maximized?FormWindowState.Normal:FormWindowState.Maximized;};
         close.Click+=(_,_)=>Close();
         updates=new BackgroundUpdate(this,autoCheck:!args.Contains("--skip-update")&&!args.Contains("--updated"));
         updates.StatusChanged+=(text,checking)=>
@@ -94,28 +103,52 @@ sealed class MainForm : Form
         };
         checkUpdates.Click+=async(_,_)=>{if(busy)return;if(updates.IsReady)updates.InstallAndRestart();else await updates.CheckNowAsync();};
         connectionTimer.Tick+=(_,_)=>UpdateConnection();connectionTimer.Start();
-        Resize+=(_,_)=>LayoutControls();DpiChanged+=(_,_)=>{UpdateMinimumSize();LayoutControls();};
+        Resize+=(_,_)=>LayoutControls();ResizeEnd+=(_,_)=>UpdateMinimumSize();
         foreach(var control in new Control[]{this,brand,heading})control.MouseDown+=(_,e)=>{if(e.Button==MouseButtons.Left){ReleaseCapture();SendMessage(Handle,0xA1,2,0);}};
         try{if(File.Exists(SettingsPath)){using var settings=JsonDocument.Parse(File.ReadAllText(SettingsPath));rootField.Box.Text=settings.RootElement.GetProperty("root").GetString()??"";}}catch{}
         for(var i=0;i<args.Length-1;i++)if(args[i]=="--root")rootField.Box.Text=args[++i];
-        initializing=false;SetOperations();LayoutControls();
-        Shown+=async(_,_)=>
-        {
-            UpdateMinimumSize();var area=Screen.FromControl(this).WorkingArea;
-            if(Width>area.Width||Height>area.Height)Size=new(Math.Min(Width,area.Width),Math.Min(Height,area.Height));
-            Location=new(Math.Clamp(Left,area.Left,area.Right-Width),Math.Clamp(Top,area.Top,area.Bottom-Height));
-            LayoutControls();
-            if(rootField.Box.Text.Length>0)await Connect();
-        };
+        initializing=false;LayoutControls();SetOperations();
+        Shown+=async(_,_)=>{if(rootField.Box.Text.Length>0)await Connect();};
     }
 
     [DllImport("user32.dll")]static extern bool ReleaseCapture();
     [DllImport("user32.dll")]static extern nint SendMessage(nint window,uint message,nint wparam,nint lparam);
+    protected override void OnLoad(EventArgs e)
+    {
+        UpdateMinimumSize();
+        if(WindowState==FormWindowState.Normal)
+        {
+            var area=Screen.FromControl(this).WorkingArea;
+            var width=Math.Min(area.Width,(int)Math.Round(InitialWidth*DpiScale));
+            var height=Math.Min(area.Height,(int)Math.Round(InitialHeight*DpiScale));
+            Bounds=new(area.Left+(area.Width-width)/2,area.Top+(area.Height-height)/2,width,height);
+        }
+        LayoutControls();
+        base.OnLoad(e);
+    }
     void UpdateMinimumSize()
     {
-        var area=Screen.FromControl(this).WorkingArea;
-        // MinimumSize is physical pixels; reserve the logical workspace at this monitor's DPI.
-        MinimumSize=new(Math.Min(area.Width,Px(1040)),Math.Min(area.Height,Px(740)));
+        var screen=Screen.FromControl(this);var area=screen.WorkingArea;
+        // The track limits and resize grips follow the monitor DPI, independently of the layout zoom.
+        MinimumSize=new(Math.Min(area.Width,(int)Math.Round(MinimumWidth*DpiScale)),Math.Min(area.Height,(int)Math.Round(MinimumHeight*DpiScale)));
+        MaximizedBounds=new(area.Left-screen.Bounds.Left,area.Top-screen.Bounds.Top,area.Width,area.Height);
+    }
+    protected override bool OnGetDpiScaledSize(int oldDpi,int newDpi,ref Size desiredSize)=>false;
+    protected override void OnDpiChanged(DpiChangedEventArgs e)
+    {
+        base.OnDpiChanged(e);
+        UpdateMinimumSize();
+        if(WindowState==FormWindowState.Normal)
+        {
+            var area=Screen.FromControl(this).WorkingArea;
+            if(Width>area.Width||Height>area.Height)
+            {
+                var width=Math.Min(Width,area.Width);var height=Math.Min(Height,area.Height);
+                Bounds=new(Math.Clamp(Left,area.Left,area.Right-width),Math.Clamp(Top,area.Top,area.Bottom-height),width,height);
+            }
+        }
+        LayoutControls();
+        ApplyFonts(this,resetDpiFonts:true);
     }
     protected override void WndProc(ref Message message)
     {
@@ -123,15 +156,48 @@ sealed class MainForm : Form
         if(message.Msg!=0x84||WindowState!=FormWindowState.Normal)return; // WM_NCHITTEST
         var packed=message.LParam.ToInt64();
         var point=PointToClient(new Point(unchecked((short)packed),unchecked((short)(packed>>16))));
-        var grip=Px(8);var left=point.X<grip;var right=point.X>=ClientSize.Width-grip;
+        var grip=(int)Math.Round(8*DpiScale);var left=point.X<grip;var right=point.X>=ClientSize.Width-grip;
         var top=point.Y<grip;var bottom=point.Y>=ClientSize.Height-grip;
         if(left||right||top||bottom)
             message.Result=(nint)(top?(left?13:right?14:12):bottom?(left?16:right?17:15):left?10:11);
     }
     void Place(Control c,float x,float y,float w,float h)=>c.SetBounds(Px(x),Px(y),Math.Max(1,Px(w)),Math.Max(1,Px(h)));
 
+    void ApplyFonts(Control control,bool resetDpiFonts=false)
+    {
+        // These controls own explicit pixel fonts at construction. Keep their nominal sizes across DPI changes.
+        if(control is Label or Pill or TextBox or Choice)
+        {
+            Font? initial=null;
+            if(!fontSpecs.TryGetValue(control,out var spec))
+            {
+                initial=control.Font;spec=new(initial.Name,initial.Size,initial.Style);fontSpecs.Add(control,spec);
+            }
+            if(!scaledFonts.TryGetValue(spec,out var font))
+            {
+                font=new Font(spec.Family,spec.Size*S,spec.Style,GraphicsUnit.Pixel);scaledFonts.Add(spec,font);
+            }
+            if(initial!=null||resetDpiFonts)control.ResetFont();
+            control.Font=font;
+            initial?.Dispose();
+        }
+        foreach(Control child in control.Controls)ApplyFonts(child,resetDpiFonts);
+    }
+
     void LayoutControls()
     {
+        if(WindowState==FormWindowState.Minimized||ClientSize.Width<1||ClientSize.Height<1)return;
+        var fit=Math.Min(ClientSize.Width/(MinimumWidth*DpiScale),ClientSize.Height/(MinimumHeight*DpiScale));
+        // Grow at half the rate of the limiting dimension so extra room still expands the workspace.
+        // On a small monitor, fit the full workspace, rounding down so the layout never exceeds the client area.
+        var scale=Math.Max(1f/64f,MathF.Floor(DpiScale*(fit<1?fit:1+(fit-1)*.5f)*64f)/64f);
+        if(scale!=S||scaledFonts.Count==0)
+        {
+            LayoutScale=scale;
+            var previous=scaledFonts;scaledFonts=new();
+            ApplyFonts(this);
+            foreach(var font in previous.Values)font.Dispose();
+        }
         var w=ClientSize.Width/S;var h=ClientSize.Height/S;var compact=h<820||w<1240;
         var side=compact?196f:232f;var x=side+24;var content=w-x-24;var gap=compact?16f:24f;
         var left=Math.Max(200,Math.Min((content-gap)*.46f,content-gap-370));var right=content-left-gap;
@@ -158,7 +224,7 @@ sealed class MainForm : Form
 
     void LayoutEditor()
     {
-        if(editor.Width==0)return;
+        if(WindowState==FormWindowState.Minimized||editor.Width==0)return;
         var compact=ClientSize.Height/S<820||ClientSize.Width/S<1240;
         var footer=compact?62:76;
         editorBody.SetBounds(1,1,editor.Width-2,Math.Max(1,editor.Height-Px(footer)));
@@ -170,6 +236,7 @@ sealed class MainForm : Form
         var actionHeight=operation.HeightForWidth(inner);
         var actionTop=compact?90:108;
         Place(operationLabel,20,actionTop-22,inner,18);Place(operation,20,actionTop,inner,actionHeight);
+        operation.LayoutButtons();
         var fieldsTop=actionTop+actionHeight+10;
         var fieldWidth=(inner-12)/2;
         for(var i=0;i<fields.Count;i++)
@@ -192,7 +259,7 @@ sealed class MainForm : Form
     {
         heading.Text=Section.Name;subtitle.Text=Section.Subtitle;libraryLabel.Text=Section.Category switch{"hero" or "heroes"=>"CHARACTER LIBRARY","pet"=>"KIBO LIBRARY",_=>Section.Name.ToUpperInvariant()+" LIBRARY"};
         search.Box.PlaceholderText="Search "+Section.Name.ToLowerInvariant()+" or an ID";
-        operation.SetItems(Section.Operations);UpdateSelected();
+        operation.SetItems(Section.Operations);ApplyFonts(operation);UpdateSelected();
     }
     void BuildFields()
     {
@@ -205,7 +272,7 @@ sealed class MainForm : Form
             else if(arg.Choices is{} choices){var choice=new Choice();choice.Items.AddRange(choices);choice.SelectedItem=arg.Default;choice.SelectedIndexChanged+=(_,_)=>UpdatePreview();input=choice;}
             else {var field=new Input();field.Box.Text=arg.Default;field.Box.TextChanged+=(_,_)=>UpdatePreview();input=field;}
             input.AccessibleName=arg.Label;if(input is Input edit)edit.Box.AccessibleName=arg.Label;
-            fields.Add((arg,input,label));editorBody.Controls.Add(label);editorBody.Controls.Add(input);
+            fields.Add((arg,input,label));editorBody.Controls.Add(label);editorBody.Controls.Add(input);ApplyFonts(label);ApplyFonts(input);
         }
         manualLabel.Visible=manualId.Visible=!AddingMissingKibos;
         result.Text="";
@@ -362,9 +429,44 @@ sealed class MainForm : Form
     void Record(string[] command,CommandResult answer){activity.Add($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} · UID {Player}\r\n{string.Join(' ',command)}\r\n{answer.Output}\r\n{answer.Error}".Trim());if(activity.Count>100)activity.RemoveAt(0);}
     void ShowText(string title,string text)
     {
-        using var dialog=new Form{Text=title,BackColor=Ui.Bg,ForeColor=Ui.Text,StartPosition=FormStartPosition.CenterParent,Size=new(850,650),MinimumSize=new(600,400)};
-        var output=new TextBox{Text=text.Replace("\n","\r\n").Replace("\r\r\n","\r\n"),ReadOnly=true,Multiline=true,ScrollBars=ScrollBars.Both,WordWrap=false,Dock=DockStyle.Fill,BorderStyle=BorderStyle.None,BackColor=Ui.Surface,ForeColor=Ui.Text,Font=new Font("Consolas",12),Margin=new Padding(20)};
-        dialog.Padding=new Padding(24);dialog.Controls.Add(output);dialog.ShowDialog(this);
+        const int baseWidth=850,baseHeight=650;
+        var area=Screen.FromControl(this).WorkingArea;
+        using var dialog=new Form
+        {
+            Text=title,BackColor=Ui.Bg,ForeColor=Ui.Text,StartPosition=FormStartPosition.CenterParent,AutoScaleMode=AutoScaleMode.None,
+            Size=new(Math.Min(area.Width,Px(baseWidth)),Math.Min(area.Height,Px(baseHeight)))
+        };
+        var output=new TextBox{Text=text.Replace("\n","\r\n").Replace("\r\r\n","\r\n"),ReadOnly=true,Multiline=true,ScrollBars=ScrollBars.Both,WordWrap=false,Dock=DockStyle.Fill,BorderStyle=BorderStyle.None,BackColor=Ui.Surface,ForeColor=Ui.Text};
+        dialog.Controls.Add(output);
+        Font? outputFont=null;
+        var outputScale=0f;
+        void UpdateLimits(Rectangle workArea,float dpiScale)
+            =>dialog.MinimumSize=new(Math.Min(workArea.Width,(int)Math.Round(600*dpiScale)),Math.Min(workArea.Height,(int)Math.Round(400*dpiScale)));
+        void Layout(bool resetDpiFont=false)
+        {
+            if(dialog.WindowState==FormWindowState.Minimized)return;
+            var scale=Math.Max(1f/64f,MathF.Floor(Math.Min(dialog.Width/(float)baseWidth,dialog.Height/(float)baseHeight)*64f)/64f);
+            if(scale==outputScale&&!resetDpiFont)return;
+            var font=new Font("Consolas",16*scale,FontStyle.Regular,GraphicsUnit.Pixel);
+            if(resetDpiFont)output.ResetFont();
+            output.Font=font;outputFont?.Dispose();outputFont=font;outputScale=scale;
+            dialog.Padding=new Padding((int)Math.Round(24*scale));
+        }
+        UpdateLimits(area,DpiScale);
+        dialog.Resize+=(_,_)=>Layout();
+        dialog.DpiChanged+=(_,_)=>dialog.BeginInvoke((Action)(()=>
+        {
+            if(dialog.IsDisposed)return;
+            UpdateLimits(Screen.FromControl(dialog).WorkingArea,dialog.DeviceDpi/96f);
+            Layout(resetDpiFont:true);
+        }));
+        try{Layout();dialog.ShowDialog(this);}
+        finally{dialog.Dispose();outputFont?.Dispose();}
     }
-    protected override void Dispose(bool disposing){if(disposing){updates?.Dispose();connectionTimer.Dispose();}base.Dispose(disposing);}
+    protected override void Dispose(bool disposing)
+    {
+        if(disposing){updates?.Dispose();connectionTimer.Dispose();}
+        base.Dispose(disposing);
+        if(disposing){foreach(var font in scaledFonts.Values)font.Dispose();scaledFonts.Clear();}
+    }
 }

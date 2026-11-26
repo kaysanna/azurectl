@@ -66,7 +66,7 @@ static class Commands
             Op("Set grade","pet set {id} grade {value}","Uses the species' official grade partitions; ungraded species stay ungraded.",C("value","GRADE","SSS","F","E","D","C","B","A","S","SS","SSS")),
             Op("Set bond","pet set {id} bond {value}","Sets the owned Kibo's bond level.",N("value","BOND LEVEL · 1–10","10")),
             Op("Set aptitude","pet set {id} aptitude {stat} {value}","Official aptitude levels only. IDs: 1 ATK, 3 DEF, 5 HP, 7 CRIT, 229 Mastery, 230 Break.",C("stat","APTITUDE ATTRIBUTE","1","1","3","5","7","229","230"),N("value","APTITUDE LEVEL · 1–9","9")),
-            Op("Set gene","pet set {id} gene {slot} {gene}","Choose a gene by name, effect or ID. You can clear the last occupied slot.",C("slot","GENE SLOT","1","1","2","3","4","5","6","7","8"),N("gene","GENE","0")),
+            Op("Set gene","pet set {id} gene {slot} {gene}","Choose a gene by name, effect or ID. You can clear the last occupied slot.",C("slot","GENE SLOT","1","1","2","3","4","5","6","7","8"),N("gene","SELECT GENE","0")),
             Op("Set Star Soul","pet set {id} starsoul {stage} {node}","Inspect lists this species' authored Star Soul stages and nodes. Skills follow the selected node.",N("stage","STAR SOUL STAGE","1"),N("node","NODE","1")),
             Op("Add missing Kibos","pet add-missing max","Adds one Level 100 Kibo per missing configuration, with SSS grade where applicable. Already owned Kibos keep their progression.") with {NeedsSelection=false},
         ]),
