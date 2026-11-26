@@ -40,6 +40,7 @@ sealed class MainForm : Form
     string SettingsPath=>Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"AzureCTL","settings.json");
     Section Section=>Commands.Sections[page];
     Operation? SelectedOperation=>operation.SelectedItem;
+    bool AddingMissingKibos=>SelectedOperation is{} op&&Commands.IsAddMissingKibos(op.Template);
     uint Player=>players.SelectedItem is PlayerChoice selected?selected.Id:0;
     float S=>DeviceDpi/96f;
     int Px(float value)=>(int)Math.Round(value*S);
@@ -129,7 +130,7 @@ sealed class MainForm : Form
         editorBody.SetBounds(1,1,editor.Width-2,Math.Max(1,editor.Height-Px(76)));
         editorFooter.SetBounds(1,editor.Height-Px(75),editor.Width-2,Px(74));
         var w=editorBody.ClientSize.Width/S;var inner=w-40;
-        var titleWidth=inner-160;
+        var titleWidth=AddingMissingKibos?inner:inner-160;
         Place(selectedName,20,14,titleWidth,32);Place(selectedDetail,20,48,titleWidth,32);
         Place(manualLabel,20+inner-144,14,144,18);Place(manualId,20+inner-144,38,144,36);
         var actionHeight=operation.HeightForWidth(inner);
@@ -170,7 +171,10 @@ sealed class MainForm : Form
             input.AccessibleName=arg.Label;if(input is Input edit)edit.Box.AccessibleName=arg.Label;
             fields.Add((arg,input,label));editorBody.Controls.Add(label);editorBody.Controls.Add(input);
         }
-        note.Text=op.Description;apply.Text=op.Name;LayoutEditor();UpdatePreview();
+        manualLabel.Visible=manualId.Visible=!AddingMissingKibos;
+        result.Text="";
+        note.Text=op.Description;apply.Text=op.Name;
+        UpdateSelected();LayoutEditor();UpdatePreview();
     }
     string[] CurrentCommand()
     {
@@ -187,6 +191,12 @@ sealed class MainForm : Form
     }
     void UpdateSelected()
     {
+        if(AddingMissingKibos)
+        {
+            selectedName.Text="Kibo collection";
+            selectedDetail.Text=players.SelectedItem?.ToString()??"Choose a player account";
+            return;
+        }
         var id=manualId.Box.Text.Trim();var item=allItems.FirstOrDefault(x=>x.Id==id);
         selectedName.Text=item?.Name??(id.Length>0?Section.Name+" · "+id:Section.Category=="world"?"World difficulty":"Pick "+(Section.Category is "hero" or "heroes"?"a character":"an entry"));
         selectedDetail.Text=item?.Detail??(id.Length>0?"Manual ID · validated by Azurepro":"from the list, or enter an ID below");
@@ -264,17 +274,23 @@ sealed class MainForm : Form
         if(client==null||busy||loadingLibrary)return;
         string[] command;try{command=CurrentCommand();}catch(Exception ex){Report(ex.Message,false);return;}
         if(command.Length>1&&command[0]=="gear"&&command[1]=="remove"&&MessageBox.Show(this,"Remove equipment "+manualId.Box.Text+" from the current save?","Remove equipment",MessageBoxButtons.YesNo,MessageBoxIcon.Question)!=DialogResult.Yes)return;
+        var addMissingKibos=Commands.IsAddMissingKibos(command);
         SetBusy(true,"Applying "+SelectedOperation!.Name.ToLowerInvariant()+"…");
         try
         {
             var answer=await client.RunAsync(Player,command);Record(command,answer);
-            if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);
+            if(!answer.Success)throw new IOException(CtlClient.ActionError(command,answer));
             Report(answer.Output.Length>0?answer.Output:"Updated the active save.",true);
         }
         catch(Exception ex){Report(ex.Message,false);}
-        finally{libraryCache.Invalidate(client!.Root,Player);cacheEpoch++;SetBusy(false);}
+        finally
+        {
+            if(addMissingKibos)libraryCache.Invalidate(client!.Root,Player,"pet");
+            else {libraryCache.Invalidate(client!.Root,Player);cacheEpoch++;}
+            SetBusy(false);
+        }
         await LoadLibrary();
-        if(client!=null)_ = WarmLibraries(client,Player,cacheEpoch);
+        if(!addMissingKibos&&client!=null)_ = WarmLibraries(client,Player,cacheEpoch);
     }
 
     async Task InspectSelected()
@@ -282,7 +298,7 @@ sealed class MainForm : Form
         if(client==null||busy||loadingLibrary||manualId.Box.Text.Length==0)return;
         string[] command=Section.Category switch{"hero"=>["hero","inspect",manualId.Box.Text],"gear"=>["gear","inspect",manualId.Box.Text],"pet"=>["pet","inspect",manualId.Box.Text],"heroes"=>["catalog","heroes",manualId.Box.Text],"gear-catalog"=>["catalog","gear",manualId.Box.Text],"soul" or "souls"=>["catalog","souls",manualId.Box.Text],_=>["world","difficulty","list"]};
         SetBusy(true,"Reading selected entry…");
-        try{var answer=await client.RunAsync(Player,command);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);ShowText(selectedName.Text,answer.Output);}
+        try{var answer=await client.RunAsync(Player,command);if(!answer.Success)throw new IOException(answer.Error.Length>0?answer.Error:answer.Output);ShowText(allItems.FirstOrDefault(x=>x.Id==manualId.Box.Text)?.Name??selectedName.Text,answer.Output);}
         catch(Exception ex){Report(ex.Message,false);}
         finally{SetBusy(false);}
     }

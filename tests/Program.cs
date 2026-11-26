@@ -14,6 +14,12 @@ foreach(var category in new[]{"hero","soul"})
     Check(!preset.NeedsSelection&&preset.Fields.Length==0,"batch preset requires no individual selection");
     Check(!CtlReadTransport.IsReadOnly(preset.Expand("",new Dictionary<string,string>())),"batch preset uses mutation transport");
 }
+var addKibos=Commands.Sections.Single(s=>s.Category=="pet").Operations.Single(o=>Commands.IsAddMissingKibos(o.Template));
+var addKibosCommand=addKibos.Expand("",new Dictionary<string,string>());
+Check(addKibos.Name=="Add missing Kibos"&&!addKibos.NeedsSelection&&addKibos.Fields.Length==0,"Kibo batch action needs only a player account");
+Check(Commands.IsAddMissingKibos(addKibosCommand)&&!CtlReadTransport.IsReadOnly(addKibosCommand),"Kibo batch action uses mutation transport");
+Check(CtlClient.ActionError(addKibosCommand,new(false,"","Live CTL rejected the command: InvalidArguments")).Contains("run build.cmd"),"older Azurepro error explains how to update");
+Check(CtlClient.ActionError(addKibosCommand,new(false,"","error: PetBoxFull"))=="error: PetBoxFull","capacity failure is kept");
 Check(CtlReadTransport.IsReadOnly(["hero","list"])&&CtlReadTransport.IsReadOnly(["catalog","heroes"])&&CtlReadTransport.IsReadOnly(["world","difficulty","list"]),"direct reader accepts list queries");
 Check(!CtlReadTransport.IsReadOnly(["hero","set","107002","level","60"])&&!CtlReadTransport.IsReadOnly(["gear","remove","1"])&&!CtlReadTransport.IsReadOnly(["world","difficulty","set","100","7"]),"mutations cannot enter direct reader");
 var cache=new LibraryCache();var loads=0;
@@ -24,6 +30,11 @@ await cache.GetAsync(source,3,"hero",CachedLoad);await cache.GetAsync(source,2,"
 Check(loads==4,"tab caches isolate players, categories and checkout folders");
 cache.Invalidate(source,2);await cache.GetAsync(source,2,"hero",CachedLoad);await cache.GetAsync(source,3,"hero",CachedLoad);
 Check(loads==5,"mutation invalidates current player without crossing accounts");
+var previousHero=cache.GetAsync(source,2,"hero",CachedLoad);
+var previousPet=cache.GetAsync(source,2,"pet",CachedLoad);
+cache.Invalidate(source,2,"pet");
+Check(ReferenceEquals(previousHero,cache.GetAsync(source,2,"hero",CachedLoad))&&!ReferenceEquals(previousPet,cache.GetAsync(source,2,"pet",CachedLoad)),"Kibo mutation refreshes only the owned Kibo list");
+cache.Invalidate(source,2,"pet");
 var pending=new TaskCompletionSource<List<LibraryItem>>();var first=cache.GetAsync(source,2,"pet",()=>pending.Task);
 Check(ReferenceEquals(first,cache.GetAsync(source,2,"pet",CachedLoad)),"preload and tab click share one request");
 cache.Clear();var fresh=cache.GetAsync(source,2,"pet",CachedLoad);pending.SetResult([]);await first;
@@ -72,6 +83,14 @@ Check(CtlClient.ParseList("gear","1010211\tslot 1\trarity 0")[0].ImageKey=="gear
 Check(CtlClient.ParseList("hero","104001\tCHIYO\tlevel 100")[0].ImageKey=="hero/104001","Chiyo portrait mapping");
 Check(CtlClient.ParseList("soul","10164\tlevel 100")[0].ImageKey=="soul/10164","Chiyo Anima image mapping");
 Check(!Directory.Exists(Path.Combine(stage,"saves/backups")),"read did not create backups");
+var petsCatalogResult=await ctl.RunAsync(2,["catalog","pets"]);
+Check(petsCatalogResult.Success,"official Kibo catalog available");
+var petsCatalog=CtlClient.ParseList("pets",petsCatalogResult.Output);
+Check(petsCatalog.Count>0&&petsCatalog.All(p=>p.Name!="Kibo "+p.Id),"names cover all supported Kibo configurations");
+var ownedResult=await ctl.RunAsync(2,["pet","list"]);
+Check(ownedResult.Success,"owned Kibo list available");
+var originalPets=CtlClient.ParseList("pet",ownedResult.Output);
+var missingCount=petsCatalog.Select(p=>p.ImageKey).Except(originalPets.Select(p=>p.ImageKey)).Count();
 
 var probe=new TcpListener(IPAddress.Loopback,0);probe.Start();var port=((IPEndPoint)probe.LocalEndpoint).Port;probe.Stop();
 var info=new ProcessStartInfo(exe){WorkingDirectory=stage,UseShellExecute=false,CreateNoWindow=true,RedirectStandardError=true,RedirectStandardOutput=true};
@@ -90,6 +109,14 @@ try
     {
         var answer=await ctl.RunAsync(2,command);Wire.Send(stream,503,++sequence,[]);return(answer,Wire.Until(stream,503,sequence));
     }
+    var addedKibos=await Run(addKibosCommand);
+    Check(addedKibos.Result.Success&&addedKibos.Result.Output==$"Added {missingCount} Kibo.","live Kibo batch reports newly granted configurations");
+    if(missingCount>0)Check(addedKibos.Pushes.Contains(6517),"Kibo batch refreshes the native pet inventory");
+    var ownedAfter=await ctl.RunAsync(2,["pet","list"]);
+    var petsAfter=CtlClient.ParseList("pet",ownedAfter.Output);
+    Check(ownedAfter.Success&&petsAfter.Count==originalPets.Count+missingCount&&petsCatalog.All(p=>petsAfter.Any(o=>o.ImageKey==p.ImageKey))&&originalPets.All(petsAfter.Contains),"Kibo library includes every supported configuration and preserves owned rows");
+    var addedAgain=await Run(addKibosCommand);
+    Check(addedAgain.Result.Success&&addedAgain.Result.Output=="Added 0 Kibo.","repeating the Kibo batch is a no-op");
     Check((await Run(["hero","set","107002","talent","1"])).Result.Success,"live talent edit");
     var level=await Run(["hero","set","107002","level","60"]);Check(level.Result.Success,"live level edit");
     Check(level.Pushes.Contains(10006)&&level.Pushes.LastIndexOf(5008)>level.Pushes.LastIndexOf(10006),"same-command menu repaint order");
@@ -108,7 +135,7 @@ try
 finally{if(!server.HasExited)server.Kill();await server.WaitForExitAsync();}
 var offline=await ctl.RunAsync(2,["hero","inspect","107002"]);Check(offline.Success&&offline.Output.Contains("level 60"),"persistence after server exit");
 Check(!Directory.Exists(Path.Combine(stage,"saves/backups")),"no backup saves");
-Console.WriteLine("PASS: account/checksum validation, all command templates, offline catalogs, live mutation, official limits, repaint order, persistence and no backups.");
+Console.WriteLine("PASS: account/checksum validation, all command templates, offline catalogs, live mutation, Kibo completion and idempotence, official limits, repaint order, persistence and no backups.");
 Console.WriteLine("Isolated evidence: "+stage);
 
 static void Check(bool condition,string message){if(!condition)throw new Exception("FAIL: "+message);}

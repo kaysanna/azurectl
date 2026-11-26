@@ -19,6 +19,14 @@ public sealed record CommandResult(bool Success, string Output, string Error);
 
 public sealed class CtlClient
 {
+    internal static string ActionError(IReadOnlyList<string> command, CommandResult result)
+    {
+        var error = result.Error.Length > 0 ? result.Error : result.Output;
+        if (Commands.IsAddMissingKibos(command) && Regex.IsMatch(error, @"\b(?:InvalidArguments|UnknownCommand)\b"))
+            return "Add missing Kibos requires the latest Azurepro server. Update Azurepro, run build.cmd, and restart the server if it is running.";
+        return error;
+    }
+
     public string Root { get; }
     public string SavePath => Path.Combine(Root, "saves", "active.bin");
     public CtlClient(string selected)

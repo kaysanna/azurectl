@@ -13,6 +13,7 @@ public sealed class LibraryCache
         return lists[key]=load();
     }
     public void Clear()=>lists.Clear();
+    public void Invalidate(string root,uint player,string category)=>lists.Remove((RootKey(root),player,category));
     public void Invalidate(string root,uint player)
     {
         var normalized=RootKey(root);

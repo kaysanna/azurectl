@@ -10,6 +10,8 @@ sealed record Section(string Name,string Subtitle,string Category,Operation[] Op
 
 static class Commands
 {
+    public static bool IsAddMissingKibos(IReadOnlyList<string> command)=>command is ["pet","add-missing"];
+
     static Arg N(string key,string label,string initial)=>new(key,label,initial);
     static Arg C(string key,string label,string initial,params string[] values)=>new(key,label,initial,values);
     static Operation Op(string name,string template,string description,params Arg[] fields)=>new(name,template.Split(' '),fields,description);
@@ -66,6 +68,7 @@ static class Commands
             Op("Set aptitude","pet set {id} aptitude {stat} {value}","Official aptitude levels only. IDs: 1 ATK, 3 DEF, 5 HP, 7 CRIT, 229 Mastery, 230 Break.",C("stat","APTITUDE ATTRIBUTE","1","1","3","5","7","229","230"),N("value","APTITUDE LEVEL · 1–9","9")),
             Op("Set gene","pet set {id} gene {slot} {gene}","Use Catalog to inspect official genes. Zero clears only the last occupied slot.",C("slot","GENE SLOT","1","1","2","3","4","5","6","7","8"),N("gene","GENE ID","0")),
             Op("Set Star Soul","pet set {id} starsoul {stage} {node}","Inspect lists this species' authored Star Soul stages and nodes. Skills follow the selected node.",N("stage","STAR SOUL STAGE","1"),N("node","NODE","1")),
+            Op("Add missing Kibos","pet add-missing","Adds missing supported Kibos at Level 1 and grade F where applicable. Existing Kibos are kept, and repeat runs skip owned configurations.") with {NeedsSelection=false},
         ]),
         new("World","Official map difficulty settings.","world",
         [Op("Set world level","world difficulty set {map} {value}","Changing the current map's tier reloads that scene. Leave combat and campaigns first.",C("map","MAP","100","100","101"),C("value","WORLD LEVEL","1","1","2","3","4","5","6","7")) with {NeedsSelection=false}]),

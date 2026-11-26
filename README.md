@@ -22,6 +22,12 @@ Inspect and Catalog show official limits. Azurepro remains the authority for
 all prerequisites and caps. Changing the current map's world level requires
 leaving combat/campaigns and reloads that scene.
 
+In **Kibo**, select **Add missing Kibos** and apply it to the chosen player
+account. It adds one Level 1 Kibo for each missing configuration supported by
+Azurepro, with grade F where applicable. Existing Kibos are kept, and repeat
+runs skip owned configurations. This action requires an Azurepro build with the
+`pet add-missing` command.
+
 Choose the checkout root or its `server` folder. Accounts are discovered by
 reading and verifying the active save's checksum; save mutation is delegated
 exclusively to CTL. Local app settings are stored under `%LOCALAPPDATA%\AzureCTL`.
