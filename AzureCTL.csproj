@@ -6,13 +6,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>AzureCTL</AssemblyName>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <NoWarn>$(NoWarn);WFO1000</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="tests/**/*.cs" />
     <EmbeddedResource Include="names.json" LogicalName="AzureCTL.Names.json" />
+    <EmbeddedResource Include="genes.json" LogicalName="AzureCTL.Genes.json" />
     <EmbeddedResource Include="LICENSE" LogicalName="AzureCTL.LICENSE" />
     <EmbeddedResource Include="images/hero/*.png" LogicalName="AzureCTL.Images.hero.%(Filename)%(Extension)" />
     <EmbeddedResource Include="images/gear/*.png" LogicalName="AzureCTL.Images.gear.%(Filename)%(Extension)" />

@@ -1,0 +1,724 @@
+{
+  "revision": "3219598",
+  "sources": {
+    "tableDataSha256": "16e4df000a3265bf7d150c05f602c689a0cfa1e4f3ba170273f3e30e81fb3915",
+    "globalVStringsSha256": "0a31f701c0bce14a62475218698809dba518ae2487aac3cd4afa1f7419fb8d39",
+    "englishTranslationsSha256": "238f1d3dd7b289a4684e9fec5929ed245d2b74ee05873b0e1a6e64e5b790e0c0"
+  },
+  "genes": [
+    {
+      "id": 533001,
+      "name": "Agile - Normal",
+      "effect": "Own CRIT Rate increases by 6.7%.",
+      "fruitId": 1750001,
+      "rarity": 3
+    },
+    {
+      "id": 533004,
+      "name": "Fearless - Normal",
+      "effect": "Own CRIT DMG increases by 10%.",
+      "fruitId": 1750002,
+      "rarity": 3
+    },
+    {
+      "id": 533007,
+      "name": "Calm - Normal",
+      "effect": "Own Ice DMG increases by 10%.",
+      "fruitId": 1750003,
+      "rarity": 3
+    },
+    {
+      "id": 533010,
+      "name": "Competitive - Normal",
+      "effect": "Own ATK increases by 100.",
+      "fruitId": 1750004,
+      "rarity": 3
+    },
+    {
+      "id": 533013,
+      "name": "Dignified - Normal",
+      "effect": "Own DEF increases by 50.",
+      "fruitId": 1750005,
+      "rarity": 3
+    },
+    {
+      "id": 533016,
+      "name": "Go-Getter - Normal",
+      "effect": "Own DEF increases by 5%.",
+      "fruitId": 1750006,
+      "rarity": 3
+    },
+    {
+      "id": 533019,
+      "name": "Sincere - Normal",
+      "effect": "Own Light DMG increases by 10%.",
+      "fruitId": 1750007,
+      "rarity": 3
+    },
+    {
+      "id": 533022,
+      "name": "Aloof - Normal",
+      "effect": "Own Dark DMG increases by 10%.",
+      "fruitId": 1750008,
+      "rarity": 3
+    },
+    {
+      "id": 533025,
+      "name": "Cautious - Normal",
+      "effect": "Own DMG Taken decreases by 4.2%.",
+      "fruitId": 1750009,
+      "rarity": 3
+    },
+    {
+      "id": 533028,
+      "name": "Excited - Normal",
+      "effect": "Own Energy Recovery Speed increases by 8.4%. This Factor's effect does not apply in Kibo Fights.",
+      "fruitId": 1750010,
+      "rarity": 3
+    },
+    {
+      "id": 533031,
+      "name": "Free-Spirited - Normal",
+      "effect": "Own Wind DMG increases by 10%.",
+      "fruitId": 1750011,
+      "rarity": 3
+    },
+    {
+      "id": 533034,
+      "name": "Powerhouse - Normal",
+      "effect": "Own ATK increases by 7.1%.",
+      "fruitId": 1750012,
+      "rarity": 3
+    },
+    {
+      "id": 533037,
+      "name": "Cheerful - Normal",
+      "effect": "Own Thunder DMG increases by 10%.",
+      "fruitId": 1750013,
+      "rarity": 3
+    },
+    {
+      "id": 533040,
+      "name": "Dexterous - Normal",
+      "effect": "Own Kibo Skill Cooldown Efficiency increases by 8.4%.",
+      "fruitId": 1750014,
+      "rarity": 3
+    },
+    {
+      "id": 533043,
+      "name": "Passionate - Normal",
+      "effect": "Own Fire DMG increases by 10%.",
+      "fruitId": 1750015,
+      "rarity": 3
+    },
+    {
+      "id": 533046,
+      "name": "Gentle - Normal",
+      "effect": "Own Water DMG increases by 10%.",
+      "fruitId": 1750016,
+      "rarity": 3
+    },
+    {
+      "id": 533049,
+      "name": "Composed - Normal",
+      "effect": "Own Earth DMG increases by 10%.",
+      "fruitId": 1750017,
+      "rarity": 3
+    },
+    {
+      "id": 533052,
+      "name": "Intrepid - Normal",
+      "effect": "Own ATK and CRIT Rate each increase by 1.2%, and CRIT DMG increases by 1.2%.",
+      "fruitId": 1750018,
+      "rarity": 3
+    },
+    {
+      "id": 533055,
+      "name": "Resolute - Normal",
+      "effect": "Own ATK increases by 4% and HP increases by 1%.",
+      "fruitId": 1750019,
+      "rarity": 3
+    },
+    {
+      "id": 533058,
+      "name": "Healthy - Normal",
+      "effect": "Own Nature DMG increases by 10%.",
+      "fruitId": 1750020,
+      "rarity": 3
+    },
+    {
+      "id": 533061,
+      "name": "Simple - Normal",
+      "effect": "Own HP increases by 500.",
+      "fruitId": 1750021,
+      "rarity": 3
+    },
+    {
+      "id": 533064,
+      "name": "Sturdy - Normal",
+      "effect": "Own HP increases by 2.3%.",
+      "fruitId": 1750022,
+      "rarity": 3
+    },
+    {
+      "id": 533067,
+      "name": "Tenacious - Normal",
+      "effect": "Own EX Strength increases by 100.",
+      "fruitId": 1750023,
+      "rarity": 3
+    },
+    {
+      "id": 533070,
+      "name": "Amicable - Normal",
+      "effect": "Own EX CRIT Rate increases by 5%.",
+      "fruitId": 1750024,
+      "rarity": 3
+    },
+    {
+      "id": 533073,
+      "name": "Friendly - Normal",
+      "effect": "Own Healing Effect increases by 10%.",
+      "fruitId": 1750025,
+      "rarity": 3
+    },
+    {
+      "id": 533076,
+      "name": "Keen - Normal",
+      "effect": "Own CRIT Rate increases by 3% and CRIT DMG increases by 8.3%.",
+      "fruitId": 1750026,
+      "rarity": 3
+    },
+    {
+      "id": 533079,
+      "name": "Assertive - Normal",
+      "effect": "Increases own ATK by 3% and CRIT DMG by 8.8%.",
+      "fruitId": 1750027,
+      "rarity": 3
+    },
+    {
+      "id": 533082,
+      "name": "Warm-Hearted - Normal",
+      "effect": "Increases own ATK by 3.6% and DEF by 2.5%.",
+      "fruitId": 1750028,
+      "rarity": 3
+    },
+    {
+      "id": 533085,
+      "name": "Robust - Normal",
+      "effect": "Increases own ATK by 75 and HP by 200.",
+      "fruitId": 1750029,
+      "rarity": 3
+    },
+    {
+      "id": 533088,
+      "name": "Easygoing - Normal",
+      "effect": "Increases own Energy Recovery Efficiency by 4% and HP by 1.1%. The Energy Recovery Efficiency increase does not apply in Kibo Fights.",
+      "fruitId": 1750030,
+      "rarity": 3
+    },
+    {
+      "id": 533091,
+      "name": "Stubborn - Normal",
+      "effect": "Increases own ATK by 75 and DEF by 20.",
+      "fruitId": 1750031,
+      "rarity": 3
+    },
+    {
+      "id": 533094,
+      "name": "Combative - Normal",
+      "effect": "Increases own CRIT DMG by 8% and HP by 1.2%.",
+      "fruitId": 1750032,
+      "rarity": 3
+    },
+    {
+      "id": 533097,
+      "name": "Insight - Normal",
+      "effect": "Increases own EX Strength by 100 and CRIT Rate by 3%.",
+      "fruitId": 1750033,
+      "rarity": 3
+    },
+    {
+      "id": 533100,
+      "name": "Serious - Normal",
+      "effect": "Increases own EX CRIT Rate by 2.5% and ATK by 3.6%.",
+      "fruitId": 1750034,
+      "rarity": 3
+    },
+    {
+      "id": 533002,
+      "name": "Agile - Superior",
+      "effect": "Own CRIT Rate increases by 10%.",
+      "fruitId": 1750035,
+      "rarity": 4
+    },
+    {
+      "id": 533005,
+      "name": "Fearless - Superior",
+      "effect": "Own CRIT DMG increases by 20%.",
+      "fruitId": 1750036,
+      "rarity": 4
+    },
+    {
+      "id": 533008,
+      "name": "Calm - Superior",
+      "effect": "Own Ice DMG increases by 15%.",
+      "fruitId": 1750037,
+      "rarity": 4
+    },
+    {
+      "id": 533011,
+      "name": "Competitive - Superior",
+      "effect": "Own ATK increases by 200.",
+      "fruitId": 1750038,
+      "rarity": 4
+    },
+    {
+      "id": 533014,
+      "name": "Dignified - Superior",
+      "effect": "Own DEF increases by 75.",
+      "fruitId": 1750039,
+      "rarity": 4
+    },
+    {
+      "id": 533017,
+      "name": "Go-Getter - Superior",
+      "effect": "Own DEF increases by 7.5%.",
+      "fruitId": 1750040,
+      "rarity": 4
+    },
+    {
+      "id": 533020,
+      "name": "Sincere - Superior",
+      "effect": "Own Light DMG increases by 15%.",
+      "fruitId": 1750041,
+      "rarity": 4
+    },
+    {
+      "id": 533023,
+      "name": "Aloof - Superior",
+      "effect": "Own Dark DMG increases by 15%.",
+      "fruitId": 1750042,
+      "rarity": 4
+    },
+    {
+      "id": 533026,
+      "name": "Cautious - Superior",
+      "effect": "Own DMG Taken decreases by 6.3%.",
+      "fruitId": 1750043,
+      "rarity": 4
+    },
+    {
+      "id": 533029,
+      "name": "Excited - Superior",
+      "effect": "Own Energy Recovery Speed increases by 12.6%. This Factor's effect does not apply in Kibo Fights.",
+      "fruitId": 1750044,
+      "rarity": 4
+    },
+    {
+      "id": 533032,
+      "name": "Free-Spirited - Superior",
+      "effect": "Own Wind DMG increases by 15%.",
+      "fruitId": 1750045,
+      "rarity": 4
+    },
+    {
+      "id": 533035,
+      "name": "Powerhouse - Superior",
+      "effect": "Own ATK increases by 10.7%.",
+      "fruitId": 1750046,
+      "rarity": 4
+    },
+    {
+      "id": 533038,
+      "name": "Cheerful - Superior",
+      "effect": "Own Thunder DMG increases by 15%.",
+      "fruitId": 1750047,
+      "rarity": 4
+    },
+    {
+      "id": 533041,
+      "name": "Dexterous - Superior",
+      "effect": "Own Kibo Skill Cooldown Efficiency increases by 12.6%.",
+      "fruitId": 1750048,
+      "rarity": 4
+    },
+    {
+      "id": 533044,
+      "name": "Passionate - Superior",
+      "effect": "Own Fire DMG increases by 15%.",
+      "fruitId": 1750049,
+      "rarity": 4
+    },
+    {
+      "id": 533047,
+      "name": "Gentle - Superior",
+      "effect": "Own Water DMG increases by 15%.",
+      "fruitId": 1750050,
+      "rarity": 4
+    },
+    {
+      "id": 533050,
+      "name": "Composed - Superior",
+      "effect": "Own Earth DMG increases by 15%.",
+      "fruitId": 1750051,
+      "rarity": 4
+    },
+    {
+      "id": 533053,
+      "name": "Intrepid - Superior",
+      "effect": "Own ATK and CRIT Rate each increase by 1.8%, and CRIT DMG increases by 1.8%.",
+      "fruitId": 1750052,
+      "rarity": 4
+    },
+    {
+      "id": 533056,
+      "name": "Resolute - Superior",
+      "effect": "Own ATK increases by 6% and HP increases by 1.5%.",
+      "fruitId": 1750053,
+      "rarity": 4
+    },
+    {
+      "id": 533059,
+      "name": "Healthy - Superior",
+      "effect": "Own Nature DMG increases by 15%.",
+      "fruitId": 1750054,
+      "rarity": 4
+    },
+    {
+      "id": 533062,
+      "name": "Simple - Superior",
+      "effect": "Own HP increases by 750.",
+      "fruitId": 1750055,
+      "rarity": 4
+    },
+    {
+      "id": 533065,
+      "name": "Sturdy - Superior",
+      "effect": "Own HP increases by 3.4%.",
+      "fruitId": 1750056,
+      "rarity": 4
+    },
+    {
+      "id": 533068,
+      "name": "Tenacious - Superior",
+      "effect": "Own EX Strength increases by 200.",
+      "fruitId": 1750057,
+      "rarity": 4
+    },
+    {
+      "id": 533071,
+      "name": "Amicable - Superior",
+      "effect": "Own EX CRIT Rate increases by 7.5%.",
+      "fruitId": 1750058,
+      "rarity": 4
+    },
+    {
+      "id": 533074,
+      "name": "Friendly - Superior",
+      "effect": "Own Healing Effect increases by 15%.",
+      "fruitId": 1750059,
+      "rarity": 4
+    },
+    {
+      "id": 533077,
+      "name": "Keen - Superior",
+      "effect": "Own CRIT Rate increases by 4.5% and CRIT DMG increases by 12.5%.",
+      "fruitId": 1750060,
+      "rarity": 4
+    },
+    {
+      "id": 533080,
+      "name": "Assertive - Superior",
+      "effect": "Increases own ATK by 4.5% and CRIT DMG by 13.2%.",
+      "fruitId": 1750061,
+      "rarity": 4
+    },
+    {
+      "id": 533083,
+      "name": "Warm-Hearted - Superior",
+      "effect": "Increases own ATK by 5.4% and DEF by 3.8%.",
+      "fruitId": 1750062,
+      "rarity": 4
+    },
+    {
+      "id": 533086,
+      "name": "Robust - Superior",
+      "effect": "Increases own ATK by 110 and HP by 300.",
+      "fruitId": 1750063,
+      "rarity": 4
+    },
+    {
+      "id": 533089,
+      "name": "Easygoing - Superior",
+      "effect": "Increases own Energy Recovery Efficiency by 6% and HP by 1.7%. The Energy Recovery Efficiency increase does not apply in Kibo Fights.",
+      "fruitId": 1750064,
+      "rarity": 4
+    },
+    {
+      "id": 533092,
+      "name": "Stubborn - Superior",
+      "effect": "Increases own ATK by 110 and DEF by 30.",
+      "fruitId": 1750065,
+      "rarity": 4
+    },
+    {
+      "id": 533095,
+      "name": "Combative - Superior",
+      "effect": "Increases own CRIT DMG by 12% and HP by 1.7%.",
+      "fruitId": 1750066,
+      "rarity": 4
+    },
+    {
+      "id": 533098,
+      "name": "Insight - Superior",
+      "effect": "Increases own EX Strength by 200 and CRIT Rate by 4.5%.",
+      "fruitId": 1750067,
+      "rarity": 4
+    },
+    {
+      "id": 533101,
+      "name": "Serious - Superior",
+      "effect": "Increases own EX CRIT Rate by 3.7% and ATK by 5.4%.",
+      "fruitId": 1750068,
+      "rarity": 4
+    },
+    {
+      "id": 533003,
+      "name": "Agile - Outstanding",
+      "effect": "Own CRIT Rate increases by 13.4%.",
+      "fruitId": 1750069,
+      "rarity": 5
+    },
+    {
+      "id": 533006,
+      "name": "Fearless - Outstanding",
+      "effect": "Own CRIT DMG increases by 30%.",
+      "fruitId": 1750070,
+      "rarity": 5
+    },
+    {
+      "id": 533009,
+      "name": "Calm - Outstanding",
+      "effect": "Own Ice DMG increases by 20%.",
+      "fruitId": 1750071,
+      "rarity": 5
+    },
+    {
+      "id": 533012,
+      "name": "Competitive - Outstanding",
+      "effect": "Own ATK increases by 300.",
+      "fruitId": 1750072,
+      "rarity": 5
+    },
+    {
+      "id": 533015,
+      "name": "Dignified - Outstanding",
+      "effect": "Own DEF increases by 100.",
+      "fruitId": 1750073,
+      "rarity": 5
+    },
+    {
+      "id": 533018,
+      "name": "Go-Getter - Outstanding",
+      "effect": "Own DEF increases by 10%.",
+      "fruitId": 1750074,
+      "rarity": 5
+    },
+    {
+      "id": 533021,
+      "name": "Sincere - Outstanding",
+      "effect": "Own Light DMG increases by 20%.",
+      "fruitId": 1750075,
+      "rarity": 5
+    },
+    {
+      "id": 533024,
+      "name": "Aloof - Outstanding",
+      "effect": "Own Dark DMG increases by 20%.",
+      "fruitId": 1750076,
+      "rarity": 5
+    },
+    {
+      "id": 533027,
+      "name": "Cautious - Outstanding",
+      "effect": "Own DMG Taken decreases by 8.4%.",
+      "fruitId": 1750077,
+      "rarity": 5
+    },
+    {
+      "id": 533030,
+      "name": "Excited - Outstanding",
+      "effect": "Own Energy Recovery Speed increases by 16.8%. This Factor's effect does not apply in Kibo Fights.",
+      "fruitId": 1750078,
+      "rarity": 5
+    },
+    {
+      "id": 533033,
+      "name": "Free-Spirited - Outstanding",
+      "effect": "Own Wind DMG increases by 20%.",
+      "fruitId": 1750079,
+      "rarity": 5
+    },
+    {
+      "id": 533036,
+      "name": "Powerhouse - Outstanding",
+      "effect": "Own ATK increases by 14.3%.",
+      "fruitId": 1750080,
+      "rarity": 5
+    },
+    {
+      "id": 533039,
+      "name": "Cheerful - Outstanding",
+      "effect": "Own Thunder DMG increases by 20%.",
+      "fruitId": 1750081,
+      "rarity": 5
+    },
+    {
+      "id": 533042,
+      "name": "Dexterous - Outstanding",
+      "effect": "Own Kibo Skill Cooldown Efficiency increases by 16.8%.",
+      "fruitId": 1750082,
+      "rarity": 5
+    },
+    {
+      "id": 533045,
+      "name": "Passionate - Outstanding",
+      "effect": "Own Fire DMG increases by 20%.",
+      "fruitId": 1750083,
+      "rarity": 5
+    },
+    {
+      "id": 533048,
+      "name": "Gentle - Outstanding",
+      "effect": "Own Water DMG increases by 20%.",
+      "fruitId": 1750084,
+      "rarity": 5
+    },
+    {
+      "id": 533051,
+      "name": "Composed - Outstanding",
+      "effect": "Own Earth DMG increases by 20%.",
+      "fruitId": 1750085,
+      "rarity": 5
+    },
+    {
+      "id": 533054,
+      "name": "Intrepid - Outstanding",
+      "effect": "Own ATK and CRIT Rate each increase by 2.4%, and CRIT DMG increases by 2.4%.",
+      "fruitId": 1750086,
+      "rarity": 5
+    },
+    {
+      "id": 533057,
+      "name": "Resolute - Outstanding",
+      "effect": "Own ATK increases by 8% and HP increases by 2%.",
+      "fruitId": 1750087,
+      "rarity": 5
+    },
+    {
+      "id": 533060,
+      "name": "Healthy - Outstanding",
+      "effect": "Own Nature DMG increases by 20%.",
+      "fruitId": 1750088,
+      "rarity": 5
+    },
+    {
+      "id": 533063,
+      "name": "Simple - Outstanding",
+      "effect": "Own HP increases by 1000.",
+      "fruitId": 1750089,
+      "rarity": 5
+    },
+    {
+      "id": 533066,
+      "name": "Sturdy - Outstanding",
+      "effect": "Own HP increases by 4.5%.",
+      "fruitId": 1750090,
+      "rarity": 5
+    },
+    {
+      "id": 533069,
+      "name": "Tenacious - Outstanding",
+      "effect": "Own EX Strength increases by 300.",
+      "fruitId": 1750091,
+      "rarity": 5
+    },
+    {
+      "id": 533072,
+      "name": "Amicable - Outstanding",
+      "effect": "Own EX CRIT Rate increases by 10%.",
+      "fruitId": 1750092,
+      "rarity": 5
+    },
+    {
+      "id": 533075,
+      "name": "Friendly - Outstanding",
+      "effect": "Own Healing Effect increases by 20%.",
+      "fruitId": 1750093,
+      "rarity": 5
+    },
+    {
+      "id": 533078,
+      "name": "Keen - Outstanding",
+      "effect": "Increases own CRIT Rate by 6% and CRIT DMG by 16.6%.",
+      "fruitId": 1750094,
+      "rarity": 5
+    },
+    {
+      "id": 533081,
+      "name": "Assertive - Outstanding",
+      "effect": "Increases own ATK by 6% and CRIT DMG by 17.5%.",
+      "fruitId": 1750095,
+      "rarity": 5
+    },
+    {
+      "id": 533084,
+      "name": "Warm-Hearted - Outstanding",
+      "effect": "Increases own ATK by 7.2% and DEF by 5%.",
+      "fruitId": 1750096,
+      "rarity": 5
+    },
+    {
+      "id": 533087,
+      "name": "Robust - Outstanding",
+      "effect": "Increases own ATK by 150 and HP by 400.",
+      "fruitId": 1750097,
+      "rarity": 5
+    },
+    {
+      "id": 533090,
+      "name": "Easygoing - Outstanding",
+      "effect": "Increases own Energy Recovery Efficiency by 8% and HP by 2.3%. The Energy Recovery Efficiency increase does not apply in Kibo Fights.",
+      "fruitId": 1750098,
+      "rarity": 5
+    },
+    {
+      "id": 533093,
+      "name": "Stubborn - Outstanding",
+      "effect": "Increases own ATK by 150 and DEF by 40.",
+      "fruitId": 1750099,
+      "rarity": 5
+    },
+    {
+      "id": 533096,
+      "name": "Combative - Outstanding",
+      "effect": "Increases own CRIT DMG by 16% and HP by 2.3%.",
+      "fruitId": 1750100,
+      "rarity": 5
+    },
+    {
+      "id": 533099,
+      "name": "Insight - Outstanding",
+      "effect": "Increases own EX Strength by 300 and CRIT Rate by 6%.",
+      "fruitId": 1750101,
+      "rarity": 5
+    },
+    {
+      "id": 533102,
+      "name": "Serious - Outstanding",
+      "effect": "Increases own EX CRIT Rate by 5% and ATK by 7.2%.",
+      "fruitId": 1750102,
+      "rarity": 5
+    }
+  ]
+}

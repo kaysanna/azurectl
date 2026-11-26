@@ -94,32 +94,64 @@ sealed class MainForm : Form
         };
         checkUpdates.Click+=async(_,_)=>{if(busy)return;if(updates.IsReady)updates.InstallAndRestart();else await updates.CheckNowAsync();};
         connectionTimer.Tick+=(_,_)=>UpdateConnection();connectionTimer.Start();
-        Resize+=(_,_)=>LayoutControls();DpiChanged+=(_,_)=>LayoutControls();
+        Resize+=(_,_)=>LayoutControls();DpiChanged+=(_,_)=>{UpdateMinimumSize();LayoutControls();};
         foreach(var control in new Control[]{this,brand,heading})control.MouseDown+=(_,e)=>{if(e.Button==MouseButtons.Left){ReleaseCapture();SendMessage(Handle,0xA1,2,0);}};
         try{if(File.Exists(SettingsPath)){using var settings=JsonDocument.Parse(File.ReadAllText(SettingsPath));rootField.Box.Text=settings.RootElement.GetProperty("root").GetString()??"";}}catch{}
         for(var i=0;i<args.Length-1;i++)if(args[i]=="--root")rootField.Box.Text=args[++i];
         initializing=false;SetOperations();LayoutControls();
-        Shown+=async(_,_)=>{if(rootField.Box.Text.Length>0)await Connect();};
+        Shown+=async(_,_)=>
+        {
+            UpdateMinimumSize();var area=Screen.FromControl(this).WorkingArea;
+            if(Width>area.Width||Height>area.Height)Size=new(Math.Min(Width,area.Width),Math.Min(Height,area.Height));
+            Location=new(Math.Clamp(Left,area.Left,area.Right-Width),Math.Clamp(Top,area.Top,area.Bottom-Height));
+            LayoutControls();
+            if(rootField.Box.Text.Length>0)await Connect();
+        };
     }
 
     [DllImport("user32.dll")]static extern bool ReleaseCapture();
     [DllImport("user32.dll")]static extern nint SendMessage(nint window,uint message,nint wparam,nint lparam);
+    void UpdateMinimumSize()
+    {
+        var area=Screen.FromControl(this).WorkingArea;
+        // MinimumSize is physical pixels; reserve the logical workspace at this monitor's DPI.
+        MinimumSize=new(Math.Min(area.Width,Px(1040)),Math.Min(area.Height,Px(740)));
+    }
+    protected override void WndProc(ref Message message)
+    {
+        base.WndProc(ref message);
+        if(message.Msg!=0x84||WindowState!=FormWindowState.Normal)return; // WM_NCHITTEST
+        var packed=message.LParam.ToInt64();
+        var point=PointToClient(new Point(unchecked((short)packed),unchecked((short)(packed>>16))));
+        var grip=Px(8);var left=point.X<grip;var right=point.X>=ClientSize.Width-grip;
+        var top=point.Y<grip;var bottom=point.Y>=ClientSize.Height-grip;
+        if(left||right||top||bottom)
+            message.Result=(nint)(top?(left?13:right?14:12):bottom?(left?16:right?17:15):left?10:11);
+    }
     void Place(Control c,float x,float y,float w,float h)=>c.SetBounds(Px(x),Px(y),Math.Max(1,Px(w)),Math.Max(1,Px(h)));
 
     void LayoutControls()
     {
-        var w=ClientSize.Width/S;var h=ClientSize.Height/S;var x=264f;var content=w-x-32;var left=(content-24)*.46f;var right=content-left-24;
-        Place(sidebar,0,0,232,h);Place(brand,24,36,190,40);Place(tag,26,80,180,20);
-        for(var i=0;i<navigation.Count;i++){Place(navigation[i],16,140+i*54,200,42);navigation[i].Selected=i==page;navigation[i].Invalidate();}
-        Place(mode,25,h-76,190,24);Place(heading,x,66,content-150,38);Place(subtitle,x,108,content,26);
-        Place(updateText,25,h-208,190,42);Place(checkUpdates,16,h-156,200,36);Place(version,25,h-111,190,20);
+        var w=ClientSize.Width/S;var h=ClientSize.Height/S;var compact=h<820||w<1240;
+        var side=compact?196f:232f;var x=side+24;var content=w-x-24;var gap=compact?16f:24f;
+        var left=Math.Max(200,Math.Min((content-gap)*.46f,content-gap-370));var right=content-left-gap;
+        Place(sidebar,0,0,side,h);Place(brand,20,compact?22:36,side-32,40);Place(tag,22,compact?64:80,side-32,20);
+        var footerTop=h-150;var navTop=compact?104f:140f;
+        var navStep=Math.Min(54,(footerTop-navTop-12)/Math.Max(1,navigation.Count));
+        for(var i=0;i<navigation.Count;i++){Place(navigation[i],12,navTop+i*navStep,side-24,Math.Min(42,navStep-6));navigation[i].Selected=i==page;navigation[i].Invalidate();}
+        Place(updateText,20,footerTop,side-32,36);Place(checkUpdates,12,footerTop+42,side-24,34);
+        Place(version,20,footerTop+84,side-32,20);Place(mode,20,footerTop+112,side-32,22);
+        Place(heading,x,compact?42:66,content-150,38);Place(subtitle,x,compact?84:108,content,26);
         Place(minimize,w-132,8,36,28);Place(maximize,w-90,8,36,28);Place(close,w-48,8,36,28);
-        Place(rootLabel,x,144,Math.Max(100,content-550),20);
-        Place(rootField,x,166,Math.Max(180,content-552),42);Place(browse,x+content-540,166,130,42);
-        Place(players,x+content-396,168,256,40);Place(refresh,x+content-126,166,126,42);
-        Place(libraryLabel,x,220,left,20);Place(search,x,246,left,42);Place(library,x,304,left,Math.Max(240,h-370));
+        var rootTop=compact?138f:166f;var browseWidth=compact?98f:130f;var refreshWidth=compact?88f:126f;
+        var playerWidth=compact?Math.Clamp(content*.28f,150,220):256f;var rootWidth=content-browseWidth-playerWidth-refreshWidth-30;
+        Place(rootLabel,x,rootTop-22,content,20);
+        Place(rootField,x,rootTop,rootWidth,42);Place(browse,x+rootWidth+10,rootTop,browseWidth,42);
+        Place(players,x+rootWidth+browseWidth+20,rootTop,playerWidth,42);Place(refresh,x+content-refreshWidth,rootTop,refreshWidth,42);
+        var searchTop=rootTop+80;
+        Place(libraryLabel,x,searchTop-24,left,20);Place(search,x,searchTop,left,42);Place(library,x,searchTop+56,left,h-searchTop-118);
         // The right card aligns exactly with the top of the search field.
-        Place(editor,x+left+24,246,right,Math.Max(350,h-312));
+        Place(editor,x+left+gap,searchTop,right,h-searchTop-66);
         Place(status,x,h-47,Math.Max(100,content-124),30);Place(logs,x+content-112,h-49,112,32);
         LayoutEditor();
     }
@@ -127,15 +159,18 @@ sealed class MainForm : Form
     void LayoutEditor()
     {
         if(editor.Width==0)return;
-        editorBody.SetBounds(1,1,editor.Width-2,Math.Max(1,editor.Height-Px(76)));
-        editorFooter.SetBounds(1,editor.Height-Px(75),editor.Width-2,Px(74));
+        var compact=ClientSize.Height/S<820||ClientSize.Width/S<1240;
+        var footer=compact?62:76;
+        editorBody.SetBounds(1,1,editor.Width-2,Math.Max(1,editor.Height-Px(footer)));
+        editorFooter.SetBounds(1,editor.Height-Px(footer-1),editor.Width-2,Px(footer-2));
         var w=editorBody.ClientSize.Width/S;var inner=w-40;
         var titleWidth=AddingMissingKibos?inner:inner-160;
-        Place(selectedName,20,14,titleWidth,32);Place(selectedDetail,20,48,titleWidth,32);
+        Place(selectedName,20,compact?8:14,titleWidth,32);Place(selectedDetail,20,compact?39:48,titleWidth,24);
         Place(manualLabel,20+inner-144,14,144,18);Place(manualId,20+inner-144,38,144,36);
         var actionHeight=operation.HeightForWidth(inner);
-        Place(operationLabel,20,86,inner,18);Place(operation,20,108,inner,actionHeight);
-        var fieldsTop=108+actionHeight+14;
+        var actionTop=compact?90:108;
+        Place(operationLabel,20,actionTop-22,inner,18);Place(operation,20,actionTop,inner,actionHeight);
+        var fieldsTop=actionTop+actionHeight+10;
         var fieldWidth=(inner-12)/2;
         for(var i=0;i<fields.Count;i++)
         {
@@ -146,7 +181,7 @@ sealed class MainForm : Form
         note.Visible=result.Text.Length==0;result.Visible=!note.Visible;
         Place(note,20,after,inner,48);Place(result,20,after,inner,48);
         var footerInner=editorFooter.ClientSize.Width/S-40;
-        Place(apply,20,18,Math.Max(130,footerInner-182),40);Place(inspect,20+footerInner-168,18,80,40);Place(catalog,20+footerInner-80,18,80,40);
+        Place(apply,20,compact?10:18,footerInner-182,40);Place(inspect,20+footerInner-168,compact?10:18,80,40);Place(catalog,20+footerInner-80,compact?10:18,80,40);
     }
 
     async Task ChangePage(int index)
@@ -166,7 +201,8 @@ sealed class MainForm : Form
         foreach(var arg in op.Fields)
         {
             var label=Ui.Label(arg.Label,11);Control input;
-            if(arg.Choices is{} choices){var choice=new Choice();choice.Items.AddRange(choices);choice.SelectedItem=arg.Default;choice.SelectedIndexChanged+=(_,_)=>UpdatePreview();input=choice;}
+            if(Section.Category=="pet"&&arg.Key=="gene"){var choice=new GenePicker();choice.SelectedIndexChanged+=(_,_)=>UpdatePreview();input=choice;}
+            else if(arg.Choices is{} choices){var choice=new Choice();choice.Items.AddRange(choices);choice.SelectedItem=arg.Default;choice.SelectedIndexChanged+=(_,_)=>UpdatePreview();input=choice;}
             else {var field=new Input();field.Box.Text=arg.Default;field.Box.TextChanged+=(_,_)=>UpdatePreview();input=field;}
             input.AccessibleName=arg.Label;if(input is Input edit)edit.Box.AccessibleName=arg.Label;
             fields.Add((arg,input,label));editorBody.Controls.Add(label);editorBody.Controls.Add(input);
@@ -180,7 +216,7 @@ sealed class MainForm : Form
     {
         var op=SelectedOperation??throw new InvalidOperationException("Choose an action.");
         var id=manualId.Box.Text.Trim();if(op.NeedsSelection&&(!ulong.TryParse(id,out var parsedId)||parsedId==0))throw new InvalidOperationException("Select an entry or enter its numeric ID.");
-        var values=fields.ToDictionary(x=>x.Arg.Key,x=>x.Input is Choice choice?choice.SelectedItem?.ToString()??"":((Input)x.Input).Box.Text.Trim());
+        var values=fields.ToDictionary(x=>x.Arg.Key,x=>x.Input is GenePicker gene?gene.SelectedId:x.Input is Choice choice?choice.SelectedItem?.ToString()??"":((Input)x.Input).Box.Text.Trim());
         foreach(var value in values.Values)if(value.Length==0||value.Any(char.IsWhiteSpace))throw new InvalidOperationException("Complete all action fields with a single value.");
         return op.Expand(id,values);
     }

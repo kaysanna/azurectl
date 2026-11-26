@@ -132,7 +132,7 @@ sealed class ActionPicker : Panel
         }
         LayoutButtons();if(items.Length>0)SelectAction(0);
     }
-    int Columns(float width)=>width>=360?3:2;
+    int Columns(float width)=>width>=320?3:2;
     public float HeightForWidth(float width)=>items.Length==0?0:((items.Length+Columns(width)-1)/Columns(width))*38-6;
     void SelectAction(int index)
     {

@@ -6,3 +6,4 @@ release/
 *.user
 *.log
 .local/
+layout-preview/

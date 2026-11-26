@@ -10,6 +10,9 @@ two-column editor layout. It contains only administration controls.
 2. Open `AzureCTL.exe` and choose the Azurepro checkout folder.
 3. Select the player account, an entry and an action, then Apply.
 
+Drag the window's edges or corners to resize it. Its minimum size keeps the
+navigation, action fields and buttons visible at your display scaling.
+
 Keep the game and server open for live updates. AzureCTL invokes Azurepro's
 existing CTL wrapper; the running server validates and applies edits to
 `server/saves/active.bin`. It does not stop the server, launch the game, create
@@ -23,10 +26,15 @@ all prerequisites and caps. Changing the current map's world level requires
 leaving combat/campaigns and reloads that scene.
 
 In **Kibo**, select **Add missing Kibos** and apply it to the chosen player
-account. It adds one Level 1 Kibo for each missing configuration supported by
-Azurepro, with grade F where applicable. Existing Kibos are kept, and repeat
-runs skip owned configurations. This action requires an Azurepro build with the
-`pet add-missing` command.
+account. It adds one level 100 Kibo per missing configuration supported by
+Azurepro, with SSS grade for graded species. Existing Kibos keep their
+progression, and repeat runs skip owned configurations. This action requires an
+Azurepro build with the `pet add-missing max` command.
+
+For **Set gene**, choose a slot and open the gene picker to search the official
+JP gene catalog by name, effect or ID. **Clear gene slot** clears the last occupied
+slot when the server's placement rules allow it. Names and descriptions come
+from the official JP tables and the Azur English patch translations.
 
 Choose the checkout root or its `server` folder. Accounts are discovered by
 reading and verifying the active save's checksum; save mutation is delegated

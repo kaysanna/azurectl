@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 
-if(args.Length!=1)throw new ArgumentException("Pass a built Azurepro checkout. Tests copy its curated fixture and never edit its active save.");
+if(args.Length is <1 or >2)throw new ArgumentException("Pass a built Azurepro checkout and optional server executable. Tests copy its curated fixture and never edit its active save.");
 var source=new CtlClient(args[0]).Root;
 foreach(var category in new[]{"hero","soul"})
 {
@@ -18,6 +18,7 @@ var addKibos=Commands.Sections.Single(s=>s.Category=="pet").Operations.Single(o=
 var addKibosCommand=addKibos.Expand("",new Dictionary<string,string>());
 Check(addKibos.Name=="Add missing Kibos"&&!addKibos.NeedsSelection&&addKibos.Fields.Length==0,"Kibo batch action needs only a player account");
 Check(Commands.IsAddMissingKibos(addKibosCommand)&&!CtlReadTransport.IsReadOnly(addKibosCommand),"Kibo batch action uses mutation transport");
+Check(addKibosCommand.SequenceEqual(new[]{"pet","add-missing","max"}),"Kibo batch explicitly requests the max grant");
 Check(CtlClient.ActionError(addKibosCommand,new(false,"","Live CTL rejected the command: InvalidArguments")).Contains("run build.cmd"),"older Azurepro error explains how to update");
 Check(CtlClient.ActionError(addKibosCommand,new(false,"","error: PetBoxFull"))=="error: PetBoxFull","capacity failure is kept");
 Check(CtlReadTransport.IsReadOnly(["hero","list"])&&CtlReadTransport.IsReadOnly(["catalog","heroes"])&&CtlReadTransport.IsReadOnly(["world","difficulty","list"]),"direct reader accepts list queries");
@@ -53,7 +54,7 @@ Directory.CreateDirectory(Path.Combine(stage,"scripts"));Directory.CreateDirecto
 foreach(var name in new[]{"ctl.ps1","layout.ps1","diagnostics.ps1","project-paths.ps1","save-bin.ps1"})File.Copy(Path.Combine(source,"scripts",name),Path.Combine(stage,"scripts",name));
 foreach(var id in new[]{100,101})File.Copy(Path.Combine(source,$"assets/jp/maps/worldmap_{id}.bin"),Path.Combine(stage,$"assets/jp/maps/worldmap_{id}.bin"));
 var exe=Path.Combine(stage,"zig-out/bin/zetsa-gamesv-jp.exe");
-File.Copy(Path.Combine(source,"zig-out/bin/zetsa-gamesv-jp.exe"),exe);
+File.Copy(args.Length==2?Path.GetFullPath(args[1]):Path.Combine(source,"zig-out/bin/zetsa-gamesv-jp.exe"),exe);
 File.Copy(Path.Combine(source,"assets/saves/maxed.bin"),Path.Combine(stage,"saves/active.bin"));
 var ctl=new CtlClient(stage);
 var bytes=File.ReadAllBytes(ctl.SavePath);
